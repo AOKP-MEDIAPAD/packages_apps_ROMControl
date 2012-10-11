@@ -129,7 +129,7 @@ public class Vibrations extends AOKPPreferenceFragment {
         mLoadButton = (Button) mActivity.findViewById(R.id.button_load);
         mDelButton = (Button) mActivity.findViewById(R.id.button_del);
         mNewButton = (Button) mActivity.findViewById(R.id.button_new);
-        mHelpButton = (Button) mActivity.findViewById(R.id.help_vibrations);
+//        mHelpButton = (Button) mActivity.findViewById(R.id.help_vibrations);
         mCurLoadedText = (TextView) mActivity.findViewById(R.id.vib_cur_loaded_name);
         mPatternBar = (LinearLayout) mActivity.findViewById(R.id.pattern_bar);
         mCurLoadedText.setText("-");
