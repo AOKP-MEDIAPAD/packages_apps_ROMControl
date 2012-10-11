@@ -136,7 +136,7 @@
     <string name="custom_carrier_label_explain">Please enter a new label. Enter an empty label to revert to stock label.</string>
     <string name="custom_carrier_label_notset">Custom label currently not set</string>
     <string name="ime_switcher_title">Show IME Switcher</string>
-    <string name="ime_switcher_summary">In statusbar, while typing (requires reboot)</string>
+    <string name="ime_switcher_summary">In statusbar while typing</string>
     <string name="rotate_180_title">Allow 180 degree rotation</string>
     <string name="rotate_180_summary">Allow your device to rotate upside down!</string>
     <string name="recent_kill_all">Enable kill-all-button</string>
@@ -152,6 +152,12 @@
     <string name="error_creating_preview">Error creating preview</string>
     <string name="multipane_ui">Enable Dual panel</string>
     <string name="multipane_ui_summary">This will Enable/Disable Dual panel view (requires reboot)</string>
+    <string name="alt_resolver">Use Alt Default App Grid</string>
+    <string name="alt_resolver_summary">Use Alternate (GB style) Default App Picker</string>
+    <string name="show_overflow_title">Show Menu UI Overflow</string>
+    <string name="show_overflow_summary">Display the 3-dot overflow menu button within apps</string>
+    <string name="show_overflow_toast_enable">The menu overflow button may not be visible until apps are restarted</string>
+    <string name="show_overflow_toast_disable">The menu overflow button may not be hidden until apps are restarted</string>
 
     <!-- LCD Density -->
     <string name="lcd_density_title">LCD Density</string>
