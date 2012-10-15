@@ -95,16 +95,12 @@ public class VoltageControlSettings extends Fragment {
                 .setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-			
-                for (final Voltage volt : mVoltages) {
-
-					new CMDProcessor().su.runWaitFor("busybox echo "
-                        + volt.getFreq() + " " + volt.getSavedMV() + " > "
-                        + MV_TABLE0);
-                }
-               
-                
-                final List<Voltage> volts = getVolts(preferences);
+	         for (final Voltage volt : mVoltages) {
+                    new CMDProcessor().su.runWaitFor("busybox echo '"
+                            + volt.getFreq() + " " + volt.getSavedMV()
+                            + "' > " + MV_TABLE0);
+                 }
+	        final List<Voltage> volts = getVolts(preferences);
                 mVoltages.clear();
                 mVoltages.addAll(volts);
                 mAdapter.notifyDataSetChanged();
@@ -131,7 +127,7 @@ public class VoltageControlSettings extends Fragment {
             BufferedReader br = new BufferedReader(new FileReader(MV_TABLE0), 256);
             String line = "";
             while ((line = br.readLine()) != null) {
-                final String[] values = line.split("\\s+");
+                final String[] values = line.trim().split("\\s+");
                 if (values != null) {
                     if (values.length >= 2) {
                         final String freq = values[0].replace(":", "");
@@ -218,7 +214,7 @@ public class VoltageControlSettings extends Fragment {
                 });
 
                 voltageMeter.setText(savedMv);
-                voltageSeek.setMax(40);
+                voltageSeek.setMax(24);
                 voltageSeek.setProgress(getNearestStepIndex(savedVolt));
                 voltageSeek.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
                     @Override
