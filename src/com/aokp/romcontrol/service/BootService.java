@@ -134,7 +134,7 @@ public class BootService extends Service {
                 final List<Voltage> volts = VoltageControlSettings
                         .getVolts(preferences);
 
-                 for (final Voltage volt : mVoltages) {
+                 for (final Voltage volt : volts) {
                     	   cmd.su.runWaitFor("busybox echo '"	
 	                    + volt.getFreq() + " " + volt.getSavedMV()
                             + "' > " + VoltageControlSettings.MV_TABLE0);
