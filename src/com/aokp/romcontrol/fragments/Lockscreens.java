@@ -28,6 +28,7 @@ import android.os.Environment;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceActivity;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
 import android.provider.CalendarContract.Calendars;
@@ -53,6 +54,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import com.aokp.romcontrol.AOKPPreferenceFragment;
+import com.aokp.romcontrol.R;
+import com.aokp.romcontrol.ROMControlActivity;
+import com.aokp.romcontrol.fragments.LockscreenTargets;
+import com.aokp.romcontrol.weather.WeatherRefreshService;
+import com.aokp.romcontrol.weather.WeatherService;
+
 public class Lockscreens extends AOKPPreferenceFragment implements
         OnPreferenceChangeListener {
 
@@ -63,7 +71,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements
     private static final String PREF_LOCKSCREEN_TEXT_COLOR = "lockscreen_text_color";
     private static final String PREF_LOCKSCREEN_MENU_UNLOCK = "lockscreen_menu_unlock";
     private static final String PREF_VOLUME_ROCKER_WAKE = "volume_rocker_wake";
-    private static final String PREF_USER_OVERRIDE = "lockscreen_user_timeout_override";
     private static final String PREF_LOCKSCREEN_WEATHER = "lockscreen_weather";
     private static final String PREF_LOCKSCREEN_WEATHER_TYPE = "lockscreen_weather_type";
     private static final String PREF_LOCKSCREEN_CALENDAR = "enable_calendar";
@@ -73,6 +80,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements
     private static final String PREF_LOCKSCREEN_CALENDAR_HIDE_ONGOING = "lockscreen_calendar_hide_ongoing";
     private static final String PREF_LOCKSCREEN_CALENDAR_USE_COLORS = "lockscreen_calendar_use_colors";
     private static final String PREF_LOCKSCREEN_CALENDAR_INTERVAL = "lockscreen_calendar_interval";
+    private static final String PREF_NUMBER_OF_TARGETS = "number_of_targets";
     private static final String PREF_VOLUME_MUSIC = "volume_music_controls";
     private static final String PREF_LOCKSCREEN_AUTO_ROTATE = "lockscreen_auto_rotate";
     private static final String PREF_STOCK_MUSIC_LAYOUT = "lockscreen_stock_music_layout";
@@ -85,13 +93,13 @@ public class Lockscreens extends AOKPPreferenceFragment implements
     private static final String WALLPAPER_NAME = "lockscreen_wallpaper.jpg";
 
     Preference mLockscreenWallpaper;
+    Preference mLockscreenTargets;
 
     CheckBoxPreference mLockscreenBattery;
     ColorPickerPreference mLockscreenTextColor;
     CheckBoxPreference mLockscreenMenuUnlock;
     CheckBoxPreference mVolumeMusic;
     CheckBoxPreference mVolumeRockerWake;
-    CheckBoxPreference mLockScreenTimeoutUserOverride;
     CheckBoxPreference mLockscreenWeather;
     ListPreference mLockscreenWeatherType;
     CheckBoxPreference mLockscreenCalendar;
@@ -103,6 +111,8 @@ public class Lockscreens extends AOKPPreferenceFragment implements
     CheckBoxPreference mLockscreenCalendarUseColors;
     CheckBoxPreference mLockscreenAutoRotate;
     CheckBoxPreference mStockMusicLayout;
+
+    ListPreference mTargetNumber;
 
     ArrayList<String> keys = new ArrayList<String>();
 
@@ -130,10 +140,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements
         mVolumeRockerWake = (CheckBoxPreference) findPreference(PREF_VOLUME_ROCKER_WAKE);
         mVolumeRockerWake.setChecked(Settings.System.getBoolean(mContext
                 .getContentResolver(), Settings.System.VOLUME_WAKE_SCREEN, false));
-
-        mLockScreenTimeoutUserOverride = (CheckBoxPreference) findPreference(PREF_USER_OVERRIDE);
-        mLockScreenTimeoutUserOverride.setChecked(Settings.Secure.getInt(getActivity()
-                .getContentResolver(), Settings.Secure.LOCK_SCREEN_LOCK_USER_OVERRIDE, 0) == 1);
 
         mLockscreenTextColor = (ColorPickerPreference) findPreference(PREF_LOCKSCREEN_TEXT_COLOR);
         mLockscreenTextColor.setOnPreferenceChangeListener(this);
@@ -174,6 +180,14 @@ public class Lockscreens extends AOKPPreferenceFragment implements
         mCalendarRange.setOnPreferenceChangeListener(this);
         mCalendarRange.setValue(Settings.System.getLong(getActivity().getContentResolver(),
                 Settings.System.LOCKSCREEN_CALENDAR_RANGE, 86400000) + "");
+
+        mTargetNumber = (ListPreference) findPreference(PREF_NUMBER_OF_TARGETS);
+        mTargetNumber.setOnPreferenceChangeListener(this);
+        mTargetNumber.setValue(Integer.toString(Settings.System.getInt(getActivity()
+                .getContentResolver(), Settings.System.LOCKSCREEN_TARGET_AMOUNT
+                ,2)));
+
+        mLockscreenTargets = findPreference("lockscreen_targets");
 
         mVolumeMusic = (CheckBoxPreference) findPreference(PREF_VOLUME_MUSIC);
         mVolumeMusic.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
@@ -223,15 +237,21 @@ public class Lockscreens extends AOKPPreferenceFragment implements
                     Settings.System.VOLUME_WAKE_SCREEN,
                     ((CheckBoxPreference) preference).isChecked());
             return true;
+        } else if (preference == mLockscreenTargets) {
+            Intent i = new Intent(getActivity(), ROMControlActivity.class)
+                    .setAction("com.aokp.romcontrol.START_NEW_FRAGMENT")
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .putExtra("aokp_fragment_name", LockscreenTargets.class.getName());
+            getActivity().startActivity(i);
+            Intent w = new Intent(getActivity().getApplicationContext(),
+                        WeatherRefreshService.class);
+                w.setAction(WeatherService.INTENT_WEATHER_REQUEST);
+                w.putExtra(WeatherService.INTENT_EXTRA_ISMANUAL, true);
+                getActivity().getApplicationContext().startService(w);
         } else if (preference == mVolumeMusic) {
 
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.VOLUME_MUSIC_CONTROLS,
-                    ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
-            return true;
-        } else if (preference == mLockScreenTimeoutUserOverride) {
-            Settings.Secure.putInt(getActivity().getContentResolver(),
-                    Settings.Secure.LOCK_SCREEN_LOCK_USER_OVERRIDE,
                     ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
             return true;
         } else if (preference == mLockscreenWeather) {
@@ -397,6 +417,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements
         return Uri.fromFile(wallpaper);
     }
 
+
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         boolean handled = false;
@@ -421,6 +442,11 @@ public class Lockscreens extends AOKPPreferenceFragment implements
             long val = Long.parseLong((String) newValue);
             Settings.System.putLong(getActivity().getContentResolver(),
                     Settings.System.LOCKSCREEN_CALENDAR_RANGE, val);
+            return true;
+        } else if (preference == mTargetNumber) {
+            int val = Integer.parseInt((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                Settings.System.LOCKSCREEN_TARGET_AMOUNT, val);
             return true;
         }
         return false;

@@ -41,6 +41,11 @@
             android:summary="@string/status_bar_notif_count_summary"
             android:defaultValue="false" />
 
+        <CheckBoxPreference
+            android:key="vibrate_notif_expand"
+            android:title="@string/vibrate_notif_expand_title"
+            android:summary="@string/vibrate_notif_expand_summary" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -92,6 +97,12 @@
             android:key="force_dualpanel"
             android:title="@string/multipane_ui"
             android:summary="@string/multipane_ui_summary"
+            android:defaultValue="false" />
+
+        <CheckBoxPreference
+            android:key="hide_extras"
+            android:title="@string/hide_extras"
+            android:summary="@string/hide_extras_summary"
             android:defaultValue="false" />
 
         <Preference
