@@ -51,7 +51,7 @@ public class VoltageControlSettings extends Fragment {
     private static final String TAG = "VoltageControlActivity";
 
     public static final String KEY_APPLY_BOOT = "apply_voltages_at_boot";
-    public static final String MV_TABLE0 = "/sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table";
+    public static final String MV_TABLE0 = "/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels";
     public static final String MV_TABLE1 = "/sys/devices/system/cpu/cpu1/cpufreq/UV_mV_table";
     public static final String MV_TABLE2 = "/sys/devices/system/cpu/cpu2/cpufreq/UV_mV_table";
     public static final String MV_TABLE3 = "/sys/devices/system/cpu/cpu3/cpufreq/UV_mV_table";
@@ -95,29 +95,12 @@ public class VoltageControlSettings extends Fragment {
                 .setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                final StringBuilder sb = new StringBuilder();
-                for (final Voltage volt : mVoltages) {
-                    sb.append(volt.getSavedMV() + " ");
-                }
-                new CMDProcessor().su.runWaitFor("busybox echo "
-                        + sb.toString() + " > "
-                        + MV_TABLE0);
-                if (new File(MV_TABLE1).exists()) {
-                    new CMDProcessor().su.runWaitFor("busybox echo "
-                            + sb.toString()
-                            + " > " + MV_TABLE1);
-                }
-                if (new File(MV_TABLE2).exists()) {
-                    new CMDProcessor().su.runWaitFor("busybox echo "
-                            + sb.toString()
-                            + " > " + MV_TABLE2);
-                }
-                if (new File(MV_TABLE3).exists()) {
-                    new CMDProcessor().su.runWaitFor("busybox echo "
-                            + sb.toString()
-                            + " > " + MV_TABLE3);
-                }
-                final List<Voltage> volts = getVolts(preferences);
+	         for (final Voltage volt : mVoltages) {
+                    new CMDProcessor().su.runWaitFor("busybox echo '"
+                            + volt.getFreq() + " " + volt.getSavedMV()
+                            + "' > " + MV_TABLE0);
+                 }
+	        final List<Voltage> volts = getVolts(preferences);
                 mVoltages.clear();
                 mVoltages.addAll(volts);
                 mAdapter.notifyDataSetChanged();
@@ -144,10 +127,10 @@ public class VoltageControlSettings extends Fragment {
             BufferedReader br = new BufferedReader(new FileReader(MV_TABLE0), 256);
             String line = "";
             while ((line = br.readLine()) != null) {
-                final String[] values = line.split("\\s+");
+                final String[] values = line.trim().split("\\s+");
                 if (values != null) {
                     if (values.length >= 2) {
-                        final String freq = values[0].replace("mhz:", "");
+                        final String freq = values[0].replace(":", "");
                         final String currentMv = values[1];
                         final String savedMv = preferences.getString(freq, currentMv);
                         final Voltage voltage = new Voltage();
@@ -168,11 +151,9 @@ public class VoltageControlSettings extends Fragment {
     }
 
     private static final int[] STEPS = new int[] {
-            600, 625, 650, 675, 700, 725, 750, 775, 800, 825, 850,
-            875, 900, 925, 950, 975, 1000, 1025, 1050, 1075, 1100,
-            1125, 1150, 1175, 1200, 1225, 1250, 1275, 1300, 1325,
-            1350, 1375, 1400, 1425, 1450, 1475, 1500, 1525, 1550,
-            1575, 1600
+            812500, 875000, 887500, 912500, 925000, 937500,
+            950000, 975000, 1000000, 1012500, 1037500, 1050000, 1062500, 1075000, 1087500,
+            1100000, 1125000, 1150000, 1175000, 1187500, 1200000, 1225000, 1250000, 1275000, 1300000
     };
 
     private static int getNearestStepIndex(final int value) {
@@ -225,15 +206,15 @@ public class VoltageControlSettings extends Fragment {
                         } catch (NumberFormatException nfe) {
                             return;
                         }
-                        voltageMeter.setText(text + " mV");
+                        voltageMeter.setText(text);
                         final int index = getNearestStepIndex(value);
                         voltageSeek.setProgress(index);
                     }
 
                 });
 
-                voltageMeter.setText(savedMv + " mV");
-                voltageSeek.setMax(40);
+                voltageMeter.setText(savedMv);
+                voltageSeek.setMax(24);
                 voltageSeek.setProgress(getNearestStepIndex(savedVolt));
                 voltageSeek.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
                     @Override
@@ -241,7 +222,7 @@ public class VoltageControlSettings extends Fragment {
                             boolean fromUser) {
                         if (fromUser) {
                             final String volt = Integer.toString(STEPS[progress]);
-                            voltageMeter.setText(volt + " mV");
+                            voltageMeter.setText(volt);
                             voltageEdit.setText(volt);
                         }
                     }
@@ -379,15 +360,15 @@ public class VoltageControlSettings extends Fragment {
             private TextView mSavedMV;
 
             public void setFreq(final String freq) {
-                mFreq.setText(freq + " MHz");
+                mFreq.setText(freq);
             }
 
             public void setCurrentMV(final String currentMv) {
-               mCurrentMV.setText(getResources().getString(R.string.ps_volt_current_voltage) + currentMv + " mV");
+               mCurrentMV.setText(getResources().getString(R.string.ps_volt_current_voltage) + currentMv );
             }
 
             public void setSavedMV(final String savedMv) {
-               mSavedMV.setText(getResources().getString(R.string.ps_volt_setting_to_apply) + savedMv + " mV");
+               mSavedMV.setText(getResources().getString(R.string.ps_volt_setting_to_apply) + savedMv );
             }
         }
     }
