@@ -33,6 +33,7 @@
   <string name="title_led">Ovládání LED</string>
   <string name="title_lockscreens">Možnosti zamčené obrazovky</string>
   <string name="title_lockscreens_targets">Položky zamčené obrazovky</string>
+  <string name="title_navring">Navigační kruh</string>
   <string name="title_sound">Nastavení zvuku</string>
   <string name="title_weather">Nastavení počasí</string>
   <string name="title_performance">Nastavení výkonu</string>
@@ -109,6 +110,7 @@
   <string name="bootani_cat">Startovací animace</string>
   <string name="navbar_cat">Navigační lišta</string>
   <string name="notification_cat">Notifikace</string>
+  <string name="tabletUI_cat">Tabletové UI</string>
   <string name="enable_volume_options">Zapnout volby hlasitosti</string>
   <string name="status_bar_notif_count_title">Zobrazit počet upozornění</string>
   <string name="status_bar_notif_count_summary">Zobrazit počet čekajících upozornění ve stavové liště</string>
@@ -131,6 +133,8 @@
   <string name="rotate_180_summary">Umožnit zařízení úplně obracet obrazovku!</string>
   <string name="recent_kill_all">Zapnout tlačítko zavření všech aplikací</string>
   <string name="recent_kill_all_summary">Zobrazuje tlačítko pro zavření všech aplikací v přehledu všech spuštěných aplikací (vyžaduje restart UI)</string>
+  <string name="ram_bar">Lišta s RAM</string>
+  <string name="ram_bar_summary">Zobrazuje použitou RAM v okně s běžícími aplikacemi</string>
   <string name="kill_app_longpress_back">Podržet zpět pro ukončení</string>
   <string name="kill_app_longpress_back_summary">Podržení tlačítka zpět ukončí (killne) aktuální aplikaci</string>
   <string name="tablet_ui">Vynutit tabletové UI</string>
@@ -189,6 +193,11 @@
   <string name="toggles_display_close">Zavřít</string>
   <string name="toggles_order_title">Pořadí přepínačů</string>
   <string name="toggles_order_summary">Určuje pořadí, v jakém jsou přepínače zobrazovány</string>
+  <string name="title_settings_behavior">Použít výchozí chování nastavení</string>
+  <string name="summary_settings_behavior_default">Krátký stisk pro nastavení, dlouhý pro přepínače</string>
+  <string name="summary_settings_behavior_reverse">Krátký stisk pro přepínače, dlouhý pro nastavení</string>
+  <string name="title_toggles_autohide">Automaticky skrývat přepínače</string>
+  <string name="summary_toggles_autohide">Skrýt přepínače po zavření notifikační lišty.</string>
   <string name="brightness_location_title">Pozice nastavení jasu</string>
   <string name="reset_toggles_title">Obnovit přepínače</string>
   <string name="reset_toggles_summary">Obnovit všechny přepínače a jejich pořadí</string>
@@ -204,6 +213,15 @@
   <string name="enable_clock_weekday_summary">Zobrazit den v týdnu před hodinami</string>
   <string name="colors">Barvy</string>
   <string name="clock_color_title">Barva hodin</string>
+  <string name="alarm">Budíky</string>
+  <string name="nothing">Nic</string>
+  <string name="today">Dnešní kalendář</string>
+  <string name="event">Nová událost v kalendáři</string>
+  <string name="voiceassist">Hlasové příkazy</string>
+  <string name="title_date_longclick">Akce dlouhého stisknutí data</string>
+  <string name="title_date_shortclick">Akce krátkého stisknutí data</string>
+  <string name="title_clock_longclick">Akce dlouhého stisknutí hodin</string>
+  <string name="title_clock_shortclick">Akce krátkého stisknutí hodin</string>
   <!--Toggle Strings to be called from device overlays-->
   <string name="toggle_airplane_mode">Režim letadlo</string>
   <string name="toggle_auto_rotate">Automatická rotace</string>
@@ -262,6 +280,10 @@
   <string name="navbar_qty_summary">Zvolit počet tlačítek v navigační liště</string>
   <string name="navbar_action_title">Akce a ikona tlačítka %1$s</string>
   <string name="button_transparency_title">Průhlednost tl. navigační lišty</string>
+  <string name="navbar_width_help_title">Nápověda k šířce kombinované navigační lišty</string>
+  <string name="navbar_width_help_summary">100 je 70\%% šířky displeje, 5 je 30\%% šířky displeje. 0 je výchozí šířka podle tlačítek.</string>
+  <string name="width_port_title">Šířka kombinované lišty na šířku</string>
+  <string name="width_land_title">Šířka kombinované lišty na výšku</string>
   <string name="navbar_longpress_title">Akce dlouhého stisknutí tlačítka %1$s</string>
   <string name="navbar_action_home">Domů</string>
   <string name="navbar_action_back">Zpět</string>
@@ -309,7 +331,7 @@
   <!--Nav Ring Targets-->
   <string name="navbar_ring_cat">Položky kruhu v navigační liště</string>
   <string name="interface_softkey_settings">Nastavení tlačítek</string>
-  <string name="interface_softkeys_pref_default_title">Nevybrána žádná aktivita</string>
+  <string name="interface_softkeys_pref_default_title">Dotykem vybrat aktivitu</string>
   <string name="interface_softkeys_pref_default_summary">Dotykem na ikonu nastavení je možné vybrat akitivitu dlouhého stisku</string>
   <string name="interface_softkeys_activity_dialog_title">Vybrat aktivitu</string>
   <string name="interface_softkeys_reboot_title">Menu restartování</string>
@@ -447,6 +469,7 @@
   <string name="icon_picker_search">Hledat</string>
   <string name="icon_picker_sms">Zprávy SMS/MMS</string>
   <string name="icon_picker_twitter">Twitter</string>
+  <string name="icon_picker_unlock">Odemknout</string>
   <string name="icon_picker_title">Zvolit zdroj ikony</string>
   <string name="icon_picker_system_icons_title">Systémové ikony</string>
   <string name="icon_picker_aokp_icons_title">AOKP ikony</string>
@@ -480,6 +503,8 @@
   <string name="wifi_save">Uložit</string>
   <string name="lockscreen_target_reset">Položky zamčené obrazovky obnoveny do výchozího stavu</string>
   <string name="lockscreen_target_save">Položky zamčené obrazovky uloženy</string>
+  <string name="lockscreen_target_save_error_title">Chyba při ukládání</string>
+  <string name="lockscreen_target_save_error_msg">Je potřeba minimálně jedna položka, která odemkne obrazovku!</string>
   <string name="lockscreen_target_reset_title">Obnovit</string>
   <string name="lockscreen_target_reset_message">Smazat všechny uživatelsky vytvořené položky a vrátit se k výchozím hodnotám?</string>
   <string name="lockscreen_target_edit_title">Upravit položku a její ikonu</string>
@@ -787,4 +812,7 @@
   <string name="show_signal_bars">Zobrazit ukazatel signálu</string>
   <string name="show_signal_text">Zobrazit signál textově</string>
   <string name="show_with_dbm">Zobrazit s dBm</string>
+  <!-- haptic feedback on toggle press -->
+  <string name="toggles_enable_haptic_feedback_title">Zapnout hmatovou odezvu</string>
+  <string name="toggles_enable_haptic_feedback_summary">Použít hmatovou odezvu při stisku přepínačů</string>
 </resources>
