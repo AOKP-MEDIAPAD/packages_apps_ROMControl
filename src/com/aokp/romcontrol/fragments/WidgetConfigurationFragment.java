@@ -208,6 +208,7 @@ public class WidgetConfigurationFragment extends DialogFragment {
     private void requestNewWidget() {
         // send intent to pick a new widget
         Intent send = new Intent();
+		send.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         send.setAction(ACTION_ALLOCATE_ID);
         mContext.sendBroadcast(send);
     }
