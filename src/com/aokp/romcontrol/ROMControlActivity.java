@@ -109,6 +109,7 @@ public class ROMControlActivity extends PreferenceActivity implements ButtonBarH
                 cls.asSubclass(Activity.class);
                 isShortcut = true;
                 Intent activity = new Intent(getApplicationContext(), cls);
+                activity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 activity.putExtra("started_from_shortcut", true);
                 startActivity(activity);
                 finish(); // close current activity
