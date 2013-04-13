@@ -35,6 +35,12 @@
         android:key="devs"
         android:title="@string/devs">
         <com.aokp.romcontrol.widgets.DeveloperPreference
+            android:title="zyr3x"
+            aokp:nameDev="zyr3x"
+            aokp:twitterHandle="zyr3x"
+            aokp:githubLink="@string/github_zyr3x" />
+            
+        <com.aokp.romcontrol.widgets.DeveloperPreference
             android:title="Roman"
             aokp:nameDev="romanbb"
             aokp:twitterHandle="romanbb"
