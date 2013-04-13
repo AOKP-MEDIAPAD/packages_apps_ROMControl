@@ -173,6 +173,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".fragments.Pie" />
+        <activity android:name=".fragments.PieColor" /> 
+
         <!-- vibration manager -->
         <activity
             android:name=".fragments.Vibrations"

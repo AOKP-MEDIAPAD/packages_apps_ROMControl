@@ -44,6 +44,13 @@
         android:title="@string/interface_navring_settings_title"
         android:summary="@string/interface_navring_settings_summary" />
 
+    <!-- Piecontrols -->
+    <header
+        android:id="@+id/piecontrols_settings"
+        android:title="@string/pie_controls_title"
+        android:fragment="com.aokp.romcontrol.fragments.Pie"
+        android:icon="@drawable/ic_liquid_piecontrols" /> 
+
     <header
         android:id="@+id/statusbar"
         android:title="@string/header_statusbar" />
