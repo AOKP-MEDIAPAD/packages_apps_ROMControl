@@ -49,7 +49,15 @@
         android:id="@+id/piecontrols_settings"
         android:title="@string/pie_controls_title"
         android:fragment="com.aokp.romcontrol.fragments.Pie"
-        android:icon="@drawable/ic_liquid_piecontrols" /> 
+        android:icon="@drawable/ic_liquid_piecontrols" />
+
+    <!-- LCD Density -->
+    <header
+        android:id="@+id/lcd_density"
+        android:fragment="com.aokp.romcontrol.fragments.DensityChanger"
+        android:title="@string/lcd_density_title"
+        android:icon="@drawable/ic_rom_control_dpi"
+        android:summary="@string/header_summary_dpi_density" />
 
     <header
         android:id="@+id/statusbar"

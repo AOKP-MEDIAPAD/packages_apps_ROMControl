@@ -174,7 +174,17 @@
         </activity>
 
         <activity android:name=".fragments.Pie" />
-        <activity android:name=".fragments.PieColor" /> 
+        <activity android:name=".fragments.PieColor" />
+
+        <activity
+            android:name=".fragments.DensityChanger"
+            android:label="@string/lcd_density_title" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.aokp.romcontrol.SHORTCUT" />
+            </intent-filter>
+        </activity>
 
         <!-- vibration manager -->
         <activity

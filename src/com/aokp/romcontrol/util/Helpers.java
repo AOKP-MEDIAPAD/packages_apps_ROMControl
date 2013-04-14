@@ -11,12 +11,15 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Properties;
 
 // don't show unavoidable warnings
 @SuppressWarnings({
@@ -145,6 +148,46 @@ public class Helpers {
         String fallbackMountCmd = new String("busybox mount -o remount," + mount + " /system");
         return CMDProcessor.runSuCommand(fallbackMountCmd).success();
     }
+
+    public static String getFile(final String filename) {
+        String s = "";
+        final File f = new File(filename);
+
+        if (f.exists() && f.canRead()) {
+            try {
+                final BufferedReader br = new BufferedReader(new FileReader(f),
+                        256);
+                String buffer = null;
+                while ((buffer = br.readLine()) != null) {
+                    s += buffer + "\n";
+                }
+
+                br.close();
+            } catch (final Exception e) {
+                Log.e(TAG, "Error reading file: " + filename, e);
+                s = null;
+            }
+        }
+        return s;
+    }
+
+    public static void writeNewFile(String filePath, String fileContents) {
+        File f = new File(filePath);
+        if (f.exists()) {
+            f.delete();
+        }
+
+        try{
+            // Create file
+            FileWriter fstream = new FileWriter(f);
+            BufferedWriter out = new BufferedWriter(fstream);
+            out.write(fileContents);
+            //Close the output stream
+            out.close();
+        }catch (Exception e){
+            Log.d( TAG, "Failed to create " + filePath + " File contents: " + fileContents);
+        }
+    } 
 
     public static String readOneLine(String fname) {
         BufferedReader br = null;
