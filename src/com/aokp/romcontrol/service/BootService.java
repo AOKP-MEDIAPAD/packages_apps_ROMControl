@@ -23,6 +23,7 @@ import com.aokp.romcontrol.fragments.performance.CPUSettings;
 import com.aokp.romcontrol.fragments.performance.Voltage;
 import com.aokp.romcontrol.fragments.performance.VoltageControlSettings;
 import com.aokp.romcontrol.util.CMDProcessor;
+import com.aokp.romcontrol.util.Helpers;
 
 public class BootService extends Service {
 
@@ -128,28 +129,13 @@ public class BootService extends Service {
             if (preferences.getBoolean(VoltageControlSettings
                     .KEY_APPLY_BOOT, false)) {
                 final List<Voltage> volts = VoltageControlSettings
-                    .getVolts(preferences);
-                final StringBuilder sb = new StringBuilder();
-                for (final Voltage volt : volts) {
-                    sb.append(volt.getSavedMV() + " ");
-                }
-                cmd.su.runWaitFor("busybox echo " + sb.toString() +
-                        " > " + VoltageControlSettings.MV_TABLE0);
-                if (new File(VoltageControlSettings.MV_TABLE1).exists()) {
-                    cmd.su.runWaitFor("busybox echo " +
-                            sb.toString() + " > " +
-                            VoltageControlSettings.MV_TABLE1);
-                }
-                if (new File(VoltageControlSettings.MV_TABLE2).exists()) {
-                    cmd.su.runWaitFor("busybox echo " +
-                            sb.toString() + " > " +
-                            VoltageControlSettings.MV_TABLE2);
-                }
-                if (new File(VoltageControlSettings.MV_TABLE3).exists()) {
-                    cmd.su.runWaitFor("busybox echo " +
-                            sb.toString() + " > " +
-                            VoltageControlSettings.MV_TABLE3);
-                }
+                        .getVolts(preferences);
+
+                 for (final Voltage volt : mVoltages) {
+                    	   cmd.su.runWaitFor("busybox echo '"	
+	                    + volt.getFreq() + " " + volt.getSavedMV()
+                            + "' > " + VoltageControlSettings.MV_TABLE0);
+                 }
             }
 
             if (preferences.getBoolean("fast_charge_boot", false)) {
