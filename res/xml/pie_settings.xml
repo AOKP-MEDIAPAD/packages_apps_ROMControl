@@ -20,7 +20,7 @@
     <PreferenceScreen
         android:key="pie_color"
         android:title="@string/pie_color_title"
-        android:fragment="com.android.settings.liquid.PieColor" />
+        android:fragment="com.aokp.romcontrol.fragments.PieColor" />
 
     <PreferenceCategory
         android:key="pie_control"
@@ -109,6 +109,10 @@
             android:title="@string/pie_lastapp_title"
             android:summary="@string/pie_lastapp_summary" />
 
+        <CheckBoxPreference
+            android:key="pie_restart_launcher"
+            android:title="@string/pie_restart_launcher_title"
+            android:summary="@string/pie_restart_launcher_summary" />
     </PreferenceCategory>
 
 </PreferenceScreen>
