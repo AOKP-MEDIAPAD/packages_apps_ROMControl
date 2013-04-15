@@ -293,18 +293,18 @@ public class DensityChanger extends AOKPPreferenceFragment implements
 
     private class ClearMarketDataTask extends AsyncTask<String, Void, Boolean> {
         protected Boolean doInBackground(String... stuff) {
-            StringBuilder vending = new StringBuilder("/data/data/com.android.vending/");
-            StringBuilder gms = new StringBuilder("/data/data/com.google.android.gms/");
-            StringBuilder gsf = new StringBuilder("/data/data/com.google.android.gsf/");
+            String vending = "/data/data/com.android.vending/";
+            String gms = "/data/data/com.google.android.gms/";
+            String gsf = "/data/data/com.google.android.gsf/";
 
             CommandResult cr = CMDProcessor.runSuCommand("ls " + vending);
             CommandResult cr_gms = CMDProcessor.runSuCommand("ls " + gms);
             CommandResult cr_gsf = CMDProcessor.runSuCommand("ls " + gsf);
 
-            if (cr.stdout == null || cr_gms.stdout == null || cr_gsf.stdout == null)
+            if (cr.getStdout == null || cr_gms.getStdout == null || cr_gsf.getStdout == null)
                 return false;
 
-            for (String dir : cr.stdout.split("\n")) {
+            for (String dir : cr.getStdout.split("\n")) {
                 if (!dir.equals("lib")) {
                     String c = "rm -r " + vending + dir;
                     // Log.i(TAG, c);
@@ -313,7 +313,7 @@ public class DensityChanger extends AOKPPreferenceFragment implements
                 }
             }
 
-            for (String dir_gms : cr_gms.stdout.split("\n")) {
+            for (String dir_gms : cr_gms.getStdout.split("\n")) {
                 if (!dir_gms.equals("lib")) {
                     String c_gms = "rm -r " + gms + dir_gms;
                     // Log.i(TAG, c);
@@ -322,7 +322,7 @@ public class DensityChanger extends AOKPPreferenceFragment implements
                 }
             }
 
-            for (String dir_gsf : cr_gsf.stdout.split("\n")) {
+            for (String dir_gsf : cr_gsf.getStdout.split("\n")) {
                 if (!dir_gsf.equals("lib")) {
                     String c_gsf = "rm -r " + gsf + dir_gsf;
                     // Log.i(TAG, c);
