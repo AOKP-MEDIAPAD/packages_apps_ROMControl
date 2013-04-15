@@ -112,8 +112,7 @@ public class OtherSettings extends AOKPPreferenceFragment implements OnSharedPre
         if (key.equals(KEY_MINFREE)) {
             String values = preferences.getString(key, null);
             if (!values.equals(null))
-                new CMDProcessor().su
-                        .runWaitFor("busybox echo " + values + " > " + MINFREE);
+                CMDProcessor.runSuCommand("busybox echo " + values + " > " + MINFREE);
             mFreeMem.setSummary(getString(R.string.ps_free_memory, getMinFreeValue() + "mb"));
         }
     }

@@ -168,36 +168,35 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         // we have a break now, write the values..
-        CMDProcessor cmd = new CMDProcessor();
-        cmd.su.runWaitFor("busybox echo " + mMaxFreqSetting + " > " + MAX_FREQ);
-        cmd.su.runWaitFor("busybox echo " + mMinFreqSetting + " > " + MIN_FREQ);
+        CMDProcessor.runSuCommand("busybox echo " + mMaxFreqSetting + " > " + MAX_FREQ);
+        CMDProcessor.runSuCommand("busybox echo " + mMinFreqSetting + " > " + MIN_FREQ);
         if (new File("/sys/devices/system/cpu/cpu1").isDirectory()) {
-            cmd.su.runWaitFor("busybox echo " + mMaxFreqSetting + " > " + MAX_FREQ.replace("cpu0", "cpu1"));
-            cmd.su.runWaitFor("busybox echo " + mMinFreqSetting + " > " + MIN_FREQ.replace("cpu0", "cpu1"));
+            CMDProcessor.runSuCommand("busybox echo " + mMaxFreqSetting + " > " + MAX_FREQ.replace("cpu0", "cpu1"));
+            CMDProcessor.runSuCommand("busybox echo " + mMinFreqSetting + " > " + MIN_FREQ.replace("cpu0", "cpu1"));
         }
         if (new File("/sys/devices/system/cpu/cpu2").isDirectory()) {
-            cmd.su.runWaitFor("busybox echo " + mMaxFreqSetting + " > " + MAX_FREQ.replace("cpu0", "cpu2"));
-            cmd.su.runWaitFor("busybox echo " + mMinFreqSetting + " > " + MIN_FREQ.replace("cpu0", "cpu2"));
+            CMDProcessor.runSuCommand("busybox echo " + mMaxFreqSetting + " > " + MAX_FREQ.replace("cpu0", "cpu2"));
+            CMDProcessor.runSuCommand("busybox echo " + mMinFreqSetting + " > " + MIN_FREQ.replace("cpu0", "cpu2"));
         }
         if (new File("/sys/devices/system/cpu/cpu3").isDirectory()) {
-            cmd.su.runWaitFor("busybox echo " + mMaxFreqSetting + " > " + MAX_FREQ.replace("cpu0", "cpu3"));
-            cmd.su.runWaitFor("busybox echo " + mMinFreqSetting + " > " + MIN_FREQ.replace("cpu0", "cpu3"));
+            CMDProcessor.runSuCommand("busybox echo " + mMaxFreqSetting + " > " + MAX_FREQ.replace("cpu0", "cpu3"));
+            CMDProcessor.runSuCommand("busybox echo " + mMinFreqSetting + " > " + MIN_FREQ.replace("cpu0", "cpu3"));
         }
     }
 
     public class GovListener implements OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             String selected = parent.getItemAtPosition(pos).toString();
-            CMDProcessor cmd = new CMDProcessor();
-            cmd.su.runWaitFor("busybox echo " + selected + " > " + GOVERNOR);
+        
+            CMDProcessor.runSuCommand("busybox echo " + selected + " > " + GOVERNOR);
             if (new File("/sys/devices/system/cpu/cpu1").exists()) {
-                cmd.su.runWaitFor("busybox echo " + selected + " > " + GOVERNOR.replace("cpu0", "cpu1"));
+                CMDProcessor.runSuCommand("busybox echo " + selected + " > " + GOVERNOR.replace("cpu0", "cpu1"));
             }
             if (new File("/sys/devices/system/cpu/cpu2").exists()) {
-                cmd.su.runWaitFor("busybox echo " + selected + " > " + GOVERNOR.replace("cpu0", "cpu2"));
+                CMDProcessor.runSuCommand("busybox echo " + selected + " > " + GOVERNOR.replace("cpu0", "cpu2"));
             }
             if (new File("/sys/devices/system/cpu/cpu3").exists()) {
-                cmd.su.runWaitFor("busybox echo " + selected + " > " + GOVERNOR.replace("cpu0", "cpu3"));
+                CMDProcessor.runSuCommand("busybox echo " + selected + " > " + GOVERNOR.replace("cpu0", "cpu3"));
             }
             final SharedPreferences.Editor editor = preferences.edit();
             editor.putString(GOV_PREF, selected);
@@ -212,8 +211,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     public class IOListener implements OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             String selected = parent.getItemAtPosition(pos).toString();
-            CMDProcessor cmd = new CMDProcessor();
-            cmd.su.runWaitFor("busybox echo " + selected + " > " + IO_SCHEDULER);
+            CMDProcessor.runSuCommand("busybox echo " + selected + " > " + IO_SCHEDULER);
             final SharedPreferences.Editor editor = preferences.edit();
             editor.putString(IO_PREF, selected);
             editor.commit();

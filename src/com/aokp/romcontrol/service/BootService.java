@@ -57,7 +57,7 @@ public class BootService extends Service {
 
             Context c = getApplicationContext();
             preferences = PreferenceManager.getDefaultSharedPreferences(c);
-            final CMDProcessor cmd = new CMDProcessor();
+
             if (HeadphoneService.getUserHeadphoneAudioMode(c) != -1
                     || HeadphoneService.getUserBTAudioMode(c) != -1) {
                 c.startService(new Intent(c, HeadphoneService.class));
@@ -82,44 +82,44 @@ public class BootService extends Service {
                         "gov", null);
                 final String io = preferences.getString("io", null);
                 if (max != null && min != null && gov != null) {
-                    cmd.su.runWaitFor("busybox echo " + max +
+                    CMDProcessor.runSuCommand("busybox echo " + max +
                             " > " + CPUSettings.MAX_FREQ);
-                    cmd.su.runWaitFor("busybox echo " + min +
+                    CMDProcessor.runSuCommand("busybox echo " + min +
                             " > " + CPUSettings.MIN_FREQ);
-                    cmd.su.runWaitFor("busybox echo " + gov +
+                    CMDProcessor.runSuCommand("busybox echo " + gov +
                             " > " + CPUSettings.GOVERNOR);
-                    cmd.su.runWaitFor("busybox echo " + io +
+                    CMDProcessor.runSuCommand("busybox echo " + io +
                             " > " + CPUSettings.IO_SCHEDULER);
                     if (new File("/sys/devices/system/cpu/cpu1").exists()) {
-                        cmd.su.runWaitFor("busybox echo " + max +
+                        CMDProcessor.runSuCommand("busybox echo " + max +
                                 " > " + CPUSettings.MAX_FREQ
                                 .replace("cpu0", "cpu1"));
-                        cmd.su.runWaitFor("busybox echo " + min +
+                        CMDProcessor.runSuCommand("busybox echo " + min +
                                 " > " + CPUSettings.MIN_FREQ
                                 .replace("cpu0", "cpu1"));
-                        cmd.su.runWaitFor("busybox echo " + gov +
+                        CMDProcessor.runSuCommand("busybox echo " + gov +
                                 " > " + CPUSettings.GOVERNOR
                                 .replace("cpu0", "cpu1"));
                     }
                     if (new File("/sys/devices/system/cpu/cpu2").exists()) {
-                        cmd.su.runWaitFor("busybox echo " + max +
+                        CMDProcessor.runSuCommand("busybox echo " + max +
                                 " > " + CPUSettings.MAX_FREQ
                                 .replace("cpu0", "cpu2"));
-                        cmd.su.runWaitFor("busybox echo " + min +
+                        CMDProcessor.runSuCommand("busybox echo " + min +
                                 " > " + CPUSettings.MIN_FREQ
                                 .replace("cpu0", "cpu2"));
-                        cmd.su.runWaitFor("busybox echo " + gov +
+                        CMDProcessor.runSuCommand("busybox echo " + gov +
                                 " > " + CPUSettings.GOVERNOR
                                 .replace("cpu0", "cpu2"));
                     }
                     if (new File("/sys/devices/system/cpu/cpu3").exists()) {
-                        cmd.su.runWaitFor("busybox echo " + max +
+                        CMDProcessor.runSuCommand("busybox echo " + max +
                                 " > " + CPUSettings.MAX_FREQ
                                 .replace("cpu0", "cpu3"));
-                        cmd.su.runWaitFor("busybox echo " + min +
+                        CMDProcessor.runSuCommand("busybox echo " + min +
                                 " > " + CPUSettings.MIN_FREQ
                                 .replace("cpu0", "cpu3"));
-                        cmd.su.runWaitFor("busybox echo " + gov +
+                        CMDProcessor.runSuCommand("busybox echo " + gov +
                                 " > " + CPUSettings.GOVERNOR
                                 .replace("cpu0", "cpu3"));
                     }
@@ -132,7 +132,7 @@ public class BootService extends Service {
                         .getVolts(preferences);
 
                  for (final Voltage volt : volts) {
-                    	   cmd.su.runWaitFor("busybox echo '"	
+                    	   CMDProcessor.runSuCommand("busybox echo '"	
 	                    + volt.getFreq() + " " + volt.getSavedMV()
                             + "' > " + VoltageControlSettings.MV_TABLE0);
                  }
@@ -188,7 +188,7 @@ public class BootService extends Service {
                 final String values = preferences.getString(
                         "free_memory", null);
                 if (!values.equals(null)) {
-                    cmd.su.runWaitFor("busybox echo " + values +
+                    CMDProcessor.runSuCommand("busybox echo " + values +
                             " > /sys/module/lowmemorykiller/parameters/minfree");
                 }
             }

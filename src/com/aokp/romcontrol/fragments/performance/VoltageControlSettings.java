@@ -96,7 +96,7 @@ public class VoltageControlSettings extends Fragment {
             @Override
             public void onClick(View arg0) {
 	         for (final Voltage volt : mVoltages) {
-                    new CMDProcessor().su.runWaitFor("busybox echo '"
+                    CMDProcessor.runSuCommand("busybox echo '"
                             + volt.getFreq() + " " + volt.getSavedMV()
                             + "' > " + MV_TABLE0);
                  }
