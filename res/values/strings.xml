@@ -74,16 +74,15 @@
     <string name="text_off">Off</string>
 
     <!-- Power Menu -->
-    <string name="title_show_power_saver">Show Power Saver</string>
-    <string name="title_show_screenshot">Show Screenshot</string>
-    <string name="title_show_torch_toggle">Show Torch</string>
-    <string name="title_show_airplane_toggle">Show Airplane mode</string>
-    <string name="title_show_navbar_hide">Show System Bar toggles</string>
-    <string name="summary_show_navbar_hide">Checking this will enable toggles that hide the NavBar and Statusbar</string>
-    <string name="title_show_volume_state_toggle">Show Volume states</string>
-    <string name="title_show_reboot_keyguard">Show Reboot on lockscreen</string>
-    <string name="summary_off_show_reboot_keyguard">Reboot option will not be shown while on lockscreen</string>
-    <string name="summary_on_show_reboot_keyguard">Reboot option will be shown while on lockscreen</string>
+    <string name="title_show_power_saver">Power Saver</string>
+    <string name="title_show_screenshot">Screenshot</string>
+    <string name="title_show_torch_toggle">Torch</string>
+    <string name="title_show_airplane_toggle">Airplane mode</string>
+    <string name="title_show_navbar_hide">System Bar toggles</string>
+    <string name="summary_show_navbar_hide">Enabling this will show toggles that hide the NavBar and Statusbar</string>
+    <string name="title_show_volume_state_toggle">Volume states</string>
+    <string name="title_show_reboot_keyguard">Reboot on lockscreen</string>
+    <string name="summary_show_reboot_keyguard">Enabling this will show reboot options while on lockscreen</string>
 
     <!-- S Pen -->
     <string name="spen_left_title">Action on swipe left</string>
@@ -161,6 +160,8 @@
     <string name="bootani_cat">Boot animation</string>
     <string name="navbar_cat">NavBar</string>
     <string name="notification_cat">Notification</string>
+    <string name="display_cat">Display</string>
+    <string name="recents_cat">Recents</string>
     <string name="tabletUI_cat">Tablet UI</string>
     <string name="enable_volume_options">Enable Volume panel</string>
     <string name="status_bar_notif_count_title">Show notification count</string>
@@ -313,7 +314,7 @@
     <string name="toggle_action_title_alt">Longpress action %1$s &amp; icon</string>
     <string name="toggle_longpress_title">Longpress action %1$s</string>
     <string name="custom_toggle_action">How it works</string>
-    <string name="custom_toggle_desc">In Basic mode, the toggle will cycle through actions on each click. Longpress will launch the displayed action. This is most useful for users who want the toggle to launch applications.\nIn Advanced mode, the toggle allows you to launch an action with each click. Longpress actions will also be available to you in this mode. This is most useful for users who desire a toggle that performs tasks that does not launch a new application.</string>
+    <string name="custom_toggle_desc">In Basic mode, the toggle will cycle through actions on each click. Longpress will launch the displayed action. This is most useful for users who want the toggle to launch applications.\nIn Advanced mode, the toggle allows you to launch an action with each click. Longpress actions will also be available to you in this mode. This is most useful for users who desire a toggle that performs tasks that do not launch a new application.</string>
     <string name="custom_toggle_okay">Dismiss</string>
     <string name="custom_toggle_cat">Custom toggle</string>
     <string name="custom_button_cat">Custom toggle actions</string>
@@ -403,11 +404,11 @@
 
     <!-- Statusbar | Signal -->
     <string name="signal_style">Signal indicator style</string>
-    <string name="signal_color_title">Signal indicator color</string>
+    <string name="signal_color_title">Signal text color</string>
     <string name="hide_signal_title">Hide signal bars</string>
     <string name="hide_signal_summary">Checking this hides the signal bar indicator (updates when signal strength changes)</string>
     <string name="wifi_signal_style">WiFi signal indicator style</string>
-    <string name="wifi_signal_color_title">WiFi signal indicator color</string>
+    <string name="wifi_signal_color_title">WiFi signal text color</string>
     <string name="alt_signal_title">Alt signal indicator layout</string>
     <string name="alt_signal_summary">Use alternate Gingerbread style signal cluster</string>
 
@@ -444,6 +445,10 @@
     <string name="navigation_bar_height_summary">Navigation Bar height while in portrait</string>
     <string name="navigation_bar_height_landscape_title">Navigation Bar height landscape</string>
     <string name="navigation_bar_height_landscape_summary">Navigation Bar height while in landscape</string>
+    <string name="system_bar_height_title">System Bar height</string>
+    <string name="system_bar_height_summary">System Bar height while in portrait</string>
+    <string name="system_bar_height_landscape_title">System Bar height landscape</string>
+    <string name="system_bar_height_landscape_summary">System Bar height while in landscape</string>
     <string name="navigation_bar_width_title">Navigation Bar width</string>
     <string name="navigation_bar_width_summary">Navigation Bar height if the bar is along a side</string>
     <string name="navbar_enable_dialog_title">Reboot required!</string>

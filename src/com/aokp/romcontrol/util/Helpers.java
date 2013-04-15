@@ -347,11 +347,7 @@ public class Helpers {
     }
 
     public static void setSystemProp(String prop, String val) {
-        try {
-            SystemProperties.set(prop, val);
-        } catch (IllegalArgumentException iae) {
-            Log.e(TAG, "Failed to set prop: " + prop);
-        }
+        CMDProcessor.startSuCommand("setprop " + prop + " " + val);
     }
 
     public static String getSystemProp(String prop, String def) {

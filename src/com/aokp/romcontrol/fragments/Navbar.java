@@ -266,10 +266,16 @@ public class Navbar extends AOKPPreferenceFragment implements
             prefs.removePreference(mEnableNavigationBar);
         }
         PreferenceGroup pg = (PreferenceGroup) prefs.findPreference("advanced_cat");
-        if (isTablet(mContext)) { // Tablets don't set NavBar Height
-            pg.removePreference(mNavigationBarHeight);
+        if (isTablet(mContext)) {
+            mNavigationBarHeight.setTitle(R.string.system_bar_height_title);
+            mNavigationBarHeight.setSummary(R.string.system_bar_height_summary);
+            mNavigationBarWidth.setTitle(R.string.system_bar_height_landscape_title);
+            mNavigationBarWidth.setSummary(R.string.system_bar_height_landscape_summary);
             pg.removePreference(mNavigationBarHeightLandscape);
-            pg.removePreference(mNavigationBarWidth);
+            mNavBarHideEnable.setEnabled(false);
+            mDragHandleOpacity.setEnabled(false);
+            mDragHandleWidth.setEnabled(false);
+            mNavBarHideTimeout.setEnabled(false);
         } else { // Phones&Phablets don't have SystemBar
             pg.removePreference(mWidthPort);
             pg.removePreference(mWidthLand);
@@ -280,6 +286,11 @@ public class Navbar extends AOKPPreferenceFragment implements
                 pg.removePreference(mNavigationBarHeightLandscape);
             }
         }
+
+        if (Integer.parseInt(menuDisplayLocation.getValue()) == 4) {
+            mNavBarMenuDisplay.setEnabled(false);
+        }
+
         refreshSettings();
         setHasOptionsMenu(true);
         updateGlowTimesSummary();
@@ -402,9 +413,11 @@ public class Navbar extends AOKPPreferenceFragment implements
     public boolean onPreferenceChange(Preference preference, Object newValue) {
 
         if (preference == menuDisplayLocation) {
+            int val = Integer.parseInt((String) newValue);
             Settings.System.putInt(mContentRes,
-                    Settings.System.MENU_LOCATION, Integer.parseInt((String) newValue));
+                    Settings.System.MENU_LOCATION, val);
             refreshSettings();
+            mNavBarMenuDisplay.setEnabled(val < 4 ? true : false);
             return true;
         } else if (preference == mNavBarMenuDisplay) {
             Settings.System.putInt(mContentRes,
@@ -566,9 +579,11 @@ public class Navbar extends AOKPPreferenceFragment implements
 
     public void refreshSettings() {
         refreshButtons();
-        mDragHandleOpacity.setEnabled(mNavBarHideEnable.isChecked());
-        mDragHandleWidth.setEnabled(mNavBarHideEnable.isChecked());
-        mNavBarHideTimeout.setEnabled(mNavBarHideEnable.isChecked());
+        if (!isTablet(mContext)) {
+            mDragHandleOpacity.setEnabled(mNavBarHideEnable.isChecked());
+            mDragHandleWidth.setEnabled(mNavBarHideEnable.isChecked());
+            mNavBarHideTimeout.setEnabled(mNavBarHideEnable.isChecked());
+        }
     }
 
     private Uri getTempFileUri() {
