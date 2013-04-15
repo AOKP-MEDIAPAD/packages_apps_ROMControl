@@ -246,7 +246,6 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     public void setMaxSpeed(SeekBar seekBar, int progress) {
         String current = "";
         current = availableFrequencies[progress];
-        CMDProcessor cmd = new CMDProcessor();
         int minSliderProgress = mMinSlider.getProgress();
         if (progress <= minSliderProgress) {
             mMinSlider.setProgress(progress);
@@ -263,7 +262,6 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     public void setMinSpeed(SeekBar seekBar, int progress) {
         String current = "";
         current = availableFrequencies[progress];
-        CMDProcessor cmd = new CMDProcessor();
         int maxSliderProgress = mMaxSlider.getProgress();
         if (progress >= maxSliderProgress) {
             mMaxSlider.setProgress(progress);
