@@ -1046,8 +1046,6 @@
     <string name="ps_volt_save">"Save"</string>
     <string name="ps_volt_current_voltage">"Current voltage: "</string>
     <string name="ps_volt_setting_to_apply">"Setting to apply: "</string>
-    <string name="pt_volt_control">Voltage control</string>
-    <string name="ps_volt_control">Set voltages for each frequency</string>
     <string name="not_supported">Your kernel does not support voltage control</string>
     <string name="apply_values">Apply values</string>
     <string name="freq">Frequency</string>
