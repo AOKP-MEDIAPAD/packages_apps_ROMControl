@@ -128,7 +128,7 @@
         android:title="@string/tools" />
 
     <header android:icon="@drawable/ic_rom_control_performance"
-            android:title="@string/performance">
+            android:title="@string/title_performance">
         <intent
                 android:action="android.intent.action.MAIN"
                 android:targetClass="com.aokp.romcontrol.fragments.performance.Performance"

@@ -841,7 +841,7 @@
     <string name="show_with_dbm">Показать с dBm</string>
     <string name="toggles_enable_haptic_feedback_title">Включить тактильной обратной связью</string>
     <string name="toggles_enable_haptic_feedback_summary">Используйте тактильную обратную связь при нажатии переключает</string>
-    <string name="performance">IceCold пользовательские настройки</string>
+    <string name="performance">Производительность</string>
     <string name="title_performance">Пользовательские настройки</string>
     <string name="tab_cpu_settings">Вы хотите, мы его получили!</string>
     <string name="swipe2wake">Swipe2Wake</string>
