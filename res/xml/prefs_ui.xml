@@ -66,6 +66,12 @@
             android:summary="@string/ime_switcher_summary"
             android:defaultValue="true" />
 
+        <CheckBoxPreference
+            android:key="missed_call_breath"
+            android:title="@string/missed_call_breath"
+            android:summary="@string/missed_call_breath_summary"
+            android:defaultValue="false" /> 
+
     </PreferenceCategory>
 
     <PreferenceCategory

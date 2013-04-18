@@ -104,6 +104,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_POWER_CRT_MODE = "system_power_crt_mode";
     private static final CharSequence PREF_POWER_CRT_SCREEN_OFF = "system_power_crt_screen_off";
     private static final CharSequence PREF_STATUSBAR_HIDDEN = "statusbar_hidden";
+	private static final String KEY_STATUS_BAR_ICON_OPACITY = "status_bar_icon_opacity";
+    private static final String KEY_MISSED_CALL_BREATH = "missed_call_breath";
 
     private static final int REQUEST_PICK_WALLPAPER = 201;
     //private static final int REQUEST_PICK_CUSTOM_ICON = 202; //unused
@@ -138,6 +140,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     ListPreference mCrtMode;
     CheckBoxPreference mCrtOff;
     CheckBoxPreference mStatusBarHide;
+	ListPreference mStatusBarIconOpacity;
+    private CheckBoxPreference mMissedCallBreath;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -265,6 +269,16 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mWakeUpWhenPluggedOrUnplugged = (CheckBoxPreference) findPreference(PREF_WAKEUP_WHEN_PLUGGED_UNPLUGGED);
         mWakeUpWhenPluggedOrUnplugged.setChecked(Settings.System.getBoolean(mContentResolver,
                         Settings.System.WAKEUP_WHEN_PLUGGED_UNPLUGGED, true));
+
+        mStatusBarIconOpacity = (ListPreference) findPreference(KEY_STATUS_BAR_ICON_OPACITY);
+        int iconOpacity = Settings.System.getInt(mContentResolver,
+                Settings.System.STATUS_BAR_NOTIF_ICON_OPACITY, 140);
+        mStatusBarIconOpacity.setValue(String.valueOf(iconOpacity));
+        mStatusBarIconOpacity.setOnPreferenceChangeListener(this);
+
+        mMissedCallBreath = (CheckBoxPreference) findPreference(KEY_MISSED_CALL_BREATH);
+        mMissedCallBreath.setChecked(Settings.System.getBoolean(mContentResolver,
+                Settings.System.MISSED_CALL_BREATH, false));
 
         // hide option if device is already set to never wake up
         if(!mContext.getResources().getBoolean(
@@ -535,6 +549,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             boolean checked = ((CheckBoxPreference)preference).isChecked();
             Settings.System.putBoolean(getActivity().getContentResolver(),
                     Settings.System.STATUSBAR_HIDDEN, checked ? true : false);
+            return true;
+        } else if (preference == mMissedCallBreath) {
+            Settings.System.putBoolean(mContentResolver,
+                    Settings.System.MISSED_CALL_BREATH, 
+                    ((TwoStatePreference) preference).isChecked());
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -961,6 +980,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     Settings.System.SYSTEM_POWER_CRT_MODE, crtMode);
             mCrtMode.setSummary(mCrtMode.getEntries()[index]);
             return true;
+        } else if (preference == mStatusBarIconOpacity) {
+            int iconOpacity = Integer.valueOf((String) newValue);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_NOTIF_ICON_OPACITY, iconOpacity);
+            return true; 
         }
         return false;
     }
