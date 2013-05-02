@@ -59,6 +59,14 @@
         android:icon="@drawable/ic_rom_control_dpi"
         android:summary="@string/header_summary_dpi_density" />
 
+     <header
+        android:id="@+id/ribbon_targets"
+        android:fragment="com.aokp.romcontrol.fragments.RibbonTargets"
+        android:icon="@drawable/ic_rom_control_ribbon"
+        android:title="@string/ribbon_settings_title"
+        android:summary="@string/ribbon_settings_summary" />
+
+
     <header
         android:id="@+id/statusbar"
         android:title="@string/header_statusbar" />
@@ -134,4 +142,12 @@
                 android:targetClass="com.aokp.romcontrol.fragments.performance.Performance"
                 android:targetPackage="com.aokp.romcontrol" />
     </header>
+    
+    <header
+        android:id="@+id/installer"
+        android:title="@string/installer"
+        android:summary="@string/header_summary_installer"
+        android:icon="@drawable/ic_rom_control_installer"
+        android:fragment="com.aokp.romcontrol.fragments.Installer" />
+
 </preference-headers>
