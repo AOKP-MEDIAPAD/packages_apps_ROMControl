@@ -106,7 +106,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_STATUSBAR_HIDDEN = "statusbar_hidden";
 	private static final String KEY_STATUS_BAR_ICON_OPACITY = "status_bar_icon_opacity";
     private static final String KEY_MISSED_CALL_BREATH = "missed_call_breath";
-    private static final String PREF_NOTIFICATION_SHOW_WIFI_SSID = "notification_show_wifi_ssid";   
+
     private static final int REQUEST_PICK_WALLPAPER = 201;
     //private static final int REQUEST_PICK_CUSTOM_ICON = 202; //unused
     private static final int REQUEST_PICK_BOOT_ANIMATION = 203;
@@ -142,7 +142,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mStatusBarHide;
 	ListPreference mStatusBarIconOpacity;
     private CheckBoxPreference mMissedCallBreath;
-    CheckBoxPreference mShowWifiName;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -281,10 +280,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mMissedCallBreath.setChecked(Settings.System.getBoolean(mContentResolver,
                 Settings.System.MISSED_CALL_BREATH, false));
 
-        mShowWifiName = (CheckBoxPreference) findPreference(PREF_NOTIFICATION_SHOW_WIFI_SSID);
-        mShowWifiName.setChecked(Settings.System.getBoolean(mContext.getContentResolver(),
-                Settings.System.NOTIFICATION_SHOW_WIFI_SSID, false));
-                
         // hide option if device is already set to never wake up
         if(!mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_unplugTurnsOnScreen)) {
@@ -559,11 +554,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putBoolean(mContentResolver,
                     Settings.System.MISSED_CALL_BREATH, 
                     ((TwoStatePreference) preference).isChecked());
-            return true;
-        } else if (preference == mShowWifiName) {
-            Settings.System.putBoolean(mContext.getContentResolver(),
-                    Settings.System.NOTIFICATION_SHOW_WIFI_SSID,
-                    ((CheckBoxPreference) preference).isChecked());
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);

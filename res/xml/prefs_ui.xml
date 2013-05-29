@@ -50,12 +50,6 @@
             android:title="@string/vibrate_notif_expand_title"
             android:summary="@string/vibrate_notif_expand_summary" />
 
-       <CheckBoxPreference
-            android:key="notification_show_wifi_ssid"
-            android:title="@string/notification_show_wifi_ssid_title"
-            android:summary="@string/notification_show_wifi_ssid_summary"
-            android:defaultValue="false" />
-            
         <CheckBoxPreference
             android:key="statusbar_brightness_slider"
             android:title="@string/brightness_slider_title"
