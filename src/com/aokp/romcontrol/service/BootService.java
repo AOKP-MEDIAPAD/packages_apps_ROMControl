@@ -123,13 +123,28 @@ public class BootService extends Service {
             if (preferences.getBoolean(VoltageControlSettings
                     .KEY_APPLY_BOOT, false)) {
                 final List<Voltage> volts = VoltageControlSettings
-                        .getVolts(preferences);
-
-                 for (final Voltage volt : volts) {
-                    	   CMDProcessor.runSuCommand("busybox echo '"	
-	                    + volt.getFreq() + " " + volt.getSavedMV()
-                            + "' > " + VoltageControlSettings.MV_TABLE0);
-                 }
+                    .getVolts(preferences);
+                final StringBuilder sb = new StringBuilder();
+                for (final Voltage volt : volts) {
+                    sb.append(volt.getSavedMV() + " ");
+                }
+                CMDProcessor.runSuCommand("busybox echo " + sb.toString() +
+                        " > " + VoltageControlSettings.MV_TABLE0);
+                if (new File(VoltageControlSettings.MV_TABLE1).exists()) {
+                    CMDProcessor.runSuCommand("busybox echo " +
+                            sb.toString() + " > " +
+                            VoltageControlSettings.MV_TABLE1);
+                }
+                if (new File(VoltageControlSettings.MV_TABLE2).exists()) {
+                    CMDProcessor.runSuCommand("busybox echo " +
+                            sb.toString() + " > " +
+                            VoltageControlSettings.MV_TABLE2);
+                }
+                if (new File(VoltageControlSettings.MV_TABLE3).exists()) {
+                    CMDProcessor.runSuCommand("busybox echo " +
+                            sb.toString() + " > " +
+                            VoltageControlSettings.MV_TABLE3);
+                }
             }
 
             if (preferences.getBoolean("fast_charge_boot", false)) {
