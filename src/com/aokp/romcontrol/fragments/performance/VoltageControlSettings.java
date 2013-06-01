@@ -99,21 +99,21 @@ public class VoltageControlSettings extends Fragment {
                 for (final Voltage volt : mVoltages) {
                     sb.append(volt.getSavedMV() + " ");
                 }
-                CMDProcessor().su.runWaitFor("busybox echo "
+                CMDProcessor.runSuCommand("busybox echo "
                         + sb.toString() + " > "
                         + MV_TABLE0);
                 if (new File(MV_TABLE1).exists()) {
-                    CMDProcessor().su.runWaitFor("busybox echo "
+                    CMDProcessor.runSuCommand("busybox echo "
                             + sb.toString()
                             + " > " + MV_TABLE1);
                 }
                 if (new File(MV_TABLE2).exists()) {
-                    CMDProcessor().su.runWaitFor("busybox echo "
+                    CMDProcessor.runSuCommand("busybox echo "
                             + sb.toString()
                             + " > " + MV_TABLE2);
                 }
                 if (new File(MV_TABLE3).exists()) {
-                    CMDProcessor().su.runWaitFor("busybox echo "
+                    CMDProcessor.runSuCommand("busybox echo "
                             + sb.toString()
                             + " > " + MV_TABLE3);
                 }
