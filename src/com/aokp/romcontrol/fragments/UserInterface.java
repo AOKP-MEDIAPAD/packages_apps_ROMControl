@@ -286,7 +286,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             ((PreferenceGroup) findPreference(PREF_DISPLAY)).removePreference(mWakeUpWhenPluggedOrUnplugged);
         }
 
-        if (isTablet(mContext)) {
+        if (isTabletUI(mContext)) {
             mStatusbarSliderPreference.setEnabled(false);
             mStatusBarHide.setEnabled(false);
         } else {
