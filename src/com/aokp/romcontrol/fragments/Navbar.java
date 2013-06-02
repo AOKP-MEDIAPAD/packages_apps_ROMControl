@@ -303,7 +303,7 @@ public class Navbar extends AOKPPreferenceFragment implements
                 Settings.System.NAVIGATION_BAR_WIDGETS_ALPHA, widgetsTransparency);
         }
         mWidgetsTransparency = (SeekBarPreference) findPreference(PREF_NAVBAR_WIDGETS_ALPHA);
-        mWidgetsTransparency.setProperty(Settings.System.NAVIGATION_BAR_WIDGETS_ALPHA);
+        //mWidgetsTransparency.setProperty(Settings.System.NAVIGATION_BAR_WIDGETS_ALPHA);
         mWidgetsTransparency.setInitValue((int) (widgetsTransparency * 100));
         mWidgetsTransparency.setOnPreferenceChangeListener(this);
 
