@@ -540,7 +540,11 @@
     <string name="navbar_longpress_menu">Longpress: %1$s</string>
     <string name="navbar_icon_menu">Custom icon</string>
     <string name="navbar_delete_menu">Delete button</string>
-    <string name="navbar_widgets_transparency_title">Widgets bar transparency</string>
+    <string name="navbar_widgets_text_color_title">Widgets viewpager text color</string>
+    <string name="navbar_widgets_bg_color_title">Widgets viewpager background color</string>
+    <string name="navbar_widgets_transparency_title">Widgets viewpager transparency</string>
+  
+    
 
     <!-- Nav Ring Targets -->
     <string name="navbar_ring_cat">Navigation Ring Targets</string>

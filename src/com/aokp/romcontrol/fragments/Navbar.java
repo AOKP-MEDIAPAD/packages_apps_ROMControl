@@ -99,6 +99,9 @@ public class Navbar extends AOKPPreferenceFragment implements
     private static final String DRAG_HANDLE_OPACITY = "drag_handle_opacity";
     private static final String DRAG_HANDLE_WIDTH = "drag_handle_width";
     private static final String PREF_NAVBAR_WIDGETS_ALPHA = "navbar_widgets_alpha";
+    private static final String PREF_NAVBAR_WIDGETS_BG_COLOR = "navbar_widgets_bg_color";
+    private static final String PREF_NAVBAR_WIDGETS_TEXT_COLOR = "navbar_widgets_text_color";
+
     
     
     public static final int REQUEST_PICK_CUSTOM_ICON = 200;
@@ -108,7 +111,10 @@ public class Navbar extends AOKPPreferenceFragment implements
     public static final String PREFS_NAV_BAR = "navbar";
 
     // move these later
+    ColorPickerPreference mWidgetsBGColor;
+    ColorPickerPreference mWidgetsTextColor;
     SeekBarPreference mWidgetsTransparency;
+    
     ColorPickerPreference mNavigationColor;
     ColorPickerPreference mNavigationBarColor;
     CheckBoxPreference mColorizeAllIcons;
@@ -293,6 +299,30 @@ public class Navbar extends AOKPPreferenceFragment implements
             mNavBarMenuDisplay.setEnabled(false);
         }
         
+        mWidgetsBGColor = (ColorPickerPreference) findPreference(PREF_NAVBAR_WIDGETS_BG_COLOR);
+        mWidgetsBGColor.setOnPreferenceChangeListener(this);
+        int intColor = Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_WIDGETS_BG_COLOR, -2);
+        if (intColor == -2) {
+            intColor = getResources().getColor(
+                    com.android.internal.R.color.black);
+        }
+        String hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mWidgetsBGColor.setSummary(hexColor);
+        mWidgetsBGColor.setNewPreviewColor(intColor);
+
+        mWidgetsTextColor = (ColorPickerPreference) findPreference(PREF_NAVBAR_WIDGETS_TEXT_COLOR);
+        mWidgetsTextColor.setOnPreferenceChangeListener(this);
+        intColor = Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_WIDGETS_TEXT_COLOR, -2);
+        if (intColor == -2) {
+            intColor = getResources().getColor(
+                    com.android.internal.R.color.holo_blue_light);
+        }
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mWidgetsTextColor.setSummary(hexColor);
+        mWidgetsTextColor.setNewPreviewColor(intColor);
+
         float widgetsTransparency;
         try{
             widgetsTransparency = Settings.System.getFloat(getActivity()
@@ -303,7 +333,6 @@ public class Navbar extends AOKPPreferenceFragment implements
                 Settings.System.NAVIGATION_BAR_WIDGETS_ALPHA, widgetsTransparency);
         }
         mWidgetsTransparency = (SeekBarPreference) findPreference(PREF_NAVBAR_WIDGETS_ALPHA);
-        //mWidgetsTransparency.setProperty(Settings.System.NAVIGATION_BAR_WIDGETS_ALPHA);
         mWidgetsTransparency.setInitValue((int) (widgetsTransparency * 100));
         mWidgetsTransparency.setOnPreferenceChangeListener(this);
 
@@ -377,9 +406,12 @@ public class Navbar extends AOKPPreferenceFragment implements
                 Settings.System.putString(mContentRes,
                         Settings.System.NAVIGATION_CUSTOM_APP_ICONS[2], "");
                         
-                Settings.System.putFloat(getActivity().getContentResolver(),
-                       Settings.System.NAVIGATION_BAR_WIDGETS_ALPHA, 0.25f);
-                       
+		Settings.System.putInt(getActivity().getContentResolver(),
+                        Settings.System.NAVIGATION_BAR_WIDGETS_BG_COLOR, -2);
+                Settings.System.putInt(getActivity().getContentResolver(),
+                        Settings.System.NAVIGATION_BAR_WIDGETS_TEXT_COLOR, -2);
+		Settings.System.putFloat(getActivity().getContentResolver(),
+                       Settings.System.NAVIGATION_BAR_WIDGETS_ALPHA, 0.25f);     
                 loadButtons();
                 refreshSettings();
                 return true;
@@ -440,11 +472,27 @@ public class Navbar extends AOKPPreferenceFragment implements
             refreshSettings();
             mNavBarMenuDisplay.setEnabled(val < 4 ? true : false);
             return true;
-        }else if (preference == mWidgetsTransparency) {
+        } else if (preference == mWidgetsTransparency) {
             float valStat = Float.parseFloat((String) newValue);
             Settings.System.putFloat(getActivity().getContentResolver(),
                     Settings.System.NAVIGATION_BAR_WIDGETS_ALPHA,
                     valStat / 100);
+            return true;
+        } else if (preference == mWidgetsBGColor) {
+            String hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_WIDGETS_BG_COLOR, intHex);
+            return true;
+        } else if (preference == mWidgetsTextColor) {
+            String hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_WIDGETS_TEXT_COLOR, intHex);
             return true;
         } else if (preference == mNavBarMenuDisplay) {
             Settings.System.putInt(mContentRes,
