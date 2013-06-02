@@ -117,6 +117,10 @@
                 android:key="drag_handle_width"
                 android:title="@string/drag_handle_width_title"/>
 
+            <com.aokp.romcontrol.widgets.SeekBarPreference
+             android:key="navbar_widgets_alpha"
+             android:title="@string/navbar_widgets_transparency_title" />   
+                
             <ListPreference
                     android:entries="@array/hide_navbar_timeout_entries"
                     android:entryValues="@array/hide_navbar_timeout_values"

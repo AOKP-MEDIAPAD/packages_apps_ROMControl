@@ -98,7 +98,9 @@ public class Navbar extends AOKPPreferenceFragment implements
     private static final String NAVBAR_HIDE_TIMEOUT = "navbar_hide_timeout";
     private static final String DRAG_HANDLE_OPACITY = "drag_handle_opacity";
     private static final String DRAG_HANDLE_WIDTH = "drag_handle_width";
-
+    private static final String PREF_NAVBAR_WIDGETS_ALPHA = "navbar_widgets_alpha";
+    
+    
     public static final int REQUEST_PICK_CUSTOM_ICON = 200;
     public static final int REQUEST_PICK_LANDSCAPE_ICON = 201;
     private static final int DIALOG_NAVBAR_ENABLE = 203;
@@ -106,6 +108,7 @@ public class Navbar extends AOKPPreferenceFragment implements
     public static final String PREFS_NAV_BAR = "navbar";
 
     // move these later
+    SeekBarPreference mWidgetsTransparency;
     ColorPickerPreference mNavigationColor;
     ColorPickerPreference mNavigationBarColor;
     CheckBoxPreference mColorizeAllIcons;
@@ -289,6 +292,20 @@ public class Navbar extends AOKPPreferenceFragment implements
         if (Integer.parseInt(menuDisplayLocation.getValue()) == 4) {
             mNavBarMenuDisplay.setEnabled(false);
         }
+        
+        float widgetsTransparency;
+        try{
+            widgetsTransparency = Settings.System.getFloat(getActivity()
+                 .getContentResolver(), Settings.System.NAVIGATION_BAR_WIDGETS_ALPHA);
+        } catch (Exception e) {
+            widgetsTransparency = 0.25f;
+            Settings.System.putFloat(getActivity().getContentResolver(),
+                Settings.System.NAVIGATION_BAR_WIDGETS_ALPHA, widgetsTransparency);
+        }
+        mWidgetsTransparency = (SeekBarPreference) findPreference(PREF_NAVBAR_WIDGETS_ALPHA);
+        mWidgetsTransparency.setProperty(Settings.System.NAVIGATION_BAR_WIDGETS_ALPHA);
+        mWidgetsTransparency.setInitValue((int) (widgetsTransparency * 100));
+        mWidgetsTransparency.setOnPreferenceChangeListener(this);
 
         refreshSettings();
         setHasOptionsMenu(true);
@@ -359,6 +376,10 @@ public class Navbar extends AOKPPreferenceFragment implements
                         Settings.System.NAVIGATION_CUSTOM_APP_ICONS[1], "");
                 Settings.System.putString(mContentRes,
                         Settings.System.NAVIGATION_CUSTOM_APP_ICONS[2], "");
+                        
+                Settings.System.putFloat(getActivity().getContentResolver(),
+                       Settings.System.NAVIGATION_BAR_WIDGETS_ALPHA, 0.25f);
+                       
                 loadButtons();
                 refreshSettings();
                 return true;
@@ -418,6 +439,12 @@ public class Navbar extends AOKPPreferenceFragment implements
                     Settings.System.MENU_LOCATION, val);
             refreshSettings();
             mNavBarMenuDisplay.setEnabled(val < 4 ? true : false);
+            return true;
+        }else if (preference == mWidgetsTransparency) {
+            float valStat = Float.parseFloat((String) newValue);
+            Settings.System.putFloat(getActivity().getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_WIDGETS_ALPHA,
+                    valStat / 100);
             return true;
         } else if (preference == mNavBarMenuDisplay) {
             Settings.System.putInt(mContentRes,
