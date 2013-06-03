@@ -747,6 +747,10 @@
     <string name="circles_lock_wave_color_title">Wave color</string>
     <string name="circles_lock_wave_alpha_title">Wave alpha</string>
 
+    <!-- Camera lockscreen widget -->
+    <string name="lockscreen_camera_widget_hide_title">Disable lockscreen camera</string>
+    <string name="lockscreen_camera_widget_hide_summary">Allows you to disable camera widget in lockscreen.</string> 
+
     <!-- Lockscreen Targets-->
     <string name="lockscreen_targets_title">Lockscreen targets</string>
     <string name="lockscreen_targets_summary">Lockscreen targets summary…</string>
