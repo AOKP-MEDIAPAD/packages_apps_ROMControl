@@ -426,6 +426,16 @@
     <string name="battery_bar_animate_title">Enable charging animation</string>
     <string name="battery_bar_animate_summary">Enabling the charging animation may result in a poor user experience. Enable at your own discretion.</string>
 
+    <!-- Low battery warning policy -->
+    <string name="pref_low_battery_warning_policy_title">Low battery warning</string>
+    <string name="pref_low_battery_warning_policy_dialog_title">Indicate low battery warning with</string>
+    <string name="low_battery_warning_policy_popup_sound">Pop-up and sound</string>
+    <string name="low_battery_warning_policy_notif_sound">Notification and sound</string>
+    <string name="low_battery_warning_policy_popup">Pop-up dialog only</string>
+    <string name="low_battery_warning_policy_notif">Notification only</string>
+    <string name="low_battery_warning_policy_sound">Sound only</string>
+    <string name="low_battery_warning_policy_disabled">Disabled</string>
+
     <!-- Statusbar | Signal -->
     <string name="signal_style">Signal indicator style</string>
     <string name="signal_color_title">Signal text color</string>

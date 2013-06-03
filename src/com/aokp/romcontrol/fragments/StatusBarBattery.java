@@ -22,8 +22,11 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
     private static final String PREF_BATT_BAR_COLOR = "battery_bar_color";
     private static final String PREF_BATT_BAR_WIDTH = "battery_bar_thickness";
     private static final String PREF_BATT_ANIMATE = "battery_bar_animate";
+    private static final String KEY_LOW_BATTERY_WARNING_POLICY = "pref_low_battery_warning_policy";
 
     ListPreference mBatteryIcon;
+    ListPreference mLowBatteryWarning;
+
     ListPreference mBatteryBar;
     ListPreference mBatteryBarStyle;
     ListPreference mBatteryBarThickness;
@@ -70,6 +73,15 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
             mBatteryBarChargingAnimation.setEnabled(false);
             mBatteryBarThickness.setEnabled(false);
         }
+
+        mLowBatteryWarning = (ListPreference) findPreference(KEY_LOW_BATTERY_WARNING_POLICY);
+        int lowBatteryWarning = Settings.System.getInt(getActivity().getContentResolver(),
+                                    Settings.System.POWER_UI_LOW_BATTERY_WARNING_POLICY, 0);
+        mLowBatteryWarning.setValue(String.valueOf(lowBatteryWarning));
+        mLowBatteryWarning.setSummary(mLowBatteryWarning.getEntry());
+        mLowBatteryWarning.setOnPreferenceChangeListener(this);
+
+        updateBatteryIconOptions();
     }
 
     @Override
@@ -119,7 +131,14 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
                 mBatteryBarThickness.setEnabled(true);
             }
             return true;
-
+        } else if (preference == mLowBatteryWarning) {
+            int lowBatteryWarning = Integer.valueOf((String) newValue);
+            int index = mLowBatteryWarning.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.POWER_UI_LOW_BATTERY_WARNING_POLICY,
+                    lowBatteryWarning);
+            mLowBatteryWarning.setSummary(mLowBatteryWarning.getEntries()[index]);
+            return true; 
         } else if (preference == mBatteryBarStyle) {
 
             int val = Integer.parseInt((String) newValue);
