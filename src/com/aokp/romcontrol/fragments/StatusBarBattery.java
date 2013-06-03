@@ -81,7 +81,6 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
         mLowBatteryWarning.setSummary(mLowBatteryWarning.getEntry());
         mLowBatteryWarning.setOnPreferenceChangeListener(this);
 
-        updateBatteryIconOptions();
     }
 
     @Override

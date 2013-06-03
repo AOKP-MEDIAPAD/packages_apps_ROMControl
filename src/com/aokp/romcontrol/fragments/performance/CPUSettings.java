@@ -78,9 +78,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         mActivity = getActivity();
         View view = inflater.inflate(R.layout.cpu_settings, root, false);
 
-        mIsTegra3 = mActivity.getResources().getBoolean(
-            com.android.internal.R.bool.config_isTegra3);
-
+        mIsTegra3 = false;
         preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
 
         availableFrequencies = new String[0];

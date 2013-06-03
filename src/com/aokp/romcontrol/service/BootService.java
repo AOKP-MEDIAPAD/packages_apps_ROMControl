@@ -76,8 +76,7 @@ public class BootService extends Service {
                         "gov", null);
                 final String io = preferences.getString("io", null);
                 if (max != null && min != null && gov != null) {
-                    boolean mIsTegra3 = c.getResources().getBoolean(
-                                com.android.internal.R.bool.config_isTegra3);
+                    boolean mIsTegra3 = false;
                     int numOfCpu = 1;
                     String numOfCpus = Helpers.readOneLine(CPUSettings.NUM_OF_CPUS);
                     String[] cpuCount = numOfCpus.split("-");
@@ -97,14 +96,14 @@ public class BootService extends Service {
                     }
 
                     for (int i = 0; i < numOfCpu; i++) {
-                        cmd.su.runWaitFor("busybox echo " + max +
+                        CMDProcessor.runSuCommand("busybox echo " + max +
                             " > " + CPUSettings.MAX_FREQ
                             .replace("cpu0", "cpu" + i));
 
-                        cmd.su.runWaitFor("busybox echo " + min +
+                        CMDProcessor.runSuCommand("busybox echo " + min +
                             " > " + CPUSettings.MIN_FREQ
                             .replace("cpu0", "cpu" + i));
-                        cmd.su.runWaitFor("busybox echo " + gov +
+                        CMDProcessor.runSuCommand("busybox echo " + gov +
                             " > " + CPUSettings.GOVERNOR.
                             replace("cpu0", "cpu" + i));
                     }
