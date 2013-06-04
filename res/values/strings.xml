@@ -1086,7 +1086,7 @@
     <string name="dynamic_changelog_summary">Interactive changelog pulled live from our Gerrit instance</string>
 
     <!-- Piecontrols -->
-    <string name="pie_controls_title">Piecontrols</string>
+    <string name="pie_controls_title">Pie Controls</string>
     <string name="general_settings_title">General</string>
     <string name="pie_control_title">Pie Control</string>
     <string name="pie_control_summary">Allows navigation and status report</string>
