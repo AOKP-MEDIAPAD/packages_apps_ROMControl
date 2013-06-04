@@ -99,6 +99,7 @@ public class Pie extends AOKPPreferenceFragment
     private static final String PIE_MODE = "pie_mode";
     private static final String PIE_SIZE = "pie_size";
     private static final String PIE_TRIGGER = "pie_trigger";
+    private static final String PIE_ANGLE = "pie_angle";
     private static final String PIE_GAP = "pie_gap";
     private static final String PIE_CENTER = "pie_center";
     private static final String PIE_STICK = "pie_stick";
@@ -112,6 +113,7 @@ public class Pie extends AOKPPreferenceFragment
     private ListPreference mPieSize;
     private ListPreference mPieGravity;
     private ListPreference mPieTrigger;
+    private ListPreference mPieAngle;
     private ListPreference mPieGap;
     private CheckBoxPreference mPieCenter;
     private CheckBoxPreference mPieNotifi;
@@ -177,6 +179,12 @@ public class Pie extends AOKPPreferenceFragment
         mPieStick = (CheckBoxPreference) prefSet.findPreference(PIE_STICK);
         mPieStick.setChecked(Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.PIE_STICK, 1) == 1);
+
+        mPieAngle = (ListPreference) prefSet.findPreference(PIE_ANGLE);
+        int pieAngle = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.PIE_ANGLE, 0);
+        mPieAngle.setValue(String.valueOf(pieAngle));
+        mPieAngle.setOnPreferenceChangeListener(this);
 
         mPieGap = (ListPreference) prefSet.findPreference(PIE_GAP);
         int pieGap = Settings.System.getInt(mContext.getContentResolver(),
@@ -269,6 +277,11 @@ public class Pie extends AOKPPreferenceFragment
             int pieGravity = Integer.valueOf((String) newValue);
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.PIE_GRAVITY, pieGravity);
+            return true;
+        } else if (preference == mPieAngle) {
+            int pieAngle = Integer.valueOf((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.PIE_ANGLE, pieAngle);
             return true;
         } else if (preference == mPieGap) {
             int pieGap = Integer.valueOf((String) newValue);
