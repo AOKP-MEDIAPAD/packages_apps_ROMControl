@@ -1132,6 +1132,7 @@
     <string name="pie_center_summary">Control appears where you trigger</string>
     <string name="pie_trigger_title">Trigger Size</string>
     <string name="pie_trigger_summary">Determine size of trigger area</string>
+    <string name="pie_trigger_none">None (Pie disabled)</string> 
     <string name="pie_trigger_small">Small</string>
     <string name="pie_trigger_normal">Normal (Default)</string>
     <string name="pie_trigger_big">Big</string>
