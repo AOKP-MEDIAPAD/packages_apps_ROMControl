@@ -440,7 +440,9 @@
     <string name="signal_style">Signal indicator style</string>
     <string name="signal_color_title">Signal text color</string>
     <string name="hide_signal_title">Hide signal bars</string>
-    <string name="hide_signal_summary">Checking this hides the signal bar indicator (updates when signal strength changes)</string>
+    <string name="hide_signal_summary">Checking this hides the signal bar indicators (updates when signal strength changes)</string>
+    <string name="hide_all_signal_title">Hide signal and WiFi bars</string>
+    <string name="hide_all_signal_summary">Checking this hides signal and WiFi bar indicators</string>
     <string name="wifi_signal_style">WiFi signal indicator style</string>
     <string name="wifi_signal_color_title">WiFi signal text color</string>
     <string name="alt_signal_title">Alt signal indicator layout</string>
