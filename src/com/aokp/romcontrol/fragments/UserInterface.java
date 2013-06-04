@@ -106,7 +106,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_STATUSBAR_HIDDEN = "statusbar_hidden";
 	private static final String KEY_STATUS_BAR_ICON_OPACITY = "status_bar_icon_opacity";
     private static final String KEY_MISSED_CALL_BREATH = "missed_call_breath";
-
+    private static final String NOTIFICATION_SHADE_DIM = "notification_shade_dim";
+    
     private static int STOCK_FONT_SIZE = 16;
     private static final int REQUEST_PICK_WALLPAPER = 201;
     //private static final int REQUEST_PICK_CUSTOM_ICON = 202; //unused
@@ -144,7 +145,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
 	ListPreference mStatusBarIconOpacity;
     private CheckBoxPreference mMissedCallBreath;
     ListPreference mFontsize;
-
+    CheckBoxPreference mNotificationShadeDim;
+ 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
     private String mErrormsg;
@@ -281,6 +283,12 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mMissedCallBreath = (CheckBoxPreference) findPreference(KEY_MISSED_CALL_BREATH);
         mMissedCallBreath.setChecked(Settings.System.getBoolean(mContentResolver,
                 Settings.System.MISSED_CALL_BREATH, false));
+
+ 		mNotificationShadeDim = (CheckBoxPreference) findPreference(NOTIFICATION_SHADE_DIM);
+        boolean notificationDim = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.NOTIFICATION_SHADE_DIM, 0) == 1; 
+        mNotificationShadeDim.setChecked(notificationDim);
+        mNotificationShadeDim.setOnPreferenceChangeListener(this);
 
         // hide option if device is already set to never wake up
         if(!mContext.getResources().getBoolean(
@@ -998,6 +1006,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     Settings.System.STATUSBAR_FONT_SIZE, val);
             Helpers.restartSystemUI();
             return true;
+        } else if (preference == mNotificationShadeDim) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.NOTIFICATION_SHADE_DIM,
+                    (Boolean) newValue ? 1 : 0);
+            mNotificationShadeDim.setChecked((Boolean)newValue);
         }
         return false;
     }

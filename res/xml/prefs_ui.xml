@@ -61,6 +61,12 @@
             android:summary="@string/statusbar_hide_summary" />
 
         <CheckBoxPreference
+            android:key="notification_shade_dim"
+            android:title="@string/notification_shade_dim_title"
+            android:summary="@string/notification_shade_dim_summary" />
+
+            
+        <CheckBoxPreference
             android:key="ime_switcher"
             android:title="@string/ime_switcher_title"
             android:summary="@string/ime_switcher_summary"
