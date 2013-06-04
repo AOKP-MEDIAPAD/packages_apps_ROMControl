@@ -1093,8 +1093,6 @@
     <string name="pie_control_title">Pie Control</string>
     <string name="pie_control_summary">Allows navigation and status report</string>
     <string name="pie_targets_title">Targets</string>
-    <string name="pie_expanded_only_title">Only in expanded desktop</string>
-    <string name="pie_expanded_only_summary">Only allow pie to work when Expanded Desktop is on</string>
     <string name="pie_gravity_title">Pie Gravity</string>
     <string name="pie_gravity_summary">Select location of the control</string>
     <string name="pie_gravity_top">Top</string>
