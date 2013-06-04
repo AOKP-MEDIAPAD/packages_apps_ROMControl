@@ -30,6 +30,12 @@
             android:key="custom_carrier_label"
             android:title="@string/custom_carrier_label_title" />
 
+        <CheckBoxPreference
+            android:key="notification_show_wifi_ssid"
+            android:title="@string/notification_show_wifi_ssid_title"
+            android:summary="@string/notification_show_wifi_ssid_summary"
+            android:defaultValue="false" />
+
         <Preference
             android:key="notification_wallpaper"
             android:title="@string/notification_wallpaper_title"

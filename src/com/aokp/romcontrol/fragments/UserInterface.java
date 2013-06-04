@@ -84,6 +84,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_NOTIFICATION_WALLPAPER = "notification_wallpaper";
     private static final CharSequence PREF_NOTIFICATION_WALLPAPER_ALPHA = "notification_wallpaper_alpha";
     private static final CharSequence PREF_CUSTOM_CARRIER_LABEL = "custom_carrier_label";
+    private static final String PREF_NOTIFICATION_SHOW_WIFI_SSID = "notification_show_wifi_ssid";
     private static final CharSequence PREF_SHOW_OVERFLOW = "show_overflow";
     private static final CharSequence PREF_VIBRATE_NOTIF_EXPAND = "vibrate_notif_expand";
     private static final CharSequence PREF_LONGPRESS_TO_KILL = "longpress_to_kill";
@@ -124,6 +125,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     Preference mNotificationWallpaper;
     Preference mWallpaperAlpha;
     Preference mCustomLabel;
+    CheckBoxPreference mShowWifiName;
     Preference mCustomBootAnimation;
     ImageView mView;
     TextView mError;
@@ -199,6 +201,10 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
 
         mCustomLabel = findPreference(PREF_CUSTOM_CARRIER_LABEL);
         updateCustomLabelTextSummary();
+
+        mShowWifiName = (CheckBoxPreference) findPreference(PREF_NOTIFICATION_SHOW_WIFI_SSID);
+        mShowWifiName.setChecked(Settings.System.getBoolean(mContentResolver,
+                Settings.System.NOTIFICATION_SHOW_WIFI_SSID, true));
 
         mShowImeSwitcher = (CheckBoxPreference) findPreference(PREF_IME_SWITCHER);
         mShowImeSwitcher.setChecked(Settings.System.getBoolean(mContentResolver,
@@ -401,6 +407,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         } else if (preference == mDualpane) {
             Settings.System.putBoolean(mContentResolver,
                     Settings.System.FORCE_DUAL_PANEL,
+                    ((TwoStatePreference) preference).isChecked());
+            return true;
+        } else if (preference == mShowWifiName) {
+            Settings.System.putBoolean(mContentResolver,
+                    Settings.System.NOTIFICATION_SHOW_WIFI_SSID,
                     ((TwoStatePreference) preference).isChecked());
             return true;
         } else if (preference == mCustomBootAnimation) {
