@@ -1041,7 +1041,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         CheckBox mLinkCheckBox, mMatchStatusbarKeyguard, mMatchNavbarKeyguard;
         ViewGroup mNavigationBarGroup;
         TextView mSbLabel;
-        AlphaSeekBar mSeekBars[] = new AlphaSeekBar[5];
+        AlphaSeekBar mSeekBars[] = new AlphaSeekBar[6];
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
