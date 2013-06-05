@@ -49,6 +49,7 @@
     <string name="title_clipboard_share">Скопировать в буфер</string>
     <string name="mgerrit_activity_name">mGerrit</string>
     <string name="ribbon_settings_title">Ленты</string>
+	<string name="title_settings_lockclock">Настройки LockClock</string>
 
     <!-- Header Summaries -->
     <string name="header_summary_clock">@null</string>

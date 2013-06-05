@@ -49,7 +49,8 @@
     <string name="title_clipboard_share">Share to Clipboard</string>
     <string name="mgerrit_activity_name">mGerrit</string>
     <string name="ribbon_settings_title">Ribbons</string>
-
+	<string name="title_settings_lockclock">LockClock Settings</string>
+	
     <!-- Header Summaries -->
     <string name="header_summary_clock">@null</string>
     <string name="header_summary_toggles">@null</string>
