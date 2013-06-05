@@ -1136,12 +1136,17 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     Settings.System.putInt(mContentResolver,
                             Settings.System.LOCKSCREEN_ALPHA_CONFIG,
                             mSeekBars[LOCKSCREEN_ALPHA].getCurrentAlpha());
+
+                    foat valAlpha =  Float.parseFloat(Integer.toString(mSeekBars[NOTIFICATION_ALPHA].getCurrentAlpha()));
 					Settings.System.putFloat(mContentResolver,
                             Settings.System.NOTIF_ALPHA,
-                            ( mSeekBars[NOTIFICATION_ALPHA].getCurrentAlpha() / 255 ));
+                            ( valAlpha / 255 ));
+
+                    valAlpha =  Float.parseFloat(Integer.toString(mSeekBars[NOTIFICATION_BG_ALPHA].getCurrentAlpha()));
+					
 					Settings.System.putFloat(mContentResolver,
                             Settings.System.NOTIF_BG_ALPHA,
-                            ( mSeekBars[NOTIFICATION_BG_ALPHA].getCurrentAlpha() / 255 ));
+                            ( valAlpha / 255 ));
                     // update keyguard alpha
                     if (!mSeekBars[STATUSBAR_KG_ALPHA].isEnabled()) {
                         mSeekBars[STATUSBAR_KG_ALPHA].setCurrentAlpha(
