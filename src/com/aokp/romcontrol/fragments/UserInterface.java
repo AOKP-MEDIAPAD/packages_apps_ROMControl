@@ -1034,6 +1034,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         private static final int NAVBAR_ALPHA = 2;
         private static final int NAVBAR_KG_ALPHA = 3;
         private static final int LOCKSCREEN_ALPHA = 4;
+		private static final int NOTIFICATION_ALPHA = 5;
+		
         boolean linkTransparencies = true;
 
         CheckBox mLinkCheckBox, mMatchStatusbarKeyguard, mMatchNavbarKeyguard;
@@ -1065,7 +1067,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             mMatchStatusbarKeyguard = (CheckBox) layout.findViewById(R.id.statusbar_match_keyguard);
             mMatchNavbarKeyguard = (CheckBox) layout.findViewById(R.id.navbar_match_keyguard);
             mSeekBars[LOCKSCREEN_ALPHA] = (AlphaSeekBar) layout.findViewById(R.id.lockscreen_alpha);
-
+			
+			mSeekBars[NOTIFICATION_ALPHA] = (AlphaSeekBar) layout.findViewById(R.id.notification_alpha);
             try {
                 // restore any saved settings
                 int alphas[] = new int[2];
@@ -1073,7 +1076,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 int lockscreen_alpha = Settings.System.getInt(resolver,
                         Settings.System.LOCKSCREEN_ALPHA_CONFIG, KEYGUARD_ALPHA);
                 mSeekBars[LOCKSCREEN_ALPHA].setCurrentAlpha(lockscreen_alpha);
-                String sbConfig = Settings.System.getString(resolver,
+                
+				int notification_alpha = Integer.parseInt((Settings.System.getFloat(resolver, Settings.System.NOTIF_ALPHA, 0.0f) * 255).toString());	
+				mSeekBars[NOTIFICATION_ALPHA].setCurrentAlpha(notification_alpha);
+				 
+				String sbConfig = Settings.System.getString(resolver,
                         Settings.System.STATUS_BAR_ALPHA_CONFIG);
                 if (sbConfig != null) {
                     String split[] = sbConfig.split(";");
@@ -1124,6 +1131,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     Settings.System.putInt(mContentResolver,
                             Settings.System.LOCKSCREEN_ALPHA_CONFIG,
                             mSeekBars[LOCKSCREEN_ALPHA].getCurrentAlpha());
+					Settings.System.putFloat(mContentResolver,
+                            Settings.System.NOTIF_ALPHA,
+                            ( mSeekBars[NOTIFICATION_ALPHA].getCurrentAlpha() / 255 ));
                     // update keyguard alpha
                     if (!mSeekBars[STATUSBAR_KG_ALPHA].isEnabled()) {
                         mSeekBars[STATUSBAR_KG_ALPHA].setCurrentAlpha(
@@ -1164,6 +1174,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     Settings.System.NAVIGATION_BAR_ALPHA_CONFIG, null);
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.LOCKSCREEN_ALPHA_CONFIG, KEYGUARD_ALPHA);
+			Settings.System.putFloat(getActivity().getContentResolver(),
+                    Settings.System.NOTIF_ALPHA, 0.0f);
         }
 
         private void updateToggleState() {
@@ -1183,6 +1195,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             // update keyguard alpha
             int lockscreen_alpha = Settings.System.getInt(getActivity().getContentResolver(),
                         Settings.System.LOCKSCREEN_ALPHA_CONFIG, KEYGUARD_ALPHA);
+						
             if (!mSeekBars[STATUSBAR_KG_ALPHA].isEnabled()) {
                 mSeekBars[STATUSBAR_KG_ALPHA].setCurrentAlpha(lockscreen_alpha);
             }

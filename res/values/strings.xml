@@ -263,6 +263,8 @@
     <string name="transparency_dialog_transparency">Homescreen alpha</string>
     <string name="transparency_dialog_transparency_keyguard">Lockscreen alpha</string>
     <string name="transparency_dialog_lockscreen">Lockscreen</string>
+	<string name="transparency_dialog_notification">Notification rows</string>
+
 
     <!-- LCD Density -->
     <string name="dpi">DPI</string>
