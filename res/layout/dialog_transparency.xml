@@ -187,6 +187,38 @@
                 android:layout_marginTop="10dip" />
 
         </LinearLayout>
+		
+		
+		<!-- Notification bg transparency -->
+		<LinearLayout
+            android:id="@+id/notification_bg_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="10dip"
+                android:layout_marginTop="5dip"
+                android:background="#FF545454" />
+
+            <TextView
+                android:id="@+id/notification_bg_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:text="@string/transparency_dialog_notification_bg"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <com.aokp.romcontrol.widgets.AlphaSeekBar
+                android:id="@+id/notification_bg_alpha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dip"
+                android:layout_marginTop="10dip" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

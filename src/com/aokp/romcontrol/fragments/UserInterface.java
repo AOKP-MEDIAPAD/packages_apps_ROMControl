@@ -1035,13 +1035,14 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         private static final int NAVBAR_KG_ALPHA = 3;
         private static final int LOCKSCREEN_ALPHA = 4;
 		private static final int NOTIFICATION_ALPHA = 5;
+		private static final int NOTIFICATION_BG_ALPHA = 6;
 		
         boolean linkTransparencies = true;
 
         CheckBox mLinkCheckBox, mMatchStatusbarKeyguard, mMatchNavbarKeyguard;
         ViewGroup mNavigationBarGroup;
         TextView mSbLabel;
-        AlphaSeekBar mSeekBars[] = new AlphaSeekBar[6];
+        AlphaSeekBar mSeekBars[] = new AlphaSeekBar[7];
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -1069,6 +1070,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             mSeekBars[LOCKSCREEN_ALPHA] = (AlphaSeekBar) layout.findViewById(R.id.lockscreen_alpha);
 			
 			mSeekBars[NOTIFICATION_ALPHA] = (AlphaSeekBar) layout.findViewById(R.id.notification_alpha);
+			mSeekBars[NOTIFICATION_BG_ALPHA] = (AlphaSeekBar) layout.findViewById(R.id.notification_bg_alpha);
             try {
                 // restore any saved settings
                 int alphas[] = new int[2];
@@ -1079,6 +1081,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 
 				int notification_alpha = (int)(Settings.System.getFloat(resolver, Settings.System.NOTIF_ALPHA, 0.0f) * 255);	
 				mSeekBars[NOTIFICATION_ALPHA].setCurrentAlpha(notification_alpha);
+				 
+				int notification_bg_alpha = (int)(Settings.System.getFloat(resolver, Settings.System.NOTIF_BG_ALPHA, 0.0f) * 255);	
+				mSeekBars[NOTIFICATION_BG_ALPHA].setCurrentAlpha(notification_bg_alpha); 
 				 
 				String sbConfig = Settings.System.getString(resolver,
                         Settings.System.STATUS_BAR_ALPHA_CONFIG);
@@ -1134,6 +1139,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
 					Settings.System.putFloat(mContentResolver,
                             Settings.System.NOTIF_ALPHA,
                             ( mSeekBars[NOTIFICATION_ALPHA].getCurrentAlpha() / 255 ));
+					Settings.System.putFloat(mContentResolver,
+                            Settings.System.NOTIF_BG_ALPHA,
+                            ( mSeekBars[NOTIFICATION_BG_ALPHA].getCurrentAlpha() / 255 ));
                     // update keyguard alpha
                     if (!mSeekBars[STATUSBAR_KG_ALPHA].isEnabled()) {
                         mSeekBars[STATUSBAR_KG_ALPHA].setCurrentAlpha(
