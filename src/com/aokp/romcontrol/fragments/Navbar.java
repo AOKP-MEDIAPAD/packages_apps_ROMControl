@@ -309,7 +309,6 @@ public class Navbar extends AOKPPreferenceFragment implements
         }
         String hexColor = String.format("#%08x", (0xffffffff & intColor));
         mWidgetsBGColor.setSummary(hexColor);
-        mWidgetsBGColor.setNewPreviewColor(intColor);
 
         mWidgetsTextColor = (ColorPickerPreference) findPreference(PREF_NAVBAR_WIDGETS_TEXT_COLOR);
         mWidgetsTextColor.setOnPreferenceChangeListener(this);
@@ -321,7 +320,6 @@ public class Navbar extends AOKPPreferenceFragment implements
         }
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mWidgetsTextColor.setSummary(hexColor);
-        mWidgetsTextColor.setNewPreviewColor(intColor);
 
         float widgetsTransparency;
         try{
