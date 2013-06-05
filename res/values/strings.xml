@@ -49,7 +49,8 @@
     <string name="title_clipboard_share">Share to Clipboard</string>
     <string name="mgerrit_activity_name">mGerrit</string>
     <string name="ribbon_settings_title">Ribbons</string>
-
+	<string name="title_settings_lockclock">LockClock Settings</string>
+	
     <!-- Header Summaries -->
     <string name="header_summary_clock">@null</string>
     <string name="header_summary_toggles">@null</string>
@@ -149,7 +150,7 @@
     <string name="about_aokp">About AOKP</string>
     <string name="about_aokp_summary">@null</string>
     <string name="donate_aokp">https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=33BSVX4RM9CLC</string>
-    <string name="github_aokp">https://github.com/AOKP-MEDIAPAD</string>
+    <string name="github_aokp">https://github.com/AOKPZMod</string>
     <string name="github_adam">https://github.com/syaoran12</string>
     <string name="github_zyr3x">https://github.com/zyr3x</string>
     <string name="github_akellar">https://github.com/akellar</string>
@@ -262,6 +263,8 @@
     <string name="transparency_dialog_transparency">Homescreen alpha</string>
     <string name="transparency_dialog_transparency_keyguard">Lockscreen alpha</string>
     <string name="transparency_dialog_lockscreen">Lockscreen</string>
+	<string name="transparency_dialog_notification">Notification rows</string>
+	<string name="transparency_dialog_notification_bg">Notification background</string>
 
     <!-- LCD Density -->
     <string name="dpi">DPI</string>
@@ -358,8 +361,8 @@
     <string name="state_one_dclick">Set to state one</string>
     <string name="skip_back_dclick">Skip back (no action)</string>
     <string name="skip_up_dclick">Skip forward (no action)</string>
-    <string name="collapse_bar_title">Close statusbar</string>
-    <string name="collapse_bar_summary">Statusbar closes on action completion</string>
+    <string name="collapse_bar_title">Close notification shade</string>
+    <string name="collapse_bar_summary">Notification shade closes on action completion</string>
     <string name="no_collapse">Never collapse</string>
     <string name="click_collapse">On click</string>
     <string name="long_collapse">On long click</string>
@@ -426,15 +429,39 @@
     <string name="battery_bar_animate_title">Enable charging animation</string>
     <string name="battery_bar_animate_summary">Enabling the charging animation may result in a poor user experience. Enable at your own discretion.</string>
 
+    <!-- Low battery warning policy -->
+    <string name="pref_low_battery_warning_policy_title">Low battery warning</string>
+    <string name="pref_low_battery_warning_policy_dialog_title">Indicate low battery warning with</string>
+    <string name="low_battery_warning_policy_popup_sound">Pop-up and sound</string>
+    <string name="low_battery_warning_policy_notif_sound">Notification and sound</string>
+    <string name="low_battery_warning_policy_popup">Pop-up dialog only</string>
+    <string name="low_battery_warning_policy_notif">Notification only</string>
+    <string name="low_battery_warning_policy_sound">Sound only</string>
+    <string name="low_battery_warning_policy_disabled">Disabled</string>
+
     <!-- Statusbar | Signal -->
     <string name="signal_style">Signal indicator style</string>
     <string name="signal_color_title">Signal text color</string>
     <string name="hide_signal_title">Hide signal bars</string>
-    <string name="hide_signal_summary">Checking this hides the signal bar indicator (updates when signal strength changes)</string>
+    <string name="hide_signal_summary">Checking this hides the signal bar indicators (updates when signal strength changes)</string>
+    <string name="hide_all_signal_title">Hide signal and WiFi bars</string>
+    <string name="hide_all_signal_summary">Checking this hides signal and WiFi bar indicators</string>
     <string name="wifi_signal_style">WiFi signal indicator style</string>
     <string name="wifi_signal_color_title">WiFi signal text color</string>
     <string name="alt_signal_title">Alt signal indicator layout</string>
     <string name="alt_signal_summary">Use alternate Gingerbread style signal cluster</string>
+    <string name="statusbar_fontsize">Statusbar Font Size</string>
+    <string name="statusbar_fontsize_summary">Change the size of text elements on statusbar\nWill restart UI!</string>
+    <string name="font_8dp">8 dp</string>
+    <string name="font_10dp">10 dp</string>
+    <string name="font_12dp">12 dp</string>
+    <string name="font_14dp">14 dp</string>
+    <string name="font_16dp">16 dp (Default)</string>
+    <string name="font_18dp">18 dp</string>
+    <string name="font_20dp">20 dp</string>
+    <string name="font_22dp">22 dp</string>
+    <string name="font_24dp">24 dp</string>
+    <string name="font_26dp">26 dp</string>
 
     <!-- Color Picker -->
     <string name="dialog_color_picker">Color Picker</string>
@@ -508,10 +535,13 @@
     <string name="statusbar_hide_summary">Checking this completely hides the Statusbar</string>
     <string name="navigation_bar_alpha_title">Statusbar and Navigation Bar opacity</string>
     <string name="navbar_hide_enable_title">Hidden NavBar Enable</string>
+    <string name="systembar_hide_enable_title">Hidden SystemBar Enable</string>
     <string name="drag_handle_opacity_title">Drag Handle Opacity</string>
     <string name="drag_handle_width_title">Drag Handle Width</string>
     <string name="title_navbar_timeout">Hidden NavBar Timeout</string>
+    <string name="title_systembar_timeout">Hidden SystemBar Timeout</string>
     <string name="summary_navbar_timeout">Timeout time for Hidden NavBar Window</string>
+    <string name="summary_systembar_timeout">Timeout time for Hidden SystemBar Window</string>
     <string name="hide_navbar_timeout_never">Never</string>
     <string name="hide_navbar_timeout_1500">1.5 Sec</string>
     <string name="hide_navbar_timeout_3000">3 Sec</string>
@@ -525,6 +555,11 @@
     <string name="navbar_longpress_menu">Longpress: %1$s</string>
     <string name="navbar_icon_menu">Custom icon</string>
     <string name="navbar_delete_menu">Delete button</string>
+    <string name="navbar_widgets_text_color_title">Widgets viewpager text color</string>
+    <string name="navbar_widgets_bg_color_title">Widgets viewpager background color</string>
+    <string name="navbar_widgets_transparency_title">Widgets viewpager transparency</string>
+  
+    
 
     <!-- Nav Ring Targets -->
     <string name="navbar_ring_cat">Navigation Ring Targets</string>
@@ -547,7 +582,7 @@
     <string name="navring_long">Long action</string>
     <string name="navring_icon">Custom icon</string>
     <string name="navring_target_amount_text">Current number of targets</string>
-    <string name="navring_target_longpress_text">Longpress status</string>
+    <string name="navring_target_longpress_text">Longpress actions</string>
 
    <!-- Ribbon -->
     <string name="ribbon_dialog_arrange_title">Ribbon layout</string>
@@ -717,10 +752,16 @@
     <string name="circles_lock_wave_color_title">Wave color</string>
     <string name="circles_lock_wave_alpha_title">Wave alpha</string>
 
+    <!-- Camera lockscreen widget -->
+    <string name="lockscreen_camera_widget_hide_title">Disable lockscreen camera</string>
+    <string name="lockscreen_camera_widget_hide_summary">Allows you to disable camera widget in lockscreen.</string> 
+
     <!-- Lockscreen Targets-->
     <string name="lockscreen_targets_title">Lockscreen targets</string>
     <string name="lockscreen_targets_summary">Lockscreen targets summary…</string>
-    <string name="lockscreen_target_longpress_text">Longpress status</string>
+    <string name="lockscreen_target_longpress_text">Longpress actions</string>
+    <string name="lockscreen_glow_torch_text">GlowPad torch</string>
+    <string name="lockscreen_glow_torch_summary">Longpressing the center of the lockcircle will turn torch on.  Release finger to turn torch off.</string>
     <string name="lockscreen_camera">Camera</string>
     <string name="lockscreen_unlock">Unlock</string>
     <string name="save_error">Could not save targets! You must have at least one unlock target!</string>
@@ -1047,40 +1088,10 @@
 
     <!-- dynamic changelog -->
     <string name="dynamic_changelog_title">Dynamic ChangeLog</string>
-    <string name="dynamic_changelog_summary">Interactive changelog pulled live from github</string>
-    <string name="dynamic_changelog_cat_title">Changelog</string>
-    <string name="changelog_menu_projects_title">View Projects List</string>
-    <string name="changelog_menu_commitlog_title">View Most Recent Commits</string>
-    <string name="button_close">Close</string>
-    <string name="button_webview">WebView</string>
-    <string name="commit_extended_info_title">Extended Commit Info</string>
-    <string name="commit_message">Commit Message</string>
-    <string name="commit_date">Commit Date</string>
-    <string name="commit_sha">Commit SHA-1 Hash</string>
-    <string name="next_commits_page_title">More\u2026</string>
-    <string name="next_commits_page_summary">\u2026display next 30 commits</string>
-    <string name="loading_commits">Loading commits\u2026</string>
-    <string name="commits_title">Commits</string>
-    <string name="loading_projects">Loading projects list\u2026</string>
-    <string name="org_projects">Organization projects</string>
-    <string name="author_title">Author</string>
-    <string name="commit_committer_title">Committer</string>
-    <string name="sort_commits_title">Sort</string>
-    <string name="sort_commits_message">Commits are now in order by repository, would you like to sort them by date regardless of which repository in which they exist?</string>
-    <string name="button_sort">Sort by date</string>
-    <string name="button_donot_sort">Do not sort</string>
-    <string name="unknown_author">Unknown Author</string>
-    <string name="unknown_committer">Unknown Committer</string>
-    <string name="toast_commitlog_info" formatted="false">Found %d commits in %d seconds</string>
-    <string name="changelog_favorite_cat_title">Favorited Projects</string>
-    <string name="changelog_add_to_favs_list">Add</string>
-    <string name="changelog_view_commits">View commits</string>
-    <string name="add_favs_or_view">Add to favorites list or view commits?</string>
-    <string name="remove_favs_or_view">Remove from favorites list or view commits?</string>
-    <string name="changelog_remove_from_favs_list">Remove</string>
+    <string name="dynamic_changelog_summary">Interactive changelog pulled live from our Gerrit instance</string>
 
     <!-- Piecontrols -->
-    <string name="pie_controls_title">Piecontrols</string>
+    <string name="pie_controls_title">Pie Controls</string>
     <string name="general_settings_title">General</string>
     <string name="pie_control_title">Pie Control</string>
     <string name="pie_control_summary">Allows navigation and status report</string>
@@ -1114,16 +1125,24 @@
     <string name="pie_chevron_right_title">Right Chevron Color</string>
     <string name="pie_juice_title">Battery Juice Color</string>
     <string name="pie_button_color_title">Buttons Color</string>
+    <string name="pie_angle_title">Pie angle</string>
+    <string name="pie_angle_summary">Adjust the angle of pie\'s egdes from the attachment</string>
+    <string name="pie_angle_none">None (old)</string> 
+    <string name="pie_angle_small">Small</string>
+    <string name="pie_angle_big">Normal (default)</string>
+    <string name="pie_angle_huge">Big</string> 
+    <string name="pie_angle_super">Huge</string>
     <string name="pie_gap_title">Pie Gap</string>
     <string name="pie_gap_summary">Adjust gap that separates elements</string>
     <string name="pie_gap_none">None</string>
     <string name="pie_gap_small">Small</string>
-    <string name="pie_gap_big">Big</string>
-    <string name="pie_gap_huge">Huge (Default)</string>
+    <string name="pie_gap_big">Big (default)</string>
+    <string name="pie_gap_huge">Huge</string>
     <string name="pie_center_title">Center Pie</string>
     <string name="pie_center_summary">Control appears where you trigger</string>
     <string name="pie_trigger_title">Trigger Size</string>
     <string name="pie_trigger_summary">Determine size of trigger area</string>
+    <string name="pie_trigger_none">None (Pie disabled)</string> 
     <string name="pie_trigger_small">Small</string>
     <string name="pie_trigger_normal">Normal (Default)</string>
     <string name="pie_trigger_big">Big</string>
@@ -1182,5 +1201,9 @@
     <!-- Breathing Missed call -->
     <string name="missed_call_breath">Breathing Missed Call</string>
     <string name="missed_call_breath_summary">Will give your missed call notifications a breathing effect on the statusbar.</string>
+
+    <!-- Notification shade dimming -->
+    <string name="notification_shade_dim_title">Dim notification shade</string>
+    <string name="notification_shade_dim_summary">Toggle the dimming effect when pulling down the notification shade</string>
 
 </resources>

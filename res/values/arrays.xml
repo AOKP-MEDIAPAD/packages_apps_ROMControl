@@ -242,6 +242,25 @@
         <item>5</item>
     </string-array>
 
+    <!-- Low battery warning policy -->
+    <string-array name="pref_low_battery_warning_policy_entries">
+        <item>@string/low_battery_warning_policy_popup_sound</item>
+        <item>@string/low_battery_warning_policy_notif_sound</item>
+        <item>@string/low_battery_warning_policy_popup</item>
+        <item>@string/low_battery_warning_policy_notif</item>
+        <item>@string/low_battery_warning_policy_sound</item>
+        <item>@string/low_battery_warning_policy_disabled</item>
+    </string-array>
+
+    <string-array name="pref_low_battery_warning_policy_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
     <!-- NavBar -->
     <string-array name="pref_navigation_menu_entries" translatable="false">
         <item>@string/right</item>
@@ -642,6 +661,31 @@
         <item>360</item>
         <item>480</item>
     </string-array>
+    <string-array name="statusbar_fontsize_entries">
+        <item>@string/font_8dp</item>
+        <item>@string/font_10dp</item>
+        <item>@string/font_12dp</item>
+        <item>@string/font_14dp</item>
+        <item>@string/font_16dp</item>
+        <item>@string/font_18dp</item>
+        <item>@string/font_20dp</item>
+        <item>@string/font_22dp</item>
+        <item>@string/font_24dp</item>
+        <item>@string/font_26dp</item>
+    </string-array>
+
+    <string-array name="statusbar_fontsize_values">
+        <item>8</item>
+        <item>10</item>
+        <item>12</item>
+        <item>14</item>
+        <item>16</item>
+        <item>18</item>
+        <item>20</item>
+        <item>22</item>
+        <item>24</item>
+        <item>26</item>
+    </string-array>
     <string-array name="weather_statusbar_location_entries" translatable="false">
         <item>@string/above_carrier_text</item>
         <item>@string/weather_panel</item>
@@ -940,6 +984,22 @@
         <item>2</item>
     </string-array>
 
+    <string-array name="entries_pie_angle">
+        <item>@string/pie_angle_none</item>
+        <item>@string/pie_angle_small</item>
+        <item>@string/pie_angle_big</item>
+        <item>@string/pie_angle_huge</item>
+        <item>@string/pie_angle_super</item>
+    </string-array>
+
+    <string-array name="values_pie_angle" translatable="false">
+        <item>0</item>
+        <item>6</item>
+        <item>12</item>
+        <item>18</item>
+        <item>24</item>
+    </string-array>
+
     <string-array name="entries_pie_gap">
         <item>@string/pie_gap_none</item>
         <item>@string/pie_gap_small</item>
@@ -955,6 +1015,7 @@
     </string-array>
 
     <string-array name="entries_pie_trigger">
+        <item>@string/pie_trigger_none</item> 
         <item>@string/pie_trigger_small</item>
         <item>@string/pie_trigger_normal</item>
         <item>@string/pie_trigger_big</item>
@@ -962,6 +1023,7 @@
     </string-array>
 
     <string-array name="values_pie_trigger" translatable="false">
+        <item>0.0</item> 
         <item>0.5</item>
         <item>1.0</item>
         <item>2.0</item>

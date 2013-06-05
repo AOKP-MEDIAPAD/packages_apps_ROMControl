@@ -58,14 +58,24 @@
         android:title="@string/lcd_density_title"
         android:icon="@drawable/ic_rom_control_dpi"
         android:summary="@string/header_summary_dpi_density" />
-
-     <header
+			
+	<!-- Lock Clock -->
+	<header android:icon="@drawable/ic_rom_control_weather"
+            android:title="@string/title_settings_lockclock">
+        <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="com.cyanogenmod.lockclock.preference.Preferences"
+                android:targetPackage="com.cyanogenmod.lockclock" />
+    </header>
+	
+    <header
         android:id="@+id/ribbon_targets"
         android:fragment="com.aokp.romcontrol.fragments.RibbonTargets"
         android:icon="@drawable/ic_rom_control_ribbon"
         android:title="@string/ribbon_settings_title"
         android:summary="@string/ribbon_settings_summary" />
 
+		
 
     <header
         android:id="@+id/statusbar"

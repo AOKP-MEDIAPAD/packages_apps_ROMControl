@@ -98,7 +98,12 @@ public class Navbar extends AOKPPreferenceFragment implements
     private static final String NAVBAR_HIDE_TIMEOUT = "navbar_hide_timeout";
     private static final String DRAG_HANDLE_OPACITY = "drag_handle_opacity";
     private static final String DRAG_HANDLE_WIDTH = "drag_handle_width";
+    private static final String PREF_NAVBAR_WIDGETS_ALPHA = "navbar_widgets_alpha";
+    private static final String PREF_NAVBAR_WIDGETS_BG_COLOR = "navbar_widgets_bg_color";
+    private static final String PREF_NAVBAR_WIDGETS_TEXT_COLOR = "navbar_widgets_text_color";
 
+    
+    
     public static final int REQUEST_PICK_CUSTOM_ICON = 200;
     public static final int REQUEST_PICK_LANDSCAPE_ICON = 201;
     private static final int DIALOG_NAVBAR_ENABLE = 203;
@@ -106,6 +111,10 @@ public class Navbar extends AOKPPreferenceFragment implements
     public static final String PREFS_NAV_BAR = "navbar";
 
     // move these later
+    ColorPickerPreference mWidgetsBGColor;
+    ColorPickerPreference mWidgetsTextColor;
+    SeekBarPreference mWidgetsTransparency;
+    
     ColorPickerPreference mNavigationColor;
     ColorPickerPreference mNavigationBarColor;
     CheckBoxPreference mColorizeAllIcons;
@@ -266,21 +275,20 @@ public class Navbar extends AOKPPreferenceFragment implements
             prefs.removePreference(mEnableNavigationBar);
         }
         PreferenceGroup pg = (PreferenceGroup) prefs.findPreference("advanced_cat");
-        if (isTablet(mContext)) {
+        if (isTabletUI(mContext)) {
             mNavigationBarHeight.setTitle(R.string.system_bar_height_title);
             mNavigationBarHeight.setSummary(R.string.system_bar_height_summary);
             mNavigationBarHeightLandscape.setTitle(R.string.system_bar_height_landscape_title);
             mNavigationBarHeightLandscape.setSummary(R.string.system_bar_height_landscape_summary);
             pg.removePreference(mNavigationBarWidth);
-            mNavBarHideEnable.setEnabled(false);
-            mDragHandleOpacity.setEnabled(false);
-            mDragHandleWidth.setEnabled(false);
-            mNavBarHideTimeout.setEnabled(false);
+            mNavBarHideEnable.setTitle(R.string.systembar_hide_enable_title);
+            mNavBarHideTimeout.setTitle(R.string.title_systembar_timeout);
+            mNavBarHideTimeout.setSummary(R.string.summary_systembar_timeout);
         } else { // Phones&Phablets don't have SystemBar
             pg.removePreference(mWidthPort);
             pg.removePreference(mWidthLand);
             pg.removePreference(mWidthHelp);
-            if (isPhablet(mContext)) { // Phablets don't have NavBar onside
+            if (isPhabletUI(mContext)) { // Phablets don't have NavBar onside
                 pg.removePreference(mNavigationBarWidth);
             } else {
                 pg.removePreference(mNavigationBarHeightLandscape);
@@ -290,6 +298,41 @@ public class Navbar extends AOKPPreferenceFragment implements
         if (Integer.parseInt(menuDisplayLocation.getValue()) == 4) {
             mNavBarMenuDisplay.setEnabled(false);
         }
+        
+        mWidgetsBGColor = (ColorPickerPreference) findPreference(PREF_NAVBAR_WIDGETS_BG_COLOR);
+        mWidgetsBGColor.setOnPreferenceChangeListener(this);
+        int intColor = Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_WIDGETS_BG_COLOR, -2);
+        if (intColor == -2) {
+            intColor = getResources().getColor(
+                    com.android.internal.R.color.black);
+        }
+        String hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mWidgetsBGColor.setSummary(hexColor);
+
+        mWidgetsTextColor = (ColorPickerPreference) findPreference(PREF_NAVBAR_WIDGETS_TEXT_COLOR);
+        mWidgetsTextColor.setOnPreferenceChangeListener(this);
+        intColor = Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_WIDGETS_TEXT_COLOR, -2);
+        if (intColor == -2) {
+            intColor = getResources().getColor(
+                    com.android.internal.R.color.holo_blue_light);
+        }
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mWidgetsTextColor.setSummary(hexColor);
+
+        float widgetsTransparency;
+        try{
+            widgetsTransparency = Settings.System.getFloat(getActivity()
+                 .getContentResolver(), Settings.System.NAVIGATION_BAR_WIDGETS_ALPHA);
+        } catch (Exception e) {
+            widgetsTransparency = 0.25f;
+            Settings.System.putFloat(getActivity().getContentResolver(),
+                Settings.System.NAVIGATION_BAR_WIDGETS_ALPHA, widgetsTransparency);
+        }
+        mWidgetsTransparency = (SeekBarPreference) findPreference(PREF_NAVBAR_WIDGETS_ALPHA);
+        mWidgetsTransparency.setInitValue((int) (widgetsTransparency * 100));
+        mWidgetsTransparency.setOnPreferenceChangeListener(this);
 
         refreshSettings();
         setHasOptionsMenu(true);
@@ -360,6 +403,13 @@ public class Navbar extends AOKPPreferenceFragment implements
                         Settings.System.NAVIGATION_CUSTOM_APP_ICONS[1], "");
                 Settings.System.putString(mContentRes,
                         Settings.System.NAVIGATION_CUSTOM_APP_ICONS[2], "");
+                        
+		Settings.System.putInt(getActivity().getContentResolver(),
+                        Settings.System.NAVIGATION_BAR_WIDGETS_BG_COLOR, -2);
+                Settings.System.putInt(getActivity().getContentResolver(),
+                        Settings.System.NAVIGATION_BAR_WIDGETS_TEXT_COLOR, -2);
+		Settings.System.putFloat(getActivity().getContentResolver(),
+                       Settings.System.NAVIGATION_BAR_WIDGETS_ALPHA, 0.25f);     
                 loadButtons();
                 refreshSettings();
                 return true;
@@ -419,6 +469,28 @@ public class Navbar extends AOKPPreferenceFragment implements
                     Settings.System.MENU_LOCATION, val);
             refreshSettings();
             mNavBarMenuDisplay.setEnabled(val < 4 ? true : false);
+            return true;
+        } else if (preference == mWidgetsTransparency) {
+            float valStat = Float.parseFloat((String) newValue);
+            Settings.System.putFloat(getActivity().getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_WIDGETS_ALPHA,
+                    valStat / 100);
+            return true;
+        } else if (preference == mWidgetsBGColor) {
+            String hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_WIDGETS_BG_COLOR, intHex);
+            return true;
+        } else if (preference == mWidgetsTextColor) {
+            String hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_WIDGETS_TEXT_COLOR, intHex);
             return true;
         } else if (preference == mNavBarMenuDisplay) {
             Settings.System.putInt(mContentRes,
@@ -580,11 +652,9 @@ public class Navbar extends AOKPPreferenceFragment implements
 
     public void refreshSettings() {
         refreshButtons();
-        if (!isTablet(mContext)) {
-            mDragHandleOpacity.setEnabled(mNavBarHideEnable.isChecked());
-            mDragHandleWidth.setEnabled(mNavBarHideEnable.isChecked());
-            mNavBarHideTimeout.setEnabled(mNavBarHideEnable.isChecked());
-        }
+        mDragHandleOpacity.setEnabled(mNavBarHideEnable.isChecked());
+        mDragHandleWidth.setEnabled(mNavBarHideEnable.isChecked());
+        mNavBarHideTimeout.setEnabled(mNavBarHideEnable.isChecked());
     }
 
     private Uri getTempFileUri() {

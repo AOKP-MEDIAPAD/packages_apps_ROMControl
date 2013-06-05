@@ -84,6 +84,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_NOTIFICATION_WALLPAPER = "notification_wallpaper";
     private static final CharSequence PREF_NOTIFICATION_WALLPAPER_ALPHA = "notification_wallpaper_alpha";
     private static final CharSequence PREF_CUSTOM_CARRIER_LABEL = "custom_carrier_label";
+    private static final String PREF_NOTIFICATION_SHOW_WIFI_SSID = "notification_show_wifi_ssid";
     private static final CharSequence PREF_SHOW_OVERFLOW = "show_overflow";
     private static final CharSequence PREF_VIBRATE_NOTIF_EXPAND = "vibrate_notif_expand";
     private static final CharSequence PREF_LONGPRESS_TO_KILL = "longpress_to_kill";
@@ -106,7 +107,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_STATUSBAR_HIDDEN = "statusbar_hidden";
 	private static final String KEY_STATUS_BAR_ICON_OPACITY = "status_bar_icon_opacity";
     private static final String KEY_MISSED_CALL_BREATH = "missed_call_breath";
-
+    private static final String NOTIFICATION_SHADE_DIM = "notification_shade_dim";
+    
+    private static int STOCK_FONT_SIZE = 16;
     private static final int REQUEST_PICK_WALLPAPER = 201;
     //private static final int REQUEST_PICK_CUSTOM_ICON = 202; //unused
     private static final int REQUEST_PICK_BOOT_ANIMATION = 203;
@@ -122,6 +125,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     Preference mNotificationWallpaper;
     Preference mWallpaperAlpha;
     Preference mCustomLabel;
+    CheckBoxPreference mShowWifiName;
     Preference mCustomBootAnimation;
     ImageView mView;
     TextView mError;
@@ -142,7 +146,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mStatusBarHide;
 	ListPreference mStatusBarIconOpacity;
     private CheckBoxPreference mMissedCallBreath;
-
+    ListPreference mFontsize;
+    CheckBoxPreference mNotificationShadeDim;
+ 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
     private String mErrormsg;
@@ -195,6 +201,10 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
 
         mCustomLabel = findPreference(PREF_CUSTOM_CARRIER_LABEL);
         updateCustomLabelTextSummary();
+
+        mShowWifiName = (CheckBoxPreference) findPreference(PREF_NOTIFICATION_SHOW_WIFI_SSID);
+        mShowWifiName.setChecked(Settings.System.getBoolean(mContentResolver,
+                Settings.System.NOTIFICATION_SHOW_WIFI_SSID, true));
 
         mShowImeSwitcher = (CheckBoxPreference) findPreference(PREF_IME_SWITCHER);
         mShowImeSwitcher.setChecked(Settings.System.getBoolean(mContentResolver,
@@ -280,13 +290,24 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mMissedCallBreath.setChecked(Settings.System.getBoolean(mContentResolver,
                 Settings.System.MISSED_CALL_BREATH, false));
 
+ 		mNotificationShadeDim = (CheckBoxPreference) findPreference(NOTIFICATION_SHADE_DIM);
+        boolean notificationDim = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.NOTIFICATION_SHADE_DIM, 0) == 1; 
+        mNotificationShadeDim.setChecked(notificationDim);
+        mNotificationShadeDim.setOnPreferenceChangeListener(this);
+
         // hide option if device is already set to never wake up
         if(!mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_unplugTurnsOnScreen)) {
             ((PreferenceGroup) findPreference(PREF_DISPLAY)).removePreference(mWakeUpWhenPluggedOrUnplugged);
         }
 
-        if (isTablet(mContext)) {
+        mFontsize = (ListPreference) findPreference("status_bar_fontsize");
+        mFontsize.setOnPreferenceChangeListener(this);
+        mFontsize.setValue(Integer.toString(Settings.System.getInt(mContentRes,
+                Settings.System.STATUSBAR_FONT_SIZE, STOCK_FONT_SIZE)));
+
+        if (isTabletUI(mContext)) {
             mStatusbarSliderPreference.setEnabled(false);
             mStatusBarHide.setEnabled(false);
         } else {
@@ -386,6 +407,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         } else if (preference == mDualpane) {
             Settings.System.putBoolean(mContentResolver,
                     Settings.System.FORCE_DUAL_PANEL,
+                    ((TwoStatePreference) preference).isChecked());
+            return true;
+        } else if (preference == mShowWifiName) {
+            Settings.System.putBoolean(mContentResolver,
+                    Settings.System.NOTIFICATION_SHOW_WIFI_SSID,
                     ((TwoStatePreference) preference).isChecked());
             return true;
         } else if (preference == mCustomBootAnimation) {
@@ -985,6 +1011,17 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_NOTIF_ICON_OPACITY, iconOpacity);
             return true; 
+        }  else if (preference == mFontsize) {
+            int val = Integer.parseInt((String) newValue);
+            Settings.System.putInt(mContentRes,
+                    Settings.System.STATUSBAR_FONT_SIZE, val);
+            Helpers.restartSystemUI();
+            return true;
+        } else if (preference == mNotificationShadeDim) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.NOTIFICATION_SHADE_DIM,
+                    (Boolean) newValue ? 1 : 0);
+            mNotificationShadeDim.setChecked((Boolean)newValue);
         }
         return false;
     }
@@ -997,12 +1034,15 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         private static final int NAVBAR_ALPHA = 2;
         private static final int NAVBAR_KG_ALPHA = 3;
         private static final int LOCKSCREEN_ALPHA = 4;
+		private static final int NOTIFICATION_ALPHA = 5;
+		private static final int NOTIFICATION_BG_ALPHA = 6;
+		
         boolean linkTransparencies = true;
 
         CheckBox mLinkCheckBox, mMatchStatusbarKeyguard, mMatchNavbarKeyguard;
         ViewGroup mNavigationBarGroup;
         TextView mSbLabel;
-        AlphaSeekBar mSeekBars[] = new AlphaSeekBar[5];
+        AlphaSeekBar mSeekBars[] = new AlphaSeekBar[7];
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -1028,7 +1068,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             mMatchStatusbarKeyguard = (CheckBox) layout.findViewById(R.id.statusbar_match_keyguard);
             mMatchNavbarKeyguard = (CheckBox) layout.findViewById(R.id.navbar_match_keyguard);
             mSeekBars[LOCKSCREEN_ALPHA] = (AlphaSeekBar) layout.findViewById(R.id.lockscreen_alpha);
-
+			
+			mSeekBars[NOTIFICATION_ALPHA] = (AlphaSeekBar) layout.findViewById(R.id.notification_alpha);
+			mSeekBars[NOTIFICATION_BG_ALPHA] = (AlphaSeekBar) layout.findViewById(R.id.notification_bg_alpha);
             try {
                 // restore any saved settings
                 int alphas[] = new int[2];
@@ -1036,7 +1078,14 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 int lockscreen_alpha = Settings.System.getInt(resolver,
                         Settings.System.LOCKSCREEN_ALPHA_CONFIG, KEYGUARD_ALPHA);
                 mSeekBars[LOCKSCREEN_ALPHA].setCurrentAlpha(lockscreen_alpha);
-                String sbConfig = Settings.System.getString(resolver,
+                
+				int notification_alpha = (int)(Settings.System.getFloat(resolver, Settings.System.NOTIF_ALPHA, 0.0f) * 255);	
+				mSeekBars[NOTIFICATION_ALPHA].setCurrentAlpha(notification_alpha);
+				 
+				int notification_bg_alpha = (int)(Settings.System.getFloat(resolver, Settings.System.NOTIF_BG_ALPHA, 0.0f) * 255);	
+				mSeekBars[NOTIFICATION_BG_ALPHA].setCurrentAlpha(notification_bg_alpha); 
+				 
+				String sbConfig = Settings.System.getString(resolver,
                         Settings.System.STATUS_BAR_ALPHA_CONFIG);
                 if (sbConfig != null) {
                     String split[] = sbConfig.split(";");
@@ -1087,6 +1136,17 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     Settings.System.putInt(mContentResolver,
                             Settings.System.LOCKSCREEN_ALPHA_CONFIG,
                             mSeekBars[LOCKSCREEN_ALPHA].getCurrentAlpha());
+
+                    foat valAlpha =  Float.parseFloat(Integer.toString(mSeekBars[NOTIFICATION_ALPHA].getCurrentAlpha()));
+					Settings.System.putFloat(mContentResolver,
+                            Settings.System.NOTIF_ALPHA,
+                            ( valAlpha / 255 ));
+
+                    valAlpha =  Float.parseFloat(Integer.toString(mSeekBars[NOTIFICATION_BG_ALPHA].getCurrentAlpha()));
+					
+					Settings.System.putFloat(mContentResolver,
+                            Settings.System.NOTIF_BG_ALPHA,
+                            ( valAlpha / 255 ));
                     // update keyguard alpha
                     if (!mSeekBars[STATUSBAR_KG_ALPHA].isEnabled()) {
                         mSeekBars[STATUSBAR_KG_ALPHA].setCurrentAlpha(
@@ -1127,6 +1187,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     Settings.System.NAVIGATION_BAR_ALPHA_CONFIG, null);
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.LOCKSCREEN_ALPHA_CONFIG, KEYGUARD_ALPHA);
+			Settings.System.putFloat(getActivity().getContentResolver(),
+                    Settings.System.NOTIF_ALPHA, 0.0f);
         }
 
         private void updateToggleState() {
@@ -1146,6 +1208,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             // update keyguard alpha
             int lockscreen_alpha = Settings.System.getInt(getActivity().getContentResolver(),
                         Settings.System.LOCKSCREEN_ALPHA_CONFIG, KEYGUARD_ALPHA);
+						
             if (!mSeekBars[STATUSBAR_KG_ALPHA].isEnabled()) {
                 mSeekBars[STATUSBAR_KG_ALPHA].setCurrentAlpha(lockscreen_alpha);
             }

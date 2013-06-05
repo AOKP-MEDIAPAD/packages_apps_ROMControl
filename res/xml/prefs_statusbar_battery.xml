@@ -41,4 +41,17 @@
             android:entryValues="@array/battery_bar_thickness_values" />
     </PreferenceCategory>
 
+
+    <PreferenceCategory
+        android:title="@string/misc_short">
+
+    <ListPreference
+            android:key="pref_low_battery_warning_policy"
+            android:title="@string/pref_low_battery_warning_policy_title"
+            android:dialogTitle="@string/pref_low_battery_warning_policy_dialog_title"
+            android:entries="@array/pref_low_battery_warning_policy_entries"
+            android:entryValues="@array/pref_low_battery_warning_policy_values"
+            android:defaultValue="0" />
+    </PreferenceCategory>
+
 </PreferenceScreen>
