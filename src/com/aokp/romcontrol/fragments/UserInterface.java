@@ -1077,7 +1077,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                         Settings.System.LOCKSCREEN_ALPHA_CONFIG, KEYGUARD_ALPHA);
                 mSeekBars[LOCKSCREEN_ALPHA].setCurrentAlpha(lockscreen_alpha);
                 
-				int notification_alpha = (int)(Settings.System.getFloat(resolver, Settings.System.NOTIF_ALPHA, 0.0f) * 100);	
+				int notification_alpha = (int)(Settings.System.getFloat(resolver, Settings.System.NOTIF_ALPHA, 0.0f) * 255);	
 				mSeekBars[NOTIFICATION_ALPHA].setCurrentAlpha(notification_alpha);
 				 
 				String sbConfig = Settings.System.getString(resolver,
@@ -1133,7 +1133,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                             mSeekBars[LOCKSCREEN_ALPHA].getCurrentAlpha());
 					Settings.System.putFloat(mContentResolver,
                             Settings.System.NOTIF_ALPHA,
-                            ( mSeekBars[NOTIFICATION_ALPHA].getCurrentAlpha() / 100 ));
+                            ( mSeekBars[NOTIFICATION_ALPHA].getCurrentAlpha() / 255 ));
                     // update keyguard alpha
                     if (!mSeekBars[STATUSBAR_KG_ALPHA].isEnabled()) {
                         mSeekBars[STATUSBAR_KG_ALPHA].setCurrentAlpha(
