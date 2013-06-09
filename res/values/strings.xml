@@ -1205,5 +1205,7 @@
     <!-- Notification shade dimming -->
     <string name="notification_shade_dim_title">Dim notification shade</string>
     <string name="notification_shade_dim_summary">Toggle the dimming effect when pulling down the notification shade</string>
+    
+    <string name="notification_settings_btn_title">Always show settings button</string>
 
 </resources>

@@ -105,10 +105,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_POWER_CRT_MODE = "system_power_crt_mode";
     private static final CharSequence PREF_POWER_CRT_SCREEN_OFF = "system_power_crt_screen_off";
     private static final CharSequence PREF_STATUSBAR_HIDDEN = "statusbar_hidden";
-	private static final String KEY_STATUS_BAR_ICON_OPACITY = "status_bar_icon_opacity";
+    private static final String KEY_STATUS_BAR_ICON_OPACITY = "status_bar_icon_opacity";
     private static final String KEY_MISSED_CALL_BREATH = "missed_call_breath";
     private static final String NOTIFICATION_SHADE_DIM = "notification_shade_dim";
-    
+    private static final String PREF_NOTIFICATION_SETTINGS_BTN = "notification_settings_btn";
+ 
     private static int STOCK_FONT_SIZE = 16;
     private static final int REQUEST_PICK_WALLPAPER = 201;
     //private static final int REQUEST_PICK_CUSTOM_ICON = 202; //unused
@@ -118,6 +119,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final String BOOTANIMATION_USER_PATH = "/data/local/bootanimation.zip";
     private static final String BOOTANIMATION_SYSTEM_PATH = "/system/media/bootanimation.zip";
 
+    CheckBoxPreference mSettingsBtn;
     CheckBoxPreference mAllow180Rotation;
     CheckBoxPreference mAllow270Rotation;
     CheckBoxPreference mDisableBootAnimation;
@@ -295,6 +297,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 Settings.System.NOTIFICATION_SHADE_DIM, 0) == 1; 
         mNotificationShadeDim.setChecked(notificationDim);
         mNotificationShadeDim.setOnPreferenceChangeListener(this);
+        
+        mSettingsBtn = (CheckBoxPreference) findPreference(PREF_NOTIFICATION_SETTINGS_BTN);
+        mSettingsBtn.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.NOTIFICATION_SETTINGS_BUTTON, 0) == 1);
+
 
         // hide option if device is already set to never wake up
         if(!mContext.getResources().getBoolean(
@@ -413,6 +420,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putBoolean(mContentResolver,
                     Settings.System.NOTIFICATION_SHOW_WIFI_SSID,
                     ((TwoStatePreference) preference).isChecked());
+            return true;
+        } else if (preference == mSettingsBtn) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.NOTIFICATION_SETTINGS_BUTTON,
+                    mSettingsBtn.isChecked() ? 1 : 0);
             return true;
         } else if (preference == mCustomBootAnimation) {
             openBootAnimationDialog();
