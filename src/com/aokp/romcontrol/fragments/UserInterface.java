@@ -109,6 +109,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final String KEY_MISSED_CALL_BREATH = "missed_call_breath";
     private static final String NOTIFICATION_SHADE_DIM = "notification_shade_dim";
     private static final String PREF_NOTIFICATION_SETTINGS_BTN = "notification_settings_btn";
+    private static final String PREF_NOTIFICATION_QSETTINGS_BTN = "notification_qsettings_btn";
  
     private static int STOCK_FONT_SIZE = 16;
     private static final int REQUEST_PICK_WALLPAPER = 201;
@@ -120,6 +121,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final String BOOTANIMATION_SYSTEM_PATH = "/system/media/bootanimation.zip";
 
     CheckBoxPreference mSettingsBtn;
+    CheckBoxPreference mQSettingsBtn;
     CheckBoxPreference mAllow180Rotation;
     CheckBoxPreference mAllow270Rotation;
     CheckBoxPreference mDisableBootAnimation;
@@ -301,6 +303,10 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mSettingsBtn = (CheckBoxPreference) findPreference(PREF_NOTIFICATION_SETTINGS_BTN);
         mSettingsBtn.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
                 Settings.System.NOTIFICATION_SETTINGS_BUTTON, 0) == 1);
+ 
+        mQSettingsBtn = (CheckBoxPreference) findPreference(PREF_NOTIFICATION_QSETTINGS_BTN);
+        mQSettingsBtn.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.HIDE_QSETTINGS_BUTTON, 0) == 1);
 
 
         // hide option if device is already set to never wake up
@@ -425,6 +431,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.NOTIFICATION_SETTINGS_BUTTON,
                     mSettingsBtn.isChecked() ? 1 : 0);
+            return true;
+		} else if (preference == mQSettingsBtn) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.HIDE_QSETTINGS_BUTTON,
+                    mQSettingsBtn.isChecked() ? 1 : 0);
             return true;
         } else if (preference == mCustomBootAnimation) {
             openBootAnimationDialog();
