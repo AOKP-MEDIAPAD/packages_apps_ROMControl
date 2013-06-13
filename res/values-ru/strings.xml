@@ -1044,28 +1044,25 @@
     <string name="changelog_remove_from_favs_list">Удалить</string>
 	
 	<!-- Status bar notification icon opacity -->
-    <string name="status_bar_icon_opacity">Прозрачности значков</string>
-    <string name="status_bar_icon_opacity_summary">Устанавливает прозрачность значков статус бара</string>
+    <string name="status_bar_icon_opacity">Прозрачность значков</string>
+    <string name="status_bar_icon_opacity_summary">Позволяет изменить прозрачность значок статус бара от 35% до 100%</string>
 
     <!-- Breathing Missed call -->
     <string name="missed_call_breath">Анимация пропущенного вызова</string>
     <string name="missed_call_breath_summary">Включает анимацию значка пропущенного вызова в статус баре</string>
 
     <!-- Notification shade dimming -->
-    <string name="notification_shade_dim_title">Тень уведомления</string>
-    <string name="notification_shade_dim_summary">Переключить эффект тени при падении панели уведомлений </string>
+    <string name="notification_shade_dim_title">Эффект тени</string>
+    <string name="notification_shade_dim_summary">Вкл/ Выкл эффекта тени при открытии панели уведомлений</string>
     
-    <string name="notification_settings_btn_title">Показывать кнопку настройки</string>
-    <string name="notification_qsettings_btn_title">Скрывать кнопку быстрых настройк</string>
+    <string name="notification_settings_btn_title">Показать кнопку Настройки</string>
+    <string name="notification_qsettings_btn_title">Скрыть кнопку Быстрые настройки</string>
 	
 	<string name="transparency_dialog_lockscreen">Экран блокировки</string>
 	<string name="transparency_dialog_notification">Строка панели уведомлений</string>
 	<string name="transparency_dialog_notification_bg">Фон панели уведомлений</string>
 	
-	<string name="notification_show_wifi_ssid_title">Показать имя WiFi сети</string>
-    <string name="notification_show_wifi_ssid_summary">Отображать название текущей подключенной Wi-Fi сети рядои с 3G сетью</string>
-	
-	<string name="statusbar_fontsize">Размер шрифта статус бара</string>
-    <string name="statusbar_fontsize_summary">Изменение размера текста и значков в статус баре</string>
+	<string name="statusbar_fontsize">Размер шрифта</string>
+    <string name="statusbar_fontsize_summary">Настройка размера шрифта текста в статус баре</string>
 
 </resources>
