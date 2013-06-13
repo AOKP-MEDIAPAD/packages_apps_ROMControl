@@ -1042,4 +1042,27 @@
     <string name="add_favs_or_view">Добавить в избранное или просмотреть изменения?</string>
     <string name="remove_favs_or_view">Удалить из избранного или просмотреть изменения?</string>
     <string name="changelog_remove_from_favs_list">Удалить</string>
+	
+	<!-- Status bar notification icon opacity -->
+    <string name="status_bar_icon_opacity">Прозрачность значков</string>
+    <string name="status_bar_icon_opacity_summary">Позволяет изменить прозрачность значок статус бара от 35% до 100%</string>
+
+    <!-- Breathing Missed call -->
+    <string name="missed_call_breath">Анимация пропущенного вызова</string>
+    <string name="missed_call_breath_summary">Включает анимацию значка пропущенного вызова в статус баре</string>
+
+    <!-- Notification shade dimming -->
+    <string name="notification_shade_dim_title">Эффект тени</string>
+    <string name="notification_shade_dim_summary">Вкл/ Выкл эффекта тени при открытии панели уведомлений</string>
+    
+    <string name="notification_settings_btn_title">Показать кнопку Настройки</string>
+    <string name="notification_qsettings_btn_title">Скрыть кнопку Быстрые настройки</string>
+	
+	<string name="transparency_dialog_lockscreen">Экран блокировки</string>
+	<string name="transparency_dialog_notification">Строка панели уведомлений</string>
+	<string name="transparency_dialog_notification_bg">Фон панели уведомлений</string>
+	
+	<string name="statusbar_fontsize">Размер шрифта</string>
+    <string name="statusbar_fontsize_summary">Настройка размера шрифта текста в статус баре</string>
+
 </resources>
