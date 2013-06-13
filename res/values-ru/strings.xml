@@ -1045,7 +1045,7 @@
 	
 	<!-- Status bar notification icon opacity -->
     <string name="status_bar_icon_opacity">Прозрачность значков</string>
-    <string name="status_bar_icon_opacity_summary">Позволяет изменить прозрачность значок статус бара от 35% до 100%</string>
+    <string name="status_bar_icon_opacity_summary">Позволяет изменить прозрачность значок статус бара</string>
 
     <!-- Breathing Missed call -->
     <string name="missed_call_breath">Анимация пропущенного вызова</string>
