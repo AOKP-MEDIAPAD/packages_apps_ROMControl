@@ -344,6 +344,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         if (isTabletUI(mContext)) {
             mStatusbarSliderPreference.setEnabled(false);
             mHideStatusBar.setEnabled(false);
+            mNotificationWallpaper.setEnabled(false);
+            mWallpaperAlpha.setEnabled(false);
         } else {
             mHideExtras.setEnabled(false);
         }
@@ -1058,6 +1060,12 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     Settings.System.USER_UI_MODE, val);
             mStatusbarSliderPreference.setEnabled(val == 1 ? false : true);
             mHideStatusBar.setEnabled(val == 1 ? false : true);
+            mNotificationWallpaper.setEnabled(val == 1 ? false : true);
+            if (val == 1) {
+                mWallpaperAlpha.setEnabled(false);
+            } else {
+                findWallpaperStatus();
+            }
             mHideExtras.setEnabled(val == 1 ? true : false);
             Helpers.restartSystemUI();
             return true;
