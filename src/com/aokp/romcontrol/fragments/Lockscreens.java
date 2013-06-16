@@ -374,25 +374,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements
                         updateSwitches();
                     }
                 });
-
-        mGlowTorchText = ((TextView) getActivity()
-                .findViewById(R.id.lockscreen_glow_torch_id));
-        mGlowTorchText.setOnClickListener(mGlowTorchTextListener);
-        mGlowTorchSwitch = (Switch) getActivity().findViewById(R.id.glow_torch_switch);
-        mGlowTorchSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton v, boolean checked) {
-                Settings.System.putBoolean(cr, Settings.System.LOCKSCREEN_GLOW_TORCH,
-                        checked);
-                updateDrawables();
-            }
-        });
-
-        if (!hasTorch) {
-            mGlowTorchText.setVisibility(View.GONE);
-            mGlowTorchSwitch.setVisibility(View.GONE);
-        }
-
+                
         mLockCameraWidgetHideText = ((TextView) getActivity().findViewById(R.id.lockscreen_camera_widget_hide_id));
         mLockCameraWidgetHideText.setOnClickListener(mLockCameraWidgetHideTextListener);
         mLockCameraWidgetHideSwitch = (Switch) getActivity().findViewById(R.id.lockscreen_camera_widget_hide_switch);
