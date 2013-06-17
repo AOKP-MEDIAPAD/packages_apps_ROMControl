@@ -788,6 +788,17 @@
         <item>60000</item>
         <item>120000</item>
     </string-array>
+    <string-array name="pref_lockscreen_glowtorch_entries" translatable="false">
+        <item>@string/lockscreen_torch_off</item>
+        <item>@string/lockscreen_torch_lockcircle</item>
+        <item>@string/lockscreen_torch_navring</item>
+
+    </string-array>
+    <string-array name="pref_lockscreen_glowtorch_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
     <string-array name="signal_style_entries" translatable="false">
         <item>@string/show_signal_bars</item>
         <item>@string/show_signal_text</item>
@@ -858,7 +869,7 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-	<string-array name="choose_toggle_side_entries" translatable="false">
+    <string-array name="choose_toggle_side_entries" translatable="false">
         <item>@string/right</item>
         <item>@string/left</item>
     </string-array>
@@ -1124,5 +1135,32 @@
         <item>5</item>
         <item>6</item>
     </string-array>
-
+    <!-- Hidden Statusbar -->
+    <string-array name="hidden_statusbar_entries" translatable="false">
+        <item>@string/statusbar_visible</item>
+        <item>@string/statusbar_hide_title</item>
+        <item>@string/statusbar_notification</item>
+        <item>@string/statusbar_pulldown</item>
+        <item>@string/statusbar_pulldown_notification</item>
+    </string-array>
+    <string-array name="hidden_statusbar_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    <!-- Hidden Statusbar Pulldown Timeout -->
+    <string-array name="hidden_statusbar_pulldown_timeout_entries" translatable="false">
+        <item>2.5 seconds</item>
+        <item>5 seconds</item>
+        <item>7.5 seconds</item>
+        <item>10 seconds</item>
+    </string-array>
+    <string-array name="hidden_statusbar_pulldown_timeout_values" translatable="false">
+        <item>2500</item>
+        <item>5000</item>
+        <item>7500</item>
+        <item>10000</item>
+    </string-array>
 </resources>

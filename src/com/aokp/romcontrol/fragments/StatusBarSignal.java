@@ -1,19 +1,16 @@
-
 package com.aokp.romcontrol.fragments;
 
-import net.margaritov.preference.colorpicker.ColorPickerPreference;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceScreen;
 import android.provider.Settings;
-import android.util.Log;
-
-import com.aokp.romcontrol.R;
 import com.aokp.romcontrol.AOKPPreferenceFragment;
+import com.aokp.romcontrol.R;
 import com.aokp.romcontrol.util.Helpers;
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class StatusBarSignal extends AOKPPreferenceFragment implements
         OnPreferenceChangeListener {
@@ -55,7 +52,7 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
 
         mAltSignal = (CheckBoxPreference) findPreference("alt_signal");
         mAltSignal.setChecked(Settings.System.getBoolean(mContentRes,
-                Settings.System.STATUSBAR_SIGNAL_CLUSTER_ALT,false));
+                Settings.System.STATUSBAR_SIGNAL_CLUSTER_ALT, false));
 
         mHideAllSignal = (CheckBoxPreference) findPreference("hide_all_signal");
         mHideAllSignal.setChecked(Settings.System.getBoolean(mContentRes,
@@ -72,7 +69,7 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-            Preference preference) {
+                                         Preference preference) {
         if (preference == mHideSignal) {
             Settings.System.putBoolean(mContentRes,
                     Settings.System.STATUSBAR_HIDE_SIGNAL_BARS, mHideSignal.isChecked());
@@ -80,7 +77,7 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
             return true;
         } else if (preference == mAltSignal) {
             Settings.System.putBoolean(mContentRes,
-                    Settings.System.STATUSBAR_SIGNAL_CLUSTER_ALT,mAltSignal.isChecked());
+                    Settings.System.STATUSBAR_SIGNAL_CLUSTER_ALT, mAltSignal.isChecked());
             return true;
         } else if  (preference == mHideAllSignal) {
             Settings.System.putBoolean(mContentRes,

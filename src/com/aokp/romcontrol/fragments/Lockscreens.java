@@ -18,15 +18,12 @@ package com.aokp.romcontrol.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.Intent.ShortcutIconResource;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,33 +33,39 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.UserHandle;
-import android.preference.PreferenceFragment;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.*;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.*;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-
-import static com.android.internal.util.aokp.AwesomeConstants.*;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 import com.android.internal.util.aokp.LockScreenHelpers;
 import com.android.internal.widget.multiwaveview.GlowPadView;
 import com.android.internal.widget.multiwaveview.TargetDrawable;
-import com.aokp.romcontrol.util.ShortcutPickerHelper;
-import com.aokp.romcontrol.R;
-import com.aokp.romcontrol.util.Helpers;
 import com.aokp.romcontrol.AOKPPreferenceFragment;
-import com.aokp.romcontrol.ROMControlActivity;
+import com.aokp.romcontrol.R;
+import com.aokp.romcontrol.util.ShortcutPickerHelper;
 import net.margaritov.preference.colorpicker.ColorPickerDialog;
 
-import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.net.URISyntaxException;
-import java.lang.NumberFormatException;
+import java.util.ArrayList;
+
+import static com.android.internal.util.aokp.AwesomeConstants.*;
 
 public class Lockscreens extends AOKPPreferenceFragment implements
         ShortcutPickerHelper.OnPickListener, ColorPickerDialog.OnColorChangedListener,
@@ -83,7 +86,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements
     private View mLockscreenOptions;
     private boolean mIsLandscape;
 
-    private Switch mGlowTorchSwitch;
+    private Spinner mGlowTorchSwitch;
     private Switch mLongPressStatus;
     private Switch mLockBatterySwitch;
     private Switch mLockRotateSwitch;
@@ -155,6 +158,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements
                 return "**notinenum**";
             }
         };
+
         public String value() {
             return this.value();
         }
@@ -178,7 +182,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         mContainer = container;
         setHasOptionsMenu(true);
         mContext = getActivity();
@@ -218,6 +222,30 @@ public class Lockscreens extends AOKPPreferenceFragment implements
                 picker.show();
             }
         });
+
+        mGlowTorchText = ((TextView) getActivity()
+                .findViewById(R.id.lockscreen_glow_torch_id));
+        mGlowTorchText.setOnClickListener(mGlowTorchTextListener);
+        mGlowTorchSwitch = (Spinner) getActivity().findViewById(R.id.glow_torch_switch);
+        ArrayAdapter<CharSequence> spinnerAdapter = new ArrayAdapter<CharSequence>(
+                getActivity(), android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        final String[] entries = getResources().getStringArray(
+                R.array.pref_lockscreen_glowtorch_entries);
+        for (int i = 0; i < entries.length ; i++) {
+            spinnerAdapter.add(entries[i]);
+        }
+        mGlowTorchSwitch.setAdapter(spinnerAdapter);
+        mGlowTorchSwitch.post(new Runnable() {
+            public void run() {
+                mGlowTorchSwitch.setOnItemSelectedListener(new TorchListener());
+            }
+        });
+
+        if (!hasTorch) {
+            mGlowTorchText.setVisibility(View.GONE);
+            mGlowTorchSwitch.setVisibility(View.GONE);
+        }
 
         mLockBatteryText = ((TextView) getActivity().findViewById(R.id.lockscreen_battery_id));
         mLockBatteryText.setOnClickListener(mLockBatteryTextListener);
@@ -329,7 +357,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements
 
         if (isSW600DPScreen(mContext)) {
             Settings.System.putBoolean(cr,
-                Settings.System.LOCKSCREEN_MINIMIZE_LOCKSCREEN_CHALLENGE, false);
+                    Settings.System.LOCKSCREEN_MINIMIZE_LOCKSCREEN_CHALLENGE, false);
             mLockMinimizeChallangeText.setVisibility(View.GONE);
             mLockMinimizeChallangeSwitch.setVisibility(View.GONE);
         }
@@ -346,25 +374,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements
                         updateSwitches();
                     }
                 });
-
-        mGlowTorchText = ((TextView) getActivity()
-                .findViewById(R.id.lockscreen_glow_torch_id));
-        mGlowTorchText.setOnClickListener(mGlowTorchTextListener);
-        mGlowTorchSwitch = (Switch) getActivity().findViewById(R.id.glow_torch_switch);
-        mGlowTorchSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton v, boolean checked) {
-                Settings.System.putBoolean(cr, Settings.System.LOCKSCREEN_GLOW_TORCH,
-                        checked);
-                updateDrawables();
-            }
-        });
-
-        if (!hasTorch) {
-            mGlowTorchText.setVisibility(View.GONE);
-            mGlowTorchSwitch.setVisibility(View.GONE);
-        }
-
+                
         mLockCameraWidgetHideText = ((TextView) getActivity().findViewById(R.id.lockscreen_camera_widget_hide_id));
         mLockCameraWidgetHideText.setOnClickListener(mLockCameraWidgetHideTextListener);
         mLockCameraWidgetHideSwitch = (Switch) getActivity().findViewById(R.id.lockscreen_camera_widget_hide_switch);
@@ -392,6 +402,19 @@ public class Lockscreens extends AOKPPreferenceFragment implements
         });
         updateSwitches();
         updateDrawables();
+    }
+
+    public class TorchListener implements OnItemSelectedListener {
+        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+            final String[] values = getResources().getStringArray(
+                    R.array.pref_lockscreen_glowtorch_values);
+            int val = Integer.parseInt((String) values[pos]);
+            Settings.System.putInt(cr, Settings.System.LOCKSCREEN_GLOW_TORCH, val);
+            updateDrawables();
+        }
+        public void onNothingSelected(AdapterView<?> parent) {
+            // Do nothing.
+        }
     }
 
     private TextView.OnClickListener mLockTextColorTextListener = new TextView.OnClickListener() {
@@ -450,13 +473,15 @@ public class Lockscreens extends AOKPPreferenceFragment implements
         }
     };
 
-    private TextView.OnClickListener mLockUnlimitedWidgetsTextListener = new TextView.OnClickListener() {
-        public void onClick(View v) {
-            createMessage(
-                    getResources().getString(R.string.lockscreen_unlimited_widgets_title),
-                    getResources().getString(R.string.lockscreen_unlimited_widgets_summary));
-        }
-    };
+    private TextView.OnClickListener mLockUnlimitedWidgetsTextListener =
+            new TextView.OnClickListener() {
+                public void onClick(View v) {
+                    createMessage(
+                            getResources().getString(R.string.lockscreen_unlimited_widgets_title),
+                            getResources()
+                                    .getString(R.string.lockscreen_unlimited_widgets_summary));
+                }
+            };
 
     private TextView.OnClickListener mLockAllWidgetsTextListener = new TextView.OnClickListener() {
         public void onClick(View v) {
@@ -474,13 +499,15 @@ public class Lockscreens extends AOKPPreferenceFragment implements
         }
     };
 
-    private TextView.OnClickListener mLockMinimizeChallangeTextListener = new TextView.OnClickListener() {
-        public void onClick(View v) {
-            createMessage(
-                    getResources().getString(R.string.lockscreen_minimize_challenge_title),
-                    getResources().getString(R.string.lockscreen_minimize_challenge_summary));
-        }
-    };
+    private TextView.OnClickListener mLockMinimizeChallangeTextListener =
+            new TextView.OnClickListener() {
+                public void onClick(View v) {
+                    createMessage(
+                            getResources().getString(R.string.lockscreen_minimize_challenge_title),
+                            getResources()
+                                    .getString(R.string.lockscreen_minimize_challenge_summary));
+                }
+            };
 
     private TextView.OnClickListener mLockCarouselTextListener = new TextView.OnClickListener() {
         public void onClick(View v) {
@@ -501,6 +528,8 @@ public class Lockscreens extends AOKPPreferenceFragment implements
     };
 
     private void updateSwitches() {
+        mGlowTorchSwitch.setSelection(Settings.System.getInt(cr,
+                Settings.System.LOCKSCREEN_GLOW_TORCH, 0));
         mLockBatterySwitch.setChecked(Settings.System.getBoolean(cr,
                 Settings.System.LOCKSCREEN_BATTERY, false));
         mLockRotateSwitch.setChecked(Settings.System.getBoolean(cr,
@@ -517,8 +546,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements
                 Settings.System.LOCKSCREEN_HIDE_INITIAL_PAGE_HINTS, false));
         mLockMinimizeChallangeSwitch.setChecked(Settings.System.getBoolean(cr,
                 Settings.System.LOCKSCREEN_MINIMIZE_LOCKSCREEN_CHALLENGE, false));
-        mGlowTorchSwitch.setChecked(Settings.System.getBoolean(cr,
-                Settings.System.LOCKSCREEN_GLOW_TORCH, false));
         mLockCarouselSwitch.setChecked(Settings.System.getBoolean(cr,
                 Settings.System.LOCKSCREEN_USE_WIDGET_CONTAINER_CAROUSEL, false));
         mLockCameraWidgetHideSwitch.setChecked(Settings.System.getBoolean(cr,
@@ -702,14 +729,15 @@ public class Lockscreens extends AOKPPreferenceFragment implements
                         .fromFile(new File(mContext.getFilesDir(), iconName)).getPath();
 
                 File f = new File(selectedImageUri.getPath());
-                if (f.exists())
+                if (f.exists()) {
                     f.delete();
+                }
 
                 Toast.makeText(
                         mContext,
                         mTargetIndex
                                 + getResources().getString(
-                                        R.string.custom_app_icon_successfully),
+                                R.string.custom_app_icon_successfully),
                         Toast.LENGTH_LONG).show();
                 setDrawables();
             }
@@ -929,15 +957,20 @@ public class Lockscreens extends AOKPPreferenceFragment implements
 
     private void updateVisiblity(boolean visible) {
         if (visible) {
-            mGlowTorchText.setVisibility(View.VISIBLE);
-            mGlowTorchSwitch.setVisibility(View.VISIBLE);
+            if (hasTorch) {
+                mGlowTorchText.setVisibility(View.VISIBLE);
+                mGlowTorchSwitch.setVisibility(View.VISIBLE);
+            }
             mLongPressStatus.setVisibility(View.VISIBLE);
             mLockBatterySwitch.setVisibility(View.VISIBLE);
             mLockRotateSwitch.setVisibility(View.VISIBLE);
             mLockVolControlSwitch.setVisibility(View.VISIBLE);
             mLockVolWakeSwitch.setVisibility(View.VISIBLE);
             mLockPageHintSwitch.setVisibility(View.VISIBLE);
-            mLockMinimizeChallangeSwitch.setVisibility(View.VISIBLE);
+            if (!isSW600DPScreen(mContext)) {
+                mLockMinimizeChallangeSwitch.setVisibility(View.VISIBLE);
+                mLockMinimizeChallangeText.setVisibility(View.VISIBLE);
+            }
             mLockCarouselSwitch.setVisibility(View.VISIBLE);
             mLockAllWidgetsSwitch.setVisibility(View.VISIBLE);
             mLockUnlimitedWidgetsSwitch.setVisibility(View.VISIBLE);
@@ -948,7 +981,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements
             mLockVolControlText.setVisibility(View.VISIBLE);
             mLockVolWakeText.setVisibility(View.VISIBLE);
             mLockPageHintText.setVisibility(View.VISIBLE);
-            mLockMinimizeChallangeText.setVisibility(View.VISIBLE);
             mLockCarouselText.setVisibility(View.VISIBLE);
             mLockAllWidgetsText.setVisibility(View.VISIBLE);
             mLockUnlimitedWidgetsText.setVisibility(View.VISIBLE);
