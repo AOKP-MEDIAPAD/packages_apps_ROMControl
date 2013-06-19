@@ -98,7 +98,7 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
         mLowBatteryWarning.setSummary(mLowBatteryWarning.getEntry());
         mLowBatteryWarning.setOnPreferenceChangeListener(this);
 
-        Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
 
         // power state change notification sounds
         mPowerSounds = (CheckBoxPreference) findPreference(KEY_POWER_NOTIFICATIONS);
@@ -107,9 +107,9 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
         mPowerSoundsVibrate = (CheckBoxPreference) findPreference(KEY_POWER_NOTIFICATIONS_VIBRATE);
         mPowerSoundsVibrate.setChecked(Settings.Global.getInt(getActivity().getContentResolver(),
                 Settings.Global.POWER_NOTIFICATIONS_VIBRATE, 0) != 0);
-        if (vibrator == null || !vibrator.hasVibrator()) {
-            removePreference(KEY_POWER_NOTIFICATIONS_VIBRATE);
-        }
+       // if (vibrator == null || !vibrator.hasVibrator()) {
+       //     getPreferenceScreen().removePreference(KEY_POWER_NOTIFICATIONS_VIBRATE);
+       // }
 
         mPowerSoundsRingtone = findPreference(KEY_POWER_NOTIFICATIONS_RINGTONE);
         String currentPowerRingtonePath =
