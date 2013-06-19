@@ -1216,6 +1216,7 @@
     <string name="pie_size_default">Default</string>
     <string name="pie_size_large">Large</string>
     <string name="pie_size_gigantic">Gigantic</string>
+    <string name="pie_size_monster">Monster</string>
     <string name="pie_color_title">Pie Colors</string>
     <string name="pie_color_style_title">Pie Color Style</string>
     <string name="pie_background_title">Background Color</string>
