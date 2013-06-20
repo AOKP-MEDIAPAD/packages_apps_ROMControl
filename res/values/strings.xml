@@ -446,7 +446,8 @@
     <string name="toggle_sound_state">Ring/Vib/Silent</string>
     <string name="toggle_navbar_hide">NavBar Auto Hide</string>
     <string name="toggle_quickrecord">Quick Record</string>
-
+    <string name="toggle_halo">Halo</string>
+	
     <!-- Statusbar | Battery -->
     <string name="battery_icon">Battery icon style</string>
     <string name="battery_not_title">Battery icon in notifications</string>
