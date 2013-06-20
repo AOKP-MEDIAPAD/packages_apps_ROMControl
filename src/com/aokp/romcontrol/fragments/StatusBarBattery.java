@@ -92,7 +92,7 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
         }
 
         mLowBatteryWarning = (ListPreference) findPreference(KEY_LOW_BATTERY_WARNING_POLICY);
-        int lowBatteryWarning = Settings.System.getInt(getActivity().getContentResolver(),
+        int lowBatteryWarning = Settings.System.getInt(mContentRes,
                                     Settings.System.POWER_UI_LOW_BATTERY_WARNING_POLICY, 0);
         mLowBatteryWarning.setValue(String.valueOf(lowBatteryWarning));
         mLowBatteryWarning.setSummary(mLowBatteryWarning.getEntry());
@@ -102,23 +102,23 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
 
         // power state change notification sounds
         mPowerSounds = (CheckBoxPreference) findPreference(KEY_POWER_NOTIFICATIONS);
-        mPowerSounds.setChecked(Settings.Global.getInt(getActivity().getContentResolver(),
+        mPowerSounds.setChecked(Settings.Global.getInt(mContentRes,
                 Settings.Global.POWER_NOTIFICATIONS_ENABLED, 0) != 0);
         mPowerSoundsVibrate = (CheckBoxPreference) findPreference(KEY_POWER_NOTIFICATIONS_VIBRATE);
-        mPowerSoundsVibrate.setChecked(Settings.Global.getInt(getActivity().getContentResolver(),
+        mPowerSoundsVibrate.setChecked(Settings.Global.getInt(mContentRes,
                 Settings.Global.POWER_NOTIFICATIONS_VIBRATE, 0) != 0);
-       // if (vibrator == null || !vibrator.hasVibrator()) {
-       //     getPreferenceScreen().removePreference(KEY_POWER_NOTIFICATIONS_VIBRATE);
-       // }
 
+	if(!hasVibration && mPowerSoundsVibrate!=null)
+ 		mPowerSoundsVibrate.setEnabled(false);
+ 
         mPowerSoundsRingtone = findPreference(KEY_POWER_NOTIFICATIONS_RINGTONE);
         String currentPowerRingtonePath =
-                Settings.Global.getString(getActivity().getContentResolver(), Settings.Global.POWER_NOTIFICATIONS_RINGTONE);
+                Settings.Global.getString(mContentRes, Settings.Global.POWER_NOTIFICATIONS_RINGTONE);
 
         // set to default notification if we don't yet have one
         if (currentPowerRingtonePath == null) {
                 currentPowerRingtonePath = Settings.System.DEFAULT_NOTIFICATION_URI.toString();
-                Settings.Global.putString(getActivity().getContentResolver(),
+                Settings.Global.putString(mContentRes,
                         Settings.Global.POWER_NOTIFICATIONS_RINGTONE, currentPowerRingtonePath);
         }
         // is it silent ?
@@ -127,9 +127,9 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
                     getString(R.string.power_notifications_ringtone_silent));
         } else {
             final Ringtone ringtone =
-                    RingtoneManager.getRingtone(getActivity(), Uri.parse(currentPowerRingtonePath));
+                    RingtoneManager.getRingtone(mContext, Uri.parse(currentPowerRingtonePath));
             if (ringtone != null) {
-                mPowerSoundsRingtone.setSummary(ringtone.getTitle(getActivity()));
+                mPowerSoundsRingtone.setSummary(ringtone.getTitle(mContext));
             }
         }
     }
@@ -144,18 +144,18 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
                     ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
             return true;
 		} else if (preference == mPowerSounds) {
-            Settings.Global.putInt(getActivity().getContentResolver(),
+            Settings.Global.putInt(mContentRes,
                     Settings.Global.POWER_NOTIFICATIONS_ENABLED,
                     mPowerSounds.isChecked() ? 1 : 0);
 
         } else if (preference == mPowerSoundsVibrate) {
-            Settings.Global.putInt(getActivity().getContentResolver(),
+            Settings.Global.putInt(mContentRes,
                     Settings.Global.POWER_NOTIFICATIONS_VIBRATE,
                     mPowerSoundsVibrate.isChecked() ? 1 : 0);
 
         } else if (preference == mPowerSoundsRingtone) {
             launchNotificationSoundPicker(REQUEST_CODE_POWER_NOTIFICATIONS_RINGTONE,
-                    Settings.Global.getString(getActivity().getContentResolver(),
+                    Settings.Global.getString(mContentRes,
                             Settings.Global.POWER_NOTIFICATIONS_RINGTONE));
 		}
 
@@ -199,7 +199,7 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
         } else if (preference == mLowBatteryWarning) {
             int lowBatteryWarning = Integer.valueOf((String) newValue);
             int index = mLowBatteryWarning.findIndexOfValue((String) newValue);
-            Settings.System.putInt(getActivity().getContentResolver(),
+            Settings.System.putInt(mContentRes,
                     Settings.System.POWER_UI_LOW_BATTERY_WARNING_POLICY,
                     lowBatteryWarning);
             mLowBatteryWarning.setSummary(mLowBatteryWarning.getEntries()[index]);
@@ -246,8 +246,8 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
         final String toneUriPath;
 
         if ( uri != null ) {
-            final Ringtone ringtone = RingtoneManager.getRingtone(getActivity(), uri);
-            toneName = ringtone.getTitle(getActivity());
+            final Ringtone ringtone = RingtoneManager.getRingtone(mContext, uri);
+            toneName = ringtone.getTitle(mContext);
             toneUriPath = uri.toString();
         } else {
             // silent
@@ -256,7 +256,7 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
         }
 
         mPowerSoundsRingtone.setSummary(toneName);
-        Settings.Global.putString(getContentResolver(),
+        Settings.Global.putString(mContentRes,
                 Settings.Global.POWER_NOTIFICATIONS_RINGTONE, toneUriPath);
     }
 
