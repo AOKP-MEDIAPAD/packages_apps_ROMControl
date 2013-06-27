@@ -448,7 +448,8 @@
     <string name="toggle_quickrecord">Quick Record</string>
     <string name="toggle_halo">Halo</string>
 	<string name="toggle_profile">Profiles</string>
-	    
+	<string name="toggle_music">Music</string>
+	    	
     <!-- Statusbar | Battery -->
     <string name="battery_icon">Battery icon style</string>
     <string name="battery_not_title">Battery icon in notifications</string>
@@ -462,7 +463,10 @@
     <string name="battery_bar_animate_summary">Enabling the charging animation may result in a poor user experience.
         Enable at your own discretion.
     </string>
-
+	<string name="battery_color_toggle_title">Enable color</string>
+    <string name="battery_color_toggle_summary">Enabling text battery color</string>
+    <string name="battery_color_title">Battery text color</string>
+	
     <!-- Low battery warning policy -->
     <string name="pref_low_battery_warning_policy_title">Low battery warning</string>
     <string name="pref_low_battery_warning_policy_dialog_title">Indicate low battery warning with</string>
