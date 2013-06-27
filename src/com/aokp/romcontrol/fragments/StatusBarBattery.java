@@ -87,8 +87,8 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
         mBatteryColor.setOnPreferenceChangeListener(this);
 
         mBatteryColorToggle = (CheckBoxPreference) findPreference(PREF_BATT_TOGGLE);
-        mBatteryColorToggle.setChecked(Settings.System.getBoolean(mContentRes,
-                Settings.System.STATUSBAR_BATTERY_BAR_ANIMATE, 0) == 1);
+        mBatteryColorToggle.setChecked(Settings.System.getInt(mContentRes,
+                Settings.System.STATUSBAR_BATTERY_COLOR_TOGGLE, 0) == 1);
 	
         mBatteryBarThickness = (ListPreference) findPreference(PREF_BATT_BAR_WIDTH);
         mBatteryBarThickness.setOnPreferenceChangeListener(this);
