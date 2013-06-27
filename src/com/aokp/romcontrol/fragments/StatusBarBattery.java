@@ -23,6 +23,8 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
 
     private static final String PREF_BATT_ICON = "battery_icon_list";
     private static final String PREF_BATT_BAR = "battery_bar_list";
+	private static final String PREF_BATT_TOGGLE = "battery_color_toggle";
+	private static final String PREF_BATT_COLOR = "battery_color";
     private static final String PREF_BATT_BAR_STYLE = "battery_bar_style";
     private static final String PREF_BATT_BAR_COLOR = "battery_bar_color";
     private static final String PREF_BATT_BAR_WIDTH = "battery_bar_thickness";
@@ -49,6 +51,8 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
     CheckBoxPreference mPowerSounds;
     CheckBoxPreference mPowerSoundsVibrate;
     Preference mPowerSoundsRingtone;
+	CheckBoxPreference mBatteryColorToggle;
+    ColorPickerPreference mBatteryColor;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,7 +82,14 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
         mBatteryBarChargingAnimation = (CheckBoxPreference) findPreference(PREF_BATT_ANIMATE);
         mBatteryBarChargingAnimation.setChecked(Settings.System.getBoolean(mContentRes,
                 Settings.System.STATUSBAR_BATTERY_BAR_ANIMATE, false));
+		
+		mBatteryColor = (ColorPickerPreference) findPreference(PREF_BATT_COLOR);
+        mBatteryColor.setOnPreferenceChangeListener(this);
 
+        mBatteryColorToggle = (CheckBoxPreference) findPreference(PREF_BATT_TOGGLE);
+        mBatteryColorToggle.setChecked(Settings.System.getBoolean(mContentRes,
+                Settings.System.STATUSBAR_BATTERY_BAR_ANIMATE, 0) == 1);
+	
         mBatteryBarThickness = (ListPreference) findPreference(PREF_BATT_BAR_WIDTH);
         mBatteryBarThickness.setOnPreferenceChangeListener(this);
         mBatteryBarThickness.setValue((Settings.System.getInt(mContentRes,
@@ -143,7 +154,12 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
                     Settings.System.STATUSBAR_BATTERY_BAR_ANIMATE,
                     ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
             return true;
-		} else if (preference == mPowerSounds) {
+		} else if (preference == mBatteryColorToggle) {
+				Settings.System.putInt(mContentRes,
+                    Settings.System.STATUSBAR_BATTERY_COLOR_TOGGLE ,
+                    ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mPowerSounds) {
             Settings.Global.putInt(mContentRes,
                     Settings.Global.POWER_NOTIFICATIONS_ENABLED,
                     mPowerSounds.isChecked() ? 1 : 0);
@@ -177,6 +193,16 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(mContentRes,
                     Settings.System.STATUSBAR_BATTERY_BAR_COLOR, intHex);
+            return true;
+
+        } else if (preference == mBatteryColor) {
+            String hex = ColorPickerPreference.convertToARGB(Integer
+                    .valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(mContentRes,
+                    Settings.System.STATUSBAR_BATTERY_COLOR, intHex);
             return true;
 
         } else if (preference == mBatteryBar) {

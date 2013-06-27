@@ -11,7 +11,7 @@
     <PreferenceCategory
         android:key="battery_bar_cat"
         android:title="@string/battery_bar_cat">
-
+		
         <ListPreference
             android:key="battery_bar_list"
             android:title="@string/battery_bar"
@@ -44,7 +44,18 @@
 
     <PreferenceCategory
         android:title="@string/misc_short">
+       
+    	   <CheckBoxPreference
+            android:key="battery_color_toggle"
+            android:title="@string/battery_color_toggle_title"
+            android:summary="@string/battery_color_toggle_summary" />
 
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="battery_color"
+            android:title="@string/battery_color_title"
+            android:defaultValue="#33B5E5"
+			android:dependency="battery_color_toggle" />
+			
 		<ListPreference
 				android:key="pref_low_battery_warning_policy"
 				android:title="@string/pref_low_battery_warning_policy_title"
