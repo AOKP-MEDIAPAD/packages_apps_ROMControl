@@ -90,6 +90,8 @@
         <item>LTE</item>
         <item>NAVBARHIDE</item>
         <item>QUICKRECORD</item>
+		<item>HALO</item>
+		<item>PROFILE</item>
     </string-array>
     <string-array name="available_toggles_values" translatable="false">
         <item>@string/toggle_user</item>
@@ -120,6 +122,8 @@
         <item>@string/toggle_lte</item>
         <item>@string/toggle_navbar_hide</item>
         <item>@string/toggle_quickrecord</item>
+		<item>@string/toggle_halo</item>
+		<item>@string/toggle_profile</item>
     </string-array>
 
     <!-- Toggles per row -->
@@ -972,6 +976,7 @@
         <item>@string/pie_size_default</item>
         <item>@string/pie_size_large</item>
         <item>@string/pie_size_gigantic</item>
+        <item>@string/pie_size_monster</item>
     </string-array>
 
     <string-array name="values_pie_size" translatable="false">
@@ -979,6 +984,7 @@
         <item>1.0</item>
         <item>1.1</item>
         <item>1.2</item>
+        <item>1.3</item>
     </string-array>
 
     <string-array name="entries_pie_mode">
