@@ -448,7 +448,8 @@
     <string name="toggle_quickrecord">Quick Record</string>
     <string name="toggle_halo">Halo</string>
 	<string name="toggle_profile">Profiles</string>
-	    
+	<string name="toggle_music">Music</string>
+	    	
     <!-- Statusbar | Battery -->
     <string name="battery_icon">Battery icon style</string>
     <string name="battery_not_title">Battery icon in notifications</string>
