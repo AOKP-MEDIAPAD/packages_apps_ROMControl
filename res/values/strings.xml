@@ -287,6 +287,10 @@
     <string name="statusbar_pulldown_notification">Pulldown &amp; Notifications</string>
     <string name="hidden_statusbar_pulldown_timeout_title">Hidden statusbar pulldown timeout</string>
     <string name="hidden_statusbar_pulldown_timeout_summary">Timeout for hidden statusbar window</string>
+    <string name="status_bar_icon_color_enable_title">Statusbar color</string>
+    <string name="status_bar_icon_color_enable_summary">Enabling StatusBar icon color filler</string>
+    <string name="status_bar_icon_color_title">Statusbar icon color</string>
+
     <!-- LCD Density -->
     <string name="dpi">DPI</string>
     <string name="lcd_density_title">LCD Density</string>

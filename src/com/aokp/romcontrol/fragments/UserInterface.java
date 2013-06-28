@@ -70,6 +70,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 @SuppressWarnings("InstanceVariableMayNotBeInitialized")
 public class UserInterface extends AOKPPreferenceFragment implements OnPreferenceChangeListener {
@@ -109,7 +110,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final String NOTIFICATION_SHADE_DIM = "notification_shade_dim";
     private static final String PREF_NOTIFICATION_SETTINGS_BTN = "notification_settings_btn";
     private static final String PREF_NOTIFICATION_QSETTINGS_BTN = "notification_qsettings_btn";
- 
+    private static final String PREF_STATUSBAR_ICON_COLOR_ENABLE = "status_bar_icon_color_enable";
+    private static final String PREF_STATUSBAR_ICON_COLOR_ICON = "status_bar_icon_color";
+	
     private static int STOCK_FONT_SIZE = 16;
 
     private static final CharSequence PREF_HIDE_STATUSBAR = "hide_statusbar";
@@ -125,6 +128,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final String BOOTANIMATION_USER_PATH = "/data/local/bootanimation.zip";
     private static final String BOOTANIMATION_SYSTEM_PATH = "/system/media/bootanimation.zip";
 
+	CheckBoxPreference mStatusBarIconColorToggle;
+    ColorPickerPreference mStatusBarIconColor;
+	
     CheckBoxPreference mSettingsBtn;
     CheckBoxPreference mQSettingsBtn;
     CheckBoxPreference mAllow180Rotation;
@@ -184,6 +190,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.prefs_ui);
 
+		
         mContentResolver = getContentResolver();
         PreferenceScreen prefs = getPreferenceScreen();
         mInsults = mContext.getResources().getStringArray(
@@ -204,6 +211,13 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mAllow180Rotation.setChecked((mUserRotationAngles & 4) != 0);
         mAllow270Rotation.setChecked((mUserRotationAngles & 8) != 0);
 
+		mStatusBarIconColor = (ColorPickerPreference) findPreference(PREF_STATUSBAR_ICON_COLOR_ICON);
+        mStatusBarIconColor.setOnPreferenceChangeListener(this);
+
+        mStatusBarIconColorToggle = (CheckBoxPreference) findPreference(PREF_STATUSBAR_ICON_COLOR_ENABLE);
+        mStatusBarIconColorToggle.setChecked(Settings.System.getInt(mContentRes,
+                Settings.System.STATUSBAR_ICON_COLOR_ENABLE , 0) == 1);
+		
         mStatusBarNotifCount = (CheckBoxPreference) findPreference(PREF_STATUS_BAR_NOTIF_COUNT);
         mStatusBarNotifCount.setChecked(Settings.System.getBoolean(mContentResolver,
                 Settings.System.STATUSBAR_NOTIF_COUNT, false));
@@ -445,6 +459,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putBoolean(mContentResolver,
                     Settings.System.HIDE_EXTRAS_SYSTEM_BAR,
                     ((TwoStatePreference) preference).isChecked());
+            return true;
+        } else if (preference == mStatusBarIconColorToggle) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUSBAR_ICON_COLOR_ENABLE ,
+                    mStatusBarIconColorToggle.isChecked() ? 1 : 0 );
             return true;
         } else if (preference == mDualpane) {
             Settings.System.putBoolean(mContentResolver,
@@ -1081,7 +1100,17 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             int iconOpacity = Integer.valueOf((String) newValue);
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_NOTIF_ICON_OPACITY, iconOpacity);
-            return true; 
+            return true;
+        } else if (preference == mStatusBarIconColor) {
+            String hex = ColorPickerPreference.convertToARGB(Integer
+                    .valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(mContentRes,
+                    Settings.System.STATUSBAR_ICON_COLOR, intHex);
+            return true;
+ 
         }  else if (preference == mFontsize) {
             int val = Integer.parseInt((String) newValue);
             Settings.System.putInt(mContentRes,
