@@ -158,6 +158,7 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
 				Settings.System.putInt(mContentRes,
                     Settings.System.STATUSBAR_BATTERY_COLOR_TOGGLE ,
                     ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
+					  Helpers.restartSystemUI();
             return true;
         } else if (preference == mPowerSounds) {
             Settings.Global.putInt(mContentRes,
@@ -203,6 +204,7 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(mContentRes,
                     Settings.System.STATUSBAR_BATTERY_COLOR, intHex);
+					  Helpers.restartSystemUI();
             return true;
 
         } else if (preference == mBatteryBar) {
