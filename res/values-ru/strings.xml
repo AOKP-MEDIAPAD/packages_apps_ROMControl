@@ -1066,5 +1066,8 @@
 	
 	<string name="statusbar_fontsize">Размер шрифта</string>
     <string name="statusbar_fontsize_summary">Настройка размера шрифта текста в статус баре</string>
-
+	
+    <string name="status_bar_icon_color_enable_title">Цветные значки</string>
+    <string name="status_bar_icon_color_enable_summary">Включение цветного фильтра для статус значок </string>
+    <string name="status_bar_icon_color_title">Выберите цвет значка</string>
 </resources>
