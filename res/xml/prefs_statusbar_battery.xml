@@ -41,11 +41,10 @@
             android:entryValues="@array/battery_bar_thickness_values" />
     </PreferenceCategory>
 
-
-    <PreferenceCategory
-        android:title="@string/misc_short">
+	<PreferenceCategory
+        android:title="@string/misc_colors">
        
-    	   <CheckBoxPreference
+	    <CheckBoxPreference
             android:key="battery_color_toggle"
             android:title="@string/battery_color_toggle_title"
             android:summary="@string/battery_color_toggle_summary" />
@@ -54,17 +53,10 @@
             android:key="battery_color"
             android:title="@string/battery_color_title"
             android:defaultValue="#33B5E5"
-			android:dependency="battery_color_toggle" />
-			
-		<ListPreference
-				android:key="pref_low_battery_warning_policy"
-				android:title="@string/pref_low_battery_warning_policy_title"
-				android:dialogTitle="@string/pref_low_battery_warning_policy_dialog_title"
-				android:entries="@array/pref_low_battery_warning_policy_entries"
-				android:entryValues="@array/pref_low_battery_warning_policy_values"
-				android:defaultValue="0" />
+			android:dependency="battery_color_toggle"
+			alphaSlider="true"			/>
     </PreferenceCategory>
-    
+	
 	<PreferenceCategory
         android:title="@string/power_notifications_category_title" >
         
@@ -87,6 +79,18 @@
 				android:dependency="power_notifications"
 				android:persistent="false" />
 				
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/misc_short">
+       
+		<ListPreference
+				android:key="pref_low_battery_warning_policy"
+				android:title="@string/pref_low_battery_warning_policy_title"
+				android:dialogTitle="@string/pref_low_battery_warning_policy_dialog_title"
+				android:entries="@array/pref_low_battery_warning_policy_entries"
+				android:entryValues="@array/pref_low_battery_warning_policy_values"
+				android:defaultValue="0" />
     </PreferenceCategory>
 
 </PreferenceScreen>

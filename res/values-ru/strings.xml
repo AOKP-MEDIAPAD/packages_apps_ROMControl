@@ -81,6 +81,8 @@
     <!-- General Strings -->
     <string name="advanced_settings">Дополнительные настройки</string>
     <string name="misc_short">Разное</string>
+	<string name="misc_colors">Цвета</string>
+	<string name="misc_statusbar">Статусбар</string>
     <string name="custom_app_icon_successfully">"- значок успешно установлен!"</string>
     <string name="text_on">Вкл</string>
     <string name="text_off">Выкл</string>

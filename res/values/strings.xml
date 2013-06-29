@@ -84,6 +84,8 @@
     <!-- General Strings -->
     <string name="advanced_settings">Advanced settings</string>
     <string name="misc_short">Misc</string>
+	<string name="misc_colors">Colors</string>
+	<string name="misc_statusbar">Statusbar</string>
     <string name="custom_app_icon_successfully">"'s icon set successfully!"</string>
     <string name="text_on">On</string>
     <string name="text_off">Off</string>

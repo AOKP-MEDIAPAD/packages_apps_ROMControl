@@ -21,7 +21,8 @@
     <net.margaritov.preference.colorpicker.ColorPickerPreference
         android:key="wifi_signal_color"
         android:title="@string/wifi_signal_color_title"
-        android:defaultValue="@android:color/holo_blue_light" />
+        android:defaultValue="@android:color/holo_blue_light"
+		alphaSlider="true"	/>
 
     <CheckBoxPreference
         android:key="alt_signal"
