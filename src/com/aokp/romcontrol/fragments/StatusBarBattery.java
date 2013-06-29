@@ -17,6 +17,7 @@ import android.provider.Settings;
 import com.aokp.romcontrol.AOKPPreferenceFragment;
 import com.aokp.romcontrol.R;
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
+import com.aokp.romcontrol.util.Helpers;
 
 public class StatusBarBattery extends AOKPPreferenceFragment implements
         OnPreferenceChangeListener {
