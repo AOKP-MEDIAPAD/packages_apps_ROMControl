@@ -77,7 +77,13 @@
             android:entries="@array/status_bar_icon_opacity_entries"
             android:entryValues="@array/status_bar_icon_opacity_values"
             android:defaultValue="140" />
-			
+
+		<CheckBoxPreference
+            android:key="status_bar_traffic"
+            android:title="@string/show_network_speed"
+            android:summary="@string/show_network_speed_summary"
+            android:defaultValue="true" />
+            
 		<CheckBoxPreference
             android:key="status_bar_notif_count"
             android:title="@string/status_bar_notif_count_title"
