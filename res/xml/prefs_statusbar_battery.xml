@@ -55,7 +55,6 @@
             android:key="battery_color"
             android:title="@string/battery_color_title"
             android:defaultValue="#33B5E5"
-			android:dependency="battery_color_toggle"
 			alphaSlider="true"			/>
     </PreferenceCategory>
 	
