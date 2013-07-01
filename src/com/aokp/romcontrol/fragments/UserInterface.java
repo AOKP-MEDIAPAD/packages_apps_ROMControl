@@ -118,7 +118,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_HIDDEN_STATUSBAR_PULLDOWN = "hidden_statusbar_pulldown";
     private static final CharSequence PREF_HIDDEN_STATUSBAR_PULLDOWN_TIMEOUT = "hidden_statusbar_pulldown_timeout";
     private static final String KEY_STATUS_BAR_TRAFFIC = "status_bar_traffic";
-    
+    private static final String PREF_STATUSBAR_TRAFFIC_COLOR_ENABLE = "status_bar_traffic_color_enable";
+    private static final String PREF_STATUSBAR_TRAFFIC_COLOR = "status_bar_traffic_color";
+	
     private static final int REQUEST_PICK_WALLPAPER = 201;
     //private static final int REQUEST_PICK_CUSTOM_ICON = 202; //unused
     private static final int REQUEST_PICK_BOOT_ANIMATION = 203;
@@ -165,8 +167,10 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     ListPreference mHideStatusBar;
     ListPreference mHiddenStatusbarPulldownTimeout;
     
-    private CheckBoxPreference mStatusBarTraffic;
-    
+    CheckBoxPreference mStatusBarTraffic;
+    CheckBoxPreference mStatusBarTrafficColorToggle;
+    ColorPickerPreference mStatusBarTrafficColor;
+	   
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
     private String mErrormsg;
@@ -348,6 +352,14 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mStatusBarTraffic.setChecked(Settings.System.getBoolean(mContentResolver,
                 Settings.System.STATUS_BAR_TRAFFIC, false));
 
+
+		mStatusBarTrafficColor = (ColorPickerPreference) findPreference(PREF_STATUSBAR_TRAFFIC_COLOR);
+        mStatusBarTrafficColor.setOnPreferenceChangeListener(this);
+
+        mStatusBarTrafficColorToggle = (CheckBoxPreference) findPreference(PREF_STATUSBAR_TRAFFIC_COLOR_ENABLE);
+        mStatusBarTrafficColorToggle.setChecked(Settings.System.getInt(mContentRes,
+                Settings.System.STATUSBAR_TRAFFIC_COLOR_TOGGLE, 0) == 1);
+
         // hide option if device is already set to never wake up
         if (!mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_unplugTurnsOnScreen)) {
@@ -468,6 +480,12 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUSBAR_ICON_COLOR_ENABLE ,
                     mStatusBarIconColorToggle.isChecked() ? 1 : 0 );
+            Helpers.restartSystemUI();
+            return true;
+        } else if (preference == mStatusBarTrafficColorToggle) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUSBAR_TRAFFIC_COLOR_TOGGLE ,
+                    mStatusBarTrafficColorToggle.isChecked() ? 1 : 0 );
             Helpers.restartSystemUI();
             return true;
         } else if (preference == mDualpane) {
@@ -1137,6 +1155,17 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(mContentRes,
                     Settings.System.STATUSBAR_ICON_COLOR, intHex);
+            Helpers.restartSystemUI();
+            return true;
+ 
+        } else if (preference == mStatusBarTrafficColor) {
+            String hex = ColorPickerPreference.convertToARGB(Integer
+                    .valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(mContentRes,
+                    Settings.System.STATUSBAR_TRAFFIC_COLOR, intHex);
             Helpers.restartSystemUI();
             return true;
  
