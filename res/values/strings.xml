@@ -1370,5 +1370,5 @@
     <string name="show_network_speed_summary">Show network speed in statsbar</string> 
     <string name="status_bar_traffic_enable_title">Enable traffic color</string>
     <string name="status_bar_traffic_enable_summary">Enabling color filter for traffic text</string>
-    <string name="status_bar_traffic_title">Choose traffic color</string>
+    <string name="status_bar_traffic_color_title">Choose traffic color</string>
 </resources>
