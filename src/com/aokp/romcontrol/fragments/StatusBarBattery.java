@@ -24,7 +24,7 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
 
     private static final String PREF_BATT_ICON = "battery_icon_list";
     private static final String PREF_BATT_BAR = "battery_bar_list";
-	private static final String PREF_BATT_TOGGLE = "battery_color_toggle";
+	private static final String PREF_BATT_TOGGLE = "battery_color_list";
 	private static final String PREF_BATT_COLOR = "battery_color";
     private static final String PREF_BATT_BAR_STYLE = "battery_bar_style";
     private static final String PREF_BATT_BAR_COLOR = "battery_bar_color";
