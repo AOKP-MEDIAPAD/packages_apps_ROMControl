@@ -35,11 +35,17 @@
         <item>@string/dont_show</item>
         <item>@string/small_weekday</item>
         <item>@string/regular_weekday</item>
+        <item>@string/regular_weekday_and_month</item>
+        <item>@string/regular_year_month_day</item>
+        <item>@string/regular_weekday_and_month_full</item>
     </string-array>
     <string-array name="clock_weekday_values" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
 
     <!-- toggle style -->
