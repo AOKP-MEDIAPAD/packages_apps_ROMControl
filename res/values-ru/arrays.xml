@@ -164,11 +164,6 @@
         <item>Маленький</item>
         <item>Обычный</item>
     </string-array>
-	<string-array name="clock_weekday_entries">
-        <item>Не показывать</item>
-        <item>Маленький</item>
-        <item>Обычный</item>
-    </string-array>
     <string-array name="brightness_location_entries">
         <item>Сверху</item>
         <item>Снизу</item>

@@ -26,11 +26,6 @@
         <item>0</item>
         <item>3</item>
     </string-array>
-    <string-array name="clock_weekday_entries">
-        <item>보이지 않음</item>
-        <item>작은 요일</item>
-        <item>일반적인 요일</item>
-    </string-array>
     <string-array name="clock_weekday_values">
         <item>0</item>
         <item>1</item>

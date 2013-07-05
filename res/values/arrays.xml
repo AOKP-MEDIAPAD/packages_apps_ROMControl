@@ -35,9 +35,12 @@
         <item>@string/dont_show</item>
         <item>@string/small_weekday</item>
         <item>@string/regular_weekday</item>
-        <item>@string/regular_weekday_and_month</item>
-        <item>@string/regular_year_month_day</item>
-        <item>@string/regular_weekday_and_month_full</item>
+        <item>@string/clock_date_3</item>
+		<item>@string/clock_date_4</item>
+		<item>@string/clock_date_5</item>
+		<item>@string/clock_date_6</item>
+		<item>@string/clock_date_7</item>
+		<item>@string/clock_date_8</item>
     </string-array>
     <string-array name="clock_weekday_values" translatable="false">
         <item>0</item>
@@ -46,6 +49,9 @@
         <item>3</item>
         <item>4</item>
         <item>5</item>
+		<item>6</item>
+		<item>7</item>
+		<item>8</item>
     </string-array>
 
     <!-- toggle style -->
