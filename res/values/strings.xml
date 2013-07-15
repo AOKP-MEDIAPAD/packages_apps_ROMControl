@@ -1070,6 +1070,12 @@
     <string name="protekk_oclock">ProTekk O\'Clock</string>
     <string name="small_weekday">Small weekday</string>
     <string name="regular_weekday">Regular weekday</string>
+	<string name="clock_date_3">Regular day weekday</string>
+	<string name="clock_date_4">Regular yyyy-MM-dd</string>
+	<string name="clock_date_5">Regular yyyy/MM/dd"</string>
+	<string name="clock_date_6">Regular dd.MM.yy</string>
+	<string name="clock_date_7">Regular dd.MM</string>
+	<string name="clock_date_8">Regular dd.MM.yyyy</string>
 
     <!-- toggle style -->
     <string name="icon_only">Icon only</string>
