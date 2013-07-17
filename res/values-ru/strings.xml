@@ -1044,7 +1044,6 @@
     <string name="add_favs_or_view">Добавить в избранное или просмотреть изменения?</string>
     <string name="remove_favs_or_view">Удалить из избранного или просмотреть изменения?</string>
     <string name="changelog_remove_from_favs_list">Удалить</string>
-<<<<<<< HEAD
 	
 	<!-- Status bar notification icon opacity -->
     <string name="status_bar_icon_opacity">Прозрачность значков</string>
