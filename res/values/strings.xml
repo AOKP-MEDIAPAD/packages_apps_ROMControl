@@ -27,6 +27,7 @@
     <string name="weather">Weather</string>
     <string name="tools">Tools</string>
     <string name="installer">Installer</string>
+    <string name="recents_header">Recents</string>
 
     <!-- Activity titles defined in AndroidManifest.xml -->
     <string name="title_about">About AOKPZMod</string>
@@ -1377,4 +1378,13 @@
     <string name="status_bar_traffic_enable_title">Enable traffic color</string>
     <string name="status_bar_traffic_enable_summary">Enabling color filter for traffic text</string>
     <string name="status_bar_traffic_color_title">Choose traffic color</string>
+
+    <!-- Recents Clear -->
+    <string name="recents_kill_all">Kill-All</string>
+    <string name="recent_kill_all_summary">Enable kill-all button in Recent Apps window and select position</string>
+    <string name="recents_disable">Disable</string>
+    <string name="recents_bottom_right">Bottom Right</string>
+    <string name="recents_bottom_left">Bottom Left</string>
+    <string name="recents_top_right">Top Right</string>
+    <string name="recents_top_left">Top Left</string>
 </resources>

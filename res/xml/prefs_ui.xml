@@ -230,10 +230,12 @@
         android:key="recents"
         android:title="@string/recents_cat">
 
-        <CheckBoxPreference
-            android:key="recent_kill_all"
-            android:title="@string/recent_kill_all"
-            android:summary="@string/recent_kill_all_summary" />
+        <ListPreference
+            android:key="pref_recents_clear"
+            android:title="@string/recents_kill_all"
+            android:entries="@array/recents_clear_entries"
+            android:entryValues="@array/recents_clear_values"
+            android:defaultValue="0" />
 
         <CheckBoxPreference
             android:key="ram_usage_bar"
