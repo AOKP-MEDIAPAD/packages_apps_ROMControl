@@ -486,7 +486,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUSBAR_TRAFFIC_COLOR_TOGGLE ,
                     mStatusBarTrafficColorToggle.isChecked() ? 1 : 0 );
-            Helpers.restartSystemUI();
             return true;
         } else if (preference == mDualpane) {
             Settings.System.putBoolean(mContentResolver,
@@ -1166,7 +1165,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(mContentRes,
                     Settings.System.STATUSBAR_TRAFFIC_COLOR, intHex);
-            Helpers.restartSystemUI();
             return true;
  
         }  else if (preference == mFontsize) {

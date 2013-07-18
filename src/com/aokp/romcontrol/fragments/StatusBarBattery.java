@@ -200,7 +200,6 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(mContentRes,
                     Settings.System.STATUSBAR_BATTERY_COLOR, intHex);
-					  Helpers.restartSystemUI();
             return true;
 
         } else if (preference == mBatteryBar) {
@@ -238,8 +237,7 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
 
             int val = Integer.parseInt((String) newValue);
             Settings.System.putInt(mContentRes,
-                    Settings.System.STATUSBAR_BATTERY_COLOR_TOGGLE, val);                    
-            Helpers.restartSystemUI();
+                    Settings.System.STATUSBAR_BATTERY_COLOR_TOGGLE, val);
             return true;
                       
 
