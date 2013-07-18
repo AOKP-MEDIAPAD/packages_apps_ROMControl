@@ -160,9 +160,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mCrtOff;
 	ListPreference mStatusBarIconOpacity;
     private CheckBoxPreference mMissedCallBreath;
-<<<<<<< HEAD
     ListPreference mFontsize;
     CheckBoxPreference mNotificationShadeDim;
+
     ListPreference mHideStatusBar;
     ListPreference mRecentClear;
     ListPreference mHiddenStatusbarPulldownTimeout;
