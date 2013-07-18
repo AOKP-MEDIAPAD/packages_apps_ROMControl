@@ -484,7 +484,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUSBAR_ICON_COLOR_ENABLE ,
                     mStatusBarIconColorToggle.isChecked() ? 1 : 0 );
-            Helpers.restartSystemUI();
             return true;
         } else if (preference == mStatusBarTrafficColorToggle) {
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
@@ -1153,7 +1152,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(mContentRes,
                     Settings.System.STATUSBAR_ICON_COLOR, intHex);
-            Helpers.restartSystemUI();
             return true;
  
         } else if (preference == mStatusBarTrafficColor) {

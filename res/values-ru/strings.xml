@@ -1173,6 +1173,15 @@
     <string name="all_color">Пользовательские цвета</string>
     <string name="stock_color">Цвет по умолчанию</string>
     <string name="pie_restart_launcher_title">Резерагрузка лаунчера</string>
-    <string name="pie_restart_launcher_summary">Изменение размера экрана могут иметь побочные эффекты</string>
+    <string name="pie_restart_launcher_summary"></string>
+	
+	<!-- Recents Clear -->
+    <string name="recents_kill_all">Завершить все</string>
+    <string name="recent_kill_all_summary">Положение кнопки заврешить все</string>
+    <string name="recents_disable">Отключить</string>
+    <string name="recents_bottom_right">Снизу справа</string>
+    <string name="recents_bottom_left">Снизу слева</string>
+    <string name="recents_top_right">Вверху справа</string>
+    <string name="recents_top_left">Вверху слева</string>
 </resources>
 
