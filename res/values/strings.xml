@@ -481,7 +481,13 @@
     <string name="battery_bar_animate_summary">Enabling the charging animation may result in a poor user experience.
         Enable at your own discretion.
     </string>
-
+	<string name="battery_color_toggle_title">Color battery state</string>
+    <string name="battery_color_toggle_summary">Enabling text battery color</string>
+    <string name="battery_color_title">Battery text color</string>
+	<string name="battery_color_disable">Disable</string>
+    <string name="battery_color_always">Always colored</string>
+    <string name="battery_color_only_normal">Only normal</string>
+    
     <!-- Statusbar | Signal -->
     <string name="signal_style">Signal indicator style</string>
     <string name="signal_color_title">Signal text color</string>

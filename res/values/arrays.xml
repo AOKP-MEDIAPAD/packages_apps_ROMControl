@@ -924,4 +924,16 @@
         <item>5</item>
         <item>6</item>
     </string-array>
+
+    <!-- Color battery -->
+    <string-array name="sb_battery_color_titles" translatable="false">
+        <item>@string/battery_color_disable</item>
+        <item>@string/battery_color_always</item>
+        <item>@string/battery_color_only_normal</item>
+    </string-array>
+    <string-array name="sb_battery_color_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>
