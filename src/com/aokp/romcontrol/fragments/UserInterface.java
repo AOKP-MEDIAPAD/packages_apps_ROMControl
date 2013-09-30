@@ -1084,33 +1084,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(mContentRes,
                     Settings.System.STATUSBAR_ICON_COLOR, intHex);
             return true;
- 
-        }  else if (preference == mFontsize) {
-            int val = Integer.parseInt((String) newValue);
-            Settings.System.putInt(mContentRes,
-                    Settings.System.STATUSBAR_FONT_SIZE, val);
-            Helpers.restartSystemUI();
-            return true;
-        } else if (preference == mNotificationShadeDim) {
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.NOTIFICATION_SHADE_DIM,
-                    (Boolean) newValue ? 1 : 0);
-            mNotificationShadeDim.setChecked((Boolean)newValue);
-			return true;
-        } else if (preference == mHideStatusBar) {
-            int mBarBehaviour = Integer.valueOf((String) newValue);
-            int index = mHideStatusBar.findIndexOfValue((String) newValue);
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.HIDE_STATUSBAR, mBarBehaviour);
-            mHideStatusBar.setSummary(mHideStatusBar.getEntries()[index]);
-            Helpers.restartSystemUI();
-            return true;
-        } else if (preference == mHiddenStatusbarPulldownTimeout) {
-            int val = Integer.parseInt((String) newValue);
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.HIDDEN_STATUSBAR_PULLDOWN_TIMEOUT, val);
-            Helpers.restartSystemUI();
-            return true;
         }
         return false;
     }
