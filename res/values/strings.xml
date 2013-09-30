@@ -301,6 +301,10 @@
     <string name="transparency_dialog_lockscreen">Lockscreen</string>
 
     <!-- LCD Density -->
+    <string name="status_bar_icon_color_enable_title">Statusbar color</string>
+    <string name="status_bar_icon_color_enable_summary">Enabling StatusBar icon color filler</string>
+    <string name="status_bar_icon_color_title">Statusbar icon color</string>
+    
     <string name="lcd_density_title">LCD Density</string>
     <string name="lcd_density_summary">unknown</string>
     <string name="current_lcd_density">"Current LCD Density: "</string>

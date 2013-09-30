@@ -68,6 +68,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 @SuppressWarnings("InstanceVariableMayNotBeInitialized")
 public class UserInterface extends AOKPPreferenceFragment implements OnPreferenceChangeListener {
@@ -103,7 +104,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_POWER_CRT_MODE = "system_power_crt_mode";
     private static final CharSequence PREF_POWER_CRT_SCREEN_OFF = "system_power_crt_screen_off";
     private static final CharSequence PREF_STATUSBAR_HIDDEN = "statusbar_hidden";
-
+    private static final String PREF_STATUSBAR_ICON_COLOR_ENABLE = "status_bar_icon_color_enable";
+    private static final String PREF_STATUSBAR_ICON_COLOR_ICON = "status_bar_icon_color";
+	
     private static final int REQUEST_PICK_WALLPAPER = 201;
     //private static final int REQUEST_PICK_CUSTOM_ICON = 202; //unused
     private static final int REQUEST_PICK_BOOT_ANIMATION = 203;
@@ -112,6 +115,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final String BOOTANIMATION_USER_PATH = "/data/local/bootanimation.zip";
     private static final String BOOTANIMATION_SYSTEM_PATH = "/system/media/bootanimation.zip";
 
+    CheckBoxPreference mStatusBarIconColorToggle;
+    ColorPickerPreference mStatusBarIconColor;
+    
     CheckBoxPreference mAllow180Rotation;
     CheckBoxPreference mAllow270Rotation;
     CheckBoxPreference mDisableBootAnimation;
@@ -182,6 +188,13 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mAllow180Rotation.setChecked((mUserRotationAngles & 4) != 0);
         mAllow270Rotation.setChecked((mUserRotationAngles & 8) != 0);
 
+		mStatusBarIconColor = (ColorPickerPreference) findPreference(PREF_STATUSBAR_ICON_COLOR_ICON);
+        mStatusBarIconColor.setOnPreferenceChangeListener(this);
+
+        mStatusBarIconColorToggle = (CheckBoxPreference) findPreference(PREF_STATUSBAR_ICON_COLOR_ENABLE);
+        mStatusBarIconColorToggle.setChecked(Settings.System.getInt(mContentRes,
+                Settings.System.STATUSBAR_ICON_COLOR_ENABLE , 0) == 1);
+		
         mStatusBarNotifCount = (CheckBoxPreference) findPreference(PREF_STATUS_BAR_NOTIF_COUNT);
         mStatusBarNotifCount.setChecked(Settings.System.getBoolean(mContentResolver,
                 Settings.System.STATUSBAR_NOTIF_COUNT, false));
@@ -399,6 +412,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putBoolean(mContentResolver,
                     Settings.System.HIDE_EXTRAS_SYSTEM_BAR,
                     ((TwoStatePreference) preference).isChecked());
+            return true;
+        } else if (preference == mStatusBarIconColorToggle) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUSBAR_ICON_COLOR_ENABLE ,
+                    mStatusBarIconColorToggle.isChecked() ? 1 : 0 );
             return true;
         } else if (preference == mDualpane) {
             Settings.System.putBoolean(mContentResolver,
@@ -1056,6 +1074,42 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.SYSTEM_POWER_CRT_MODE, crtMode);
             mCrtMode.setSummary(mCrtMode.getEntries()[index]);
+            return true;
+        } else if (preference == mStatusBarIconColor) {
+            String hex = ColorPickerPreference.convertToARGB(Integer
+                    .valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(mContentRes,
+                    Settings.System.STATUSBAR_ICON_COLOR, intHex);
+            return true;
+ 
+        }  else if (preference == mFontsize) {
+            int val = Integer.parseInt((String) newValue);
+            Settings.System.putInt(mContentRes,
+                    Settings.System.STATUSBAR_FONT_SIZE, val);
+            Helpers.restartSystemUI();
+            return true;
+        } else if (preference == mNotificationShadeDim) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.NOTIFICATION_SHADE_DIM,
+                    (Boolean) newValue ? 1 : 0);
+            mNotificationShadeDim.setChecked((Boolean)newValue);
+			return true;
+        } else if (preference == mHideStatusBar) {
+            int mBarBehaviour = Integer.valueOf((String) newValue);
+            int index = mHideStatusBar.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.HIDE_STATUSBAR, mBarBehaviour);
+            mHideStatusBar.setSummary(mHideStatusBar.getEntries()[index]);
+            Helpers.restartSystemUI();
+            return true;
+        } else if (preference == mHiddenStatusbarPulldownTimeout) {
+            int val = Integer.parseInt((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.HIDDEN_STATUSBAR_PULLDOWN_TIMEOUT, val);
+            Helpers.restartSystemUI();
             return true;
         }
         return false;

@@ -97,6 +97,17 @@
         android:title="@string/display_cat">
 
         <CheckBoxPreference
+            android:key="status_bar_icon_color_enable"
+            android:title="@string/status_bar_icon_color_enable_title"
+            android:summary="@string/status_bar_icon_color_enable_summary" />
+
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="status_bar_icon_color"
+            android:title="@string/status_bar_icon_color_title"
+            android:defaultValue="#33B5E5"
+			android:dependency="status_bar_icon_color_enable" />
+			
+        <CheckBoxPreference
             android:key="show_overflow"
             android:title="@string/show_overflow_title"
             android:summary="@string/show_overflow_summary"
