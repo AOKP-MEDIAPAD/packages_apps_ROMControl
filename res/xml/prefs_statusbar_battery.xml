@@ -8,6 +8,22 @@
         android:entries="@array/battery_icon_entries"
         android:entryValues="@array/battery_icon_values" />
 
+    
+    <ListPreference
+				android:key="battery_color_toggle"
+				android:title="@string/battery_color_toggle_title"
+				android:dialogTitle="@string/battery_color_toggle_title"
+				android:entries="@array/sb_battery_color_titles"
+				android:entryValues="@array/sb_battery_color_values"
+				android:defaultValue="0" />
+
+     <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="battery_color"
+            android:title="@string/battery_color_title"
+            android:defaultValue="#33B5E5"
+			android:dependency="battery_color_toggle"
+			alphaSlider="true"/>    
+
     <PreferenceCategory
         android:key="battery_bar_cat"
         android:title="@string/battery_bar_cat">
@@ -39,25 +55,6 @@
             android:title="@string/battery_bar_thickness_title"
             android:entries="@array/battery_bar_thickness_entries"
             android:entryValues="@array/battery_bar_thickness_values" />
-    </PreferenceCategory>
-
-	<PreferenceCategory
-        android:title="@string/misc_colors">
-
-       <ListPreference
-				android:key="battery_color_toggle"
-				android:title="@string/battery_color_toggle_title"
-				android:dialogTitle="@string/battery_color_toggle_title"
-				android:entries="@array/sb_battery_color_titles"
-				android:entryValues="@array/sb_battery_color_values"
-				android:defaultValue="0" />
-
-        <net.margaritov.preference.colorpicker.ColorPickerPreference
-            android:key="battery_color"
-            android:title="@string/battery_color_title"
-            android:defaultValue="#33B5E5"
-			android:dependency="battery_color_toggle"
-			alphaSlider="true"			/>
     </PreferenceCategory>
 
 </PreferenceScreen>

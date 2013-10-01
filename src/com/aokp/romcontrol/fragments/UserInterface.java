@@ -1083,6 +1083,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(mContentRes,
                     Settings.System.STATUSBAR_ICON_COLOR, intHex);
+            Helpers.restartSystemUI();
             return true;
         }
         return false;

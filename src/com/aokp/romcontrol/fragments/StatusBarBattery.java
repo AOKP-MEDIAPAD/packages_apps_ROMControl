@@ -8,6 +8,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import com.aokp.romcontrol.AOKPPreferenceFragment;
+import com.aokp.romcontrol.util.Helpers;
 import com.aokp.romcontrol.R;
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
